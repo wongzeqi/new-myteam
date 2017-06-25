@@ -1,0 +1,169 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/news/";
+%>
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1.0, maximum-scale=1.0">
+<link href="<%=basePath %>/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" >
+<link href="<%=basePath %>/css/comm.css" rel="stylesheet" type="text/css" >
+<link href="<%=basePath %>/css/include.css" rel="stylesheet" type="text/css" >
+<script src="<%=basePath %>/js/jquery.js"></script>
+<script src="<%=basePath %>/bootstrap/js/bootstrap.min.js"></script>
+<title>列表页面</title>
+</head>
+
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4  col-sm-5">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <h1 href="/" title="个人博客网站">新闻资讯网</h1>
+        </div>
+        <div id="navbar" class="collapse col-lg-8 col-md-8 col-sm-12" aria-expanded="false">
+         <ul class="nav navbar-nav">
+             <li class="active"><a href="index.html">首页</a></li>
+                <li><a href="list.html">政治风云</a></li>
+                <li><a href="list.html">国际新闻</a></li>
+                <!--<li class="dropdown">
+                  <a href="arctile.html" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">文章内容 
+                     <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="arctile.html">文章内容</a></li>
+                    <li><a href="arctile.html">文章内容</a></li>
+                    <li><a href="arctile.html">文章内容</a></li>
+                  </ul>
+                </li>-->
+               
+             <li><a href="list.html">军事之旅</a></li>
+            <li><a href="list.html">科技前沿</a></li>
+             <li><a href="list.html">TMT</a></li>
+              <li><a href="list.html">一带一路专题</a></li>
+          </ul>
+          <div class="clearfix"></div>
+          <form action="<%=basePath %>news/search.action" method="post" class="navbar-form" >
+	          <input type="search" name="content" value="" required class="form-control">
+	          <button type="submit" value="" class="glyphicon glyphicon-search"></button>
+          </form>
+        </div>
+      </div>
+     </div>
+ </nav><!--导航结束-->
+ 
+<div class="container con clearfix" >
+  	<div class="postion">
+    <p>
+     <span class="glyphicon glyphicon-home"></span> &nbsp;
+     <a href="javascript:;">首页</a> > 源部站的文章
+     </p>
+   </div><!--当前位置-->
+   <div class="row list">
+    <div class="col-md-8">
+        <ul  class="list_c">
+        	<br/>
+        	<br/>
+        	<c:forEach items="${newsList}" var="news" varStatus="status">
+        	    <li><a href="<%=basePath%>news/details.action?id=${news.id}">${status.index+1}-${news.title }</a> <time  class="hidden-xs">${news.date }</time></li>
+            </c:forEach>
+        </ul>
+        
+        <ul class="pagination">
+            <li class="disabled"><a>首页</a></li>
+            <li class="disabled"><a>上一页</a></li>
+            <li><a>1</a></li>
+            <li><a>2</a></li>
+            <li><a>3</a></li>
+            <li><a>4</a></li>
+            <li><a>5</a></li>
+            <li><a>下一页</a></li>	
+            <li><a>末页</a></li>	
+            <li style="vertical-align: top;">
+            <select class="form-control">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+           </li>	
+       </ul>
+   </div><!--右边结束-->   
+    <div class="col-md-4">
+    <div class="row  list_c">
+      <ul class="col-md-11 col-sm-6  col-xs-11">
+      <h4 class="title">下载</h4>
+        <li><a href="#">站的文章和资源部站的文章和资源部</a></li>
+        <li><a href="#">站的文章和资源部站的文章和资源部</a></li>
+        <li><a href="#">站的文章和资源部站的文章和资源部</a></li>
+        <li><a href="#">站的文章和资源部站的文章和资源部</a></li>
+        <li><a href="#">站的文章和资源部站的文章和资源部</a></li>
+      </ul>
+      <ul class="col-md-11 col-sm-6 col-xs-11">
+       <h4 class="title">下载</h4>
+        <li><a href="#">站的文章和资源部站的文章和资源部</a></li>
+        <li><a href="#">站的文章和资源部站的文章和资源部</a></li>
+        <li><a href="#">站的文章和资源部站的文章和资源部</a></li>
+        <li><a href="#">站的文章和资源部站的文章和资源部</a></li>
+        <li><a href="#">站的文章和资源部站的文章和资源部</a></li>
+      </ul>
+      </div>
+    </div><!--左边结束-->
+</div><!-- 内容 -->
+</div><!-- 中间块区结束 -->
+
+<footer>
+      <p>
+          Lumen 5.2.0 已经正式发布了！此次发布的版本包含了 Laravel 5.2 的组件并在核心理念上
+          做了重大改变。 建议所有 Lumen 用户阅读相关文档了解以下所提到的改变： 专
+          注提供无状态的 API 服务 Lumen 5.2 对 Lumen 进行了大瘦身专注于，并且将专注提供无状态的 JSON API 服务。
+     </p>
+</footer> <!--底部-->
+<div class="lfooter navbar-fixed-bottom visible-xs">
+  <ul>
+    <li><a href="index.html"><img src="img/dbsy.png" ><br>网站首页</a></li>
+    <li><a href="index.html"><i class="glyphicon glyphicon-indent-left"></i><br>网站地图</a></li>
+    <li><a href="index.html"><i class="glyphicon glyphicon-envelope"></i><br>建议留言</a></li>
+    <li><a href="mqqwpa_CBF95620"><img src="img/dbqq.png" ><br>QQ好友</a></li>
+  </ul> 
+</div>
+<script>
+function nav_top()
+	{
+	var nav_h=$('.navbar-fixed-top').outerHeight();
+	$('.con').css('margin-top',nav_h);
+	}
+	nav_top(); //--------------------------顶部距离
+	
+	function nav_foot()
+	{
+	 var b_w=$(window).outerWidth();
+	 console.log(b_w);
+	 if(b_w<=767)	
+	 {
+		$('footer').css('margin-bottom',70); 
+	 }else
+	 {
+		 $('footer').css('margin-bottom',0); 
+	 }
+	}
+	nav_foot()// -------------底部距离
+	
+	$(window).resize(function(){
+		nav_top();
+		nav_foot(); 
+	});
+</script>
+      
+</body>
+</html>
+

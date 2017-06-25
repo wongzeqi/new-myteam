@@ -1,0 +1,98 @@
+@charset "utf-8";
+/*除首页的 公共页面 */
+/*------当前位置----------------*/ 
+.postion{ font-size: 16px; border-bottom:1px solid #4CC2C4; margin-top:20px;    box-shadow: 1px 1px 1px 5px #888;box-shadow: 1px 8px 7px -11px #888;
+-moz-box-shadow: 1px 8px 7px -11px #888; -webkit-box-shadow: 1px 8px 7px -11px #888;}
+.postion p{width:auto; display:inline-block; margin:0px; padding-bottom:10px; border-bottom:1px solid #4CC2C4;}
+.postion span{font-size:24px; vertical-align: middle;color: #4CC2C4; margin-top: -5px;text-shadow: 1px 1px 2px #888;}
+
+/*频道内容区*/
+.index ul{ margin-top:30px; line-height:2em; }
+.index ul li{ padding-left:10px; width:100%; border-bottom:1px  dotted #CCC; margin-top:10px; overflow:hidden; text-wrap:keep-all; white-space:nowrap;text-overflow:ellipsis;}
+.index .pull-right{font-size:14px; margin-top:5px; margin-right:10px;color:#A7A7A7}
+.index ul h4{color:#4CC2C4;border-bottom:1px solid #C3C2C2; padding-bottom:10px; margin-bottom:20px;}
+.index ul li a{color:#333;}
+
+/*列表页内容区*/
+.list{ margin-top:30px;}
+.list .list_c{line-height:2em; padding-left:10px;padding-bottom:20px}
+.list .list_c li{border-bottom:1px  dotted #CCC; margin-top:10px; overflow:hidden; text-wrap:keep-all; white-space:nowrap;text-overflow:ellipsis; }
+.list .row{ margin:0px -30px 0px 30px;}
+.list .col-sm-6 {padding: 21px 30px;border:1px solid #EBEBEB;margin:30px 0px 0px}
+.list .col-sm-6  li{margin-left:15px;}
+.list .col-sm-6  .title {
+    margin-top: 0;
+    padding-bottom: 7px;
+    border-bottom: 1px solid #ebebeb;
+    margin-bottom: 21px;
+    position: relative;
+}
+.list .col-sm-6  .title:after {
+    content: "";
+    width: 90px;
+    height: 1px;
+    background: #4CC2C4;
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+}
+.list .col-md-8 .list_c li>a {
+    font-size: 14px;
+    text-decoration: none;
+    display: block;
+    float: left;
+    width: 65%;
+    color: #505050;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.list time {
+    float: right;
+}
+
+@media (max-width: 970px) and (min-width:740px) {
+.list .row{ margin:0px;}
+.list .col-sm-6 {
+   margin: 30px 2% 0px;
+ }
+ .col-sm-6{width: 46%; }
+}
+@media (max-width: 740px) {
+.list .col-sm-6 {
+	 float:none;  display:block;
+     margin: 30px auto 0px;
+ }
+ .list .row{ margin:0px; padding:0px;}
+ .list .col-sm-6 li { margin-left: 0px;}
+}
+.pagination{ display: block; text-align:center;}
+.pagination li{ display: inline-block; }
+.pagination li a{color:#35ABAD;}
+.pagination li a:hover{color:#1F8082}
+.list_c a{color:#333;}
+
+/*---------------文章内容-------------------*/
+.post-content {
+    font: 400 14px/1.42 "Georgia", "Xin Gothic", "Hiragino Sans GB", "Droid Sans Fallback", "Microsoft YaHei", sans-serif;
+    color: #444443; margin:30px 0px 30px 10px;
+}
+.arctile .left{ float:left;}
+.arctile .right{ float:right;text-align:right}
+.arctile .row .col-md-5{ overflow:hidden; text-wrap:keep-all; white-space:nowrap;text-overflow:ellipsis; width:45%; margin:0px}
+@media (max-width: 668px) {
+.arctile .right{text-align:left;}	
+}
+@media (max-width: 600px) {
+.arctile .row .col-md-5{ width:95%; margin:0 auto 10px; display:block; float:none;}	
+}
+.arctile .text-center p{ margin-top:10px;}
+.arctile .text-center span{ margin:0px 10px;}
+@media (max-width: 420px) {
+.arctile .text-center span{ display:block; text-align:center; margin:0px; margin-top:5px;}
+}
+/*---------------文章内容结束-------------------*/
+
+
+
+	

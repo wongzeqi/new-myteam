@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="priv.wzq.spider.mapper.blog.BlogMapper" >
+  <resultMap id="BaseResultMap" type="priv.wzq.spider.model.blog.Blog" >
+    <id column="blog_id" property="blogId" jdbcType="INTEGER" />
+    <result column="blog_content_href" property="blogContentHref" jdbcType="VARCHAR" />
+    <result column="blog_title" property="blogTitle" jdbcType="VARCHAR" />
+    <result column="blog_discription" property="blogDiscription" jdbcType="VARCHAR" />
+    <result column="blog_sort" property="blogSort" jdbcType="VARCHAR" />
+    <result column="blog_date" property="blogDate" jdbcType="VARCHAR" />
+    <result column="blog_view" property="blogView" jdbcType="INTEGER" />
+    <result column="web_id" property="webId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="priv.wzq.spider.model.blog.Blog" extends="BaseResultMap" >
+    <result column="blog_content" property="blogContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    blog_id, blog_content_href, blog_title, blog_discription, blog_sort, blog_date, blog_view, 
+    web_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    blog_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="priv.wzq.spider.model.blog.BlogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from blog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="priv.wzq.spider.model.blog.BlogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from blog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from blog
+    where blog_id = #{blogId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from blog
+    where blog_id = #{blogId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="priv.wzq.spider.model.blog.BlogExample" >
+    delete from blog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="priv.wzq.spider.model.blog.Blog" >
+    insert into blog (blog_id, blog_content_href, blog_title, 
+      blog_discription, blog_sort, blog_date, 
+      blog_view, web_id, blog_content
+      )
+    values (#{blogId,jdbcType=INTEGER}, #{blogContentHref,jdbcType=VARCHAR}, #{blogTitle,jdbcType=VARCHAR}, 
+      #{blogDiscription,jdbcType=VARCHAR}, #{blogSort,jdbcType=VARCHAR}, #{blogDate,jdbcType=VARCHAR}, 
+      #{blogView,jdbcType=INTEGER}, #{webId,jdbcType=INTEGER}, #{blogContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="priv.wzq.spider.model.blog.Blog" >
+    insert into blog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="blogId != null" >
+        blog_id,
+      </if>
+      <if test="blogContentHref != null" >
+        blog_content_href,
+      </if>
+      <if test="blogTitle != null" >
+        blog_title,
+      </if>
+      <if test="blogDiscription != null" >
+        blog_discription,
+      </if>
+      <if test="blogSort != null" >
+        blog_sort,
+      </if>
+      <if test="blogDate != null" >
+        blog_date,
+      </if>
+      <if test="blogView != null" >
+        blog_view,
+      </if>
+      <if test="webId != null" >
+        web_id,
+      </if>
+      <if test="blogContent != null" >
+        blog_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="blogId != null" >
+        #{blogId,jdbcType=INTEGER},
+      </if>
+      <if test="blogContentHref != null" >
+        #{blogContentHref,jdbcType=VARCHAR},
+      </if>
+      <if test="blogTitle != null" >
+        #{blogTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="blogDiscription != null" >
+        #{blogDiscription,jdbcType=VARCHAR},
+      </if>
+      <if test="blogSort != null" >
+        #{blogSort,jdbcType=VARCHAR},
+      </if>
+      <if test="blogDate != null" >
+        #{blogDate,jdbcType=VARCHAR},
+      </if>
+      <if test="blogView != null" >
+        #{blogView,jdbcType=INTEGER},
+      </if>
+      <if test="webId != null" >
+        #{webId,jdbcType=INTEGER},
+      </if>
+      <if test="blogContent != null" >
+        #{blogContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="priv.wzq.spider.model.blog.BlogExample" resultType="java.lang.Integer" >
+    select count(*) from blog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update blog
+    <set >
+      <if test="record.blogId != null" >
+        blog_id = #{record.blogId,jdbcType=INTEGER},
+      </if>
+      <if test="record.blogContentHref != null" >
+        blog_content_href = #{record.blogContentHref,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blogTitle != null" >
+        blog_title = #{record.blogTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blogDiscription != null" >
+        blog_discription = #{record.blogDiscription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blogSort != null" >
+        blog_sort = #{record.blogSort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blogDate != null" >
+        blog_date = #{record.blogDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blogView != null" >
+        blog_view = #{record.blogView,jdbcType=INTEGER},
+      </if>
+      <if test="record.webId != null" >
+        web_id = #{record.webId,jdbcType=INTEGER},
+      </if>
+      <if test="record.blogContent != null" >
+        blog_content = #{record.blogContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update blog
+    set blog_id = #{record.blogId,jdbcType=INTEGER},
+      blog_content_href = #{record.blogContentHref,jdbcType=VARCHAR},
+      blog_title = #{record.blogTitle,jdbcType=VARCHAR},
+      blog_discription = #{record.blogDiscription,jdbcType=VARCHAR},
+      blog_sort = #{record.blogSort,jdbcType=VARCHAR},
+      blog_date = #{record.blogDate,jdbcType=VARCHAR},
+      blog_view = #{record.blogView,jdbcType=INTEGER},
+      web_id = #{record.webId,jdbcType=INTEGER},
+      blog_content = #{record.blogContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update blog
+    set blog_id = #{record.blogId,jdbcType=INTEGER},
+      blog_content_href = #{record.blogContentHref,jdbcType=VARCHAR},
+      blog_title = #{record.blogTitle,jdbcType=VARCHAR},
+      blog_discription = #{record.blogDiscription,jdbcType=VARCHAR},
+      blog_sort = #{record.blogSort,jdbcType=VARCHAR},
+      blog_date = #{record.blogDate,jdbcType=VARCHAR},
+      blog_view = #{record.blogView,jdbcType=INTEGER},
+      web_id = #{record.webId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="priv.wzq.spider.model.blog.Blog" >
+    update blog
+    <set >
+      <if test="blogContentHref != null" >
+        blog_content_href = #{blogContentHref,jdbcType=VARCHAR},
+      </if>
+      <if test="blogTitle != null" >
+        blog_title = #{blogTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="blogDiscription != null" >
+        blog_discription = #{blogDiscription,jdbcType=VARCHAR},
+      </if>
+      <if test="blogSort != null" >
+        blog_sort = #{blogSort,jdbcType=VARCHAR},
+      </if>
+      <if test="blogDate != null" >
+        blog_date = #{blogDate,jdbcType=VARCHAR},
+      </if>
+      <if test="blogView != null" >
+        blog_view = #{blogView,jdbcType=INTEGER},
+      </if>
+      <if test="webId != null" >
+        web_id = #{webId,jdbcType=INTEGER},
+      </if>
+      <if test="blogContent != null" >
+        blog_content = #{blogContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where blog_id = #{blogId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="priv.wzq.spider.model.blog.Blog" >
+    update blog
+    set blog_content_href = #{blogContentHref,jdbcType=VARCHAR},
+      blog_title = #{blogTitle,jdbcType=VARCHAR},
+      blog_discription = #{blogDiscription,jdbcType=VARCHAR},
+      blog_sort = #{blogSort,jdbcType=VARCHAR},
+      blog_date = #{blogDate,jdbcType=VARCHAR},
+      blog_view = #{blogView,jdbcType=INTEGER},
+      web_id = #{webId,jdbcType=INTEGER},
+      blog_content = #{blogContent,jdbcType=LONGVARCHAR}
+    where blog_id = #{blogId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="priv.wzq.spider.model.blog.Blog" >
+    update blog
+    set blog_content_href = #{blogContentHref,jdbcType=VARCHAR},
+      blog_title = #{blogTitle,jdbcType=VARCHAR},
+      blog_discription = #{blogDiscription,jdbcType=VARCHAR},
+      blog_sort = #{blogSort,jdbcType=VARCHAR},
+      blog_date = #{blogDate,jdbcType=VARCHAR},
+      blog_view = #{blogView,jdbcType=INTEGER},
+      web_id = #{webId,jdbcType=INTEGER}
+    where blog_id = #{blogId,jdbcType=INTEGER}
+  </update>
+    
+  <select id="listAllBlogs" parameterType="priv.wzq.spider.model.blog.BlogVo" resultMap="BaseResultMap">
+  	SELECT * FROM `blog` 
+  	
+  	<where>
+  		<if test="blog.blogTitle!=null and blog.blogTitle!=''">
+  			blog_title LIKE '%${blog.blogTitle}%'
+  		</if>
+  	</where>
+  	
+  	GROUP BY `blog`.`blog_title` ORDER BY blog_id LIMIT ${(page.pageCount-1)*page.itemCount},${page.itemCount} 
+  </select>
+  
+  <select id="getAllBlogsCount" parameterType="priv.wzq.spider.model.blog.BlogVo" resultType="int">
+  	  SELECT  COUNT(DISTINCT `blog`.`blog_title`) FROM `blog` 
+  	  <where>
+  		<if test="blog.blogTitle!=null and blog.blogTitle!=''">
+  			blog_title LIKE '%${blog.blogTitle}%'
+  		</if>
+  	</where>
+  </select>
+  
+  
+  
+  <!--
+  <select id="searchLike" parameterType="priv.wzq.spider.model.blog.BlogVo" resultMap="BaseResultMap">
+  	SELECT * FROM `blog`  GROUP BY `blog`.`blog_title` ORDER BY blog_id  LIMIT ${(page.pageCount-1)*page.itemCount},${page.itemCount} 
+  </select>
+  
+  <select id="getSearchBlogsCount" parameterType="priv.wzq.spider.model.blog.BlogVo" resultType="int">
+  	  SELECT  COUNT(DISTINCT `blog`.`blog_title`) FROM `blog` WHERE blog_title LIKE %${blog.blogTitle}%
+  </select>
+    -->
+</mapper>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="priv.wzq.spider.mapper.news.CommonMapper" >
+  <resultMap id="BaseResultMap" type="priv.wzq.spider.model.news.Common" >
+    <id column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="commoncontent" property="commoncontent" jdbcType="VARCHAR" />
+    <result column="commontime" property="commontime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    cid, id, commoncontent, commontime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="priv.wzq.spider.model.news.CommonExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from common
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from common
+    where cid = #{cid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from common
+    where cid = #{cid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="priv.wzq.spider.model.news.CommonExample" >
+    delete from common
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="priv.wzq.spider.model.news.Common" >
+    insert into common (cid, id, commoncontent, 
+      commontime)
+    values (#{cid,jdbcType=INTEGER}, #{id,jdbcType=INTEGER}, #{commoncontent,jdbcType=VARCHAR}, 
+      #{commontime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="priv.wzq.spider.model.news.Common" >
+    insert into common
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="commoncontent != null" >
+        commoncontent,
+      </if>
+      <if test="commontime != null" >
+        commontime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="commoncontent != null" >
+        #{commoncontent,jdbcType=VARCHAR},
+      </if>
+      <if test="commontime != null" >
+        #{commontime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="priv.wzq.spider.model.news.CommonExample" resultType="java.lang.Integer" >
+    select count(*) from common
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update common
+    <set >
+      <if test="record.cid != null" >
+        cid = #{record.cid,jdbcType=INTEGER},
+      </if>
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.commoncontent != null" >
+        commoncontent = #{record.commoncontent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commontime != null" >
+        commontime = #{record.commontime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update common
+    set cid = #{record.cid,jdbcType=INTEGER},
+      id = #{record.id,jdbcType=INTEGER},
+      commoncontent = #{record.commoncontent,jdbcType=VARCHAR},
+      commontime = #{record.commontime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="priv.wzq.spider.model.news.Common" >
+    update common
+    <set >
+      <if test="id != null" >
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="commoncontent != null" >
+        commoncontent = #{commoncontent,jdbcType=VARCHAR},
+      </if>
+      <if test="commontime != null" >
+        commontime = #{commontime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="priv.wzq.spider.model.news.Common" >
+    update common
+    set id = #{id,jdbcType=INTEGER},
+      commoncontent = #{commoncontent,jdbcType=VARCHAR},
+      commontime = #{commontime,jdbcType=VARCHAR}
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+</mapper>
