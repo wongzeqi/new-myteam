@@ -1,0 +1,54 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
+
+	<!-- 可以扫描controller、service、... 这里让扫描controller，指定controller的包 -->
+	<context:component-scan base-package="com.nun.wjq.project.controller"></context:component-scan>
+
+	
+	
+
+	
+	<mvc:resources location="/" mapping="/**/*.jpg"/>
+	<mvc:resources location="/" mapping="/**/*.png"/>
+	<mvc:resources location="/" mapping="/**/*.css"/>
+	<mvc:resources location="/" mapping="/**/*.js"/>
+	<mvc:resources location="/" mapping="/**/*.gif"/>
+	
+	 <!--视图解析器 解析jsp解析，默认使用jstl标签，classpath下的得有jstl的包 -->
+	
+	
+	
+	<!-- json转化器也默认加载了 -->
+	
+	
+	<mvc:annotation-driven />
+	
+	<!-- 图片上传 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize">
+			<value>100000</value>
+		</property>
+		<property name="defaultEncoding">
+			<value>UTF-8</value>
+		</property>
+	</bean>
+	
+	<!-- 全局异常处理 -->
+	<!-- 自定义的全局异常处理器 只要实现HandlerExceptionResolver接口就是全局异常处理器 -->
+	<bean class="com.nun.wjq.project.exception.MyExceptionResolver"></bean>
+
+
+</beans>

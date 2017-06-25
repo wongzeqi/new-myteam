@@ -1,0 +1,968 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nun.wjq.project.mapper.ProjectMapper" >
+  <resultMap id="BaseResultMap" type="com.nun.wjq.project.model.Project" >
+    <id column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="tid" property="tid" jdbcType="INTEGER" />
+    <result column="theyear" property="theyear" jdbcType="INTEGER" />
+    <result column="pname" property="pname" jdbcType="VARCHAR" />
+    <result column="ptype" property="ptype" jdbcType="CHAR" />
+    <result column="prank" property="prank" jdbcType="CHAR" />
+    <result column="begintime" property="begintime" jdbcType="VARCHAR" />
+    <result column="endtime" property="endtime" jdbcType="VARCHAR" />
+    <result column="technology" property="technology" jdbcType="VARCHAR" />
+    <result column="officecost" property="officecost" jdbcType="DOUBLE" />
+    <result column="officemark" property="officemark" jdbcType="VARCHAR" />
+    <result column="materialcost" property="materialcost" jdbcType="DOUBLE" />
+    <result column="materialmark" property="materialmark" jdbcType="VARCHAR" />
+    <result column="bookcost" property="bookcost" jdbcType="DOUBLE" />
+    <result column="bookmark" property="bookmark" jdbcType="VARCHAR" />
+    <result column="postcost" property="postcost" jdbcType="DOUBLE" />
+    <result column="postmark" property="postmark" jdbcType="VARCHAR" />
+    <result column="phonecost" property="phonecost" jdbcType="DOUBLE" />
+    <result column="phonemark" property="phonemark" jdbcType="VARCHAR" />
+    <result column="transportationcost" property="transportationcost" jdbcType="DOUBLE" />
+    <result column="transportationmark" property="transportationmark" jdbcType="VARCHAR" />
+    <result column="maintaincost" property="maintaincost" jdbcType="DOUBLE" />
+    <result column="maintainmark" property="maintainmark" jdbcType="VARCHAR" />
+    <result column="printcost" property="printcost" jdbcType="DOUBLE" />
+    <result column="printmark" property="printmark" jdbcType="VARCHAR" />
+    <result column="isteam" property="isteam" jdbcType="INTEGER" />
+    <result column="stu6" property="stu6" jdbcType="VARCHAR" />
+    <result column="stu5" property="stu5" jdbcType="VARCHAR" />
+    <result column="stu4" property="stu4" jdbcType="VARCHAR" />
+    <result column="stu3" property="stu3" jdbcType="VARCHAR" />
+    <result column="stu2" property="stu2" jdbcType="VARCHAR" />
+    <result column="stu1" property="stu1" jdbcType="VARCHAR" />
+    <result column="torank" property="torank" jdbcType="CHAR" />
+    <result column="tostatus" property="tostatus" jdbcType="INTEGER" />
+    <result column="tmid" property="tmid" jdbcType="INTEGER" />
+    <result column="isissue" property="isissue" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.nun.wjq.project.model.ProjectWithBLOBs" extends="BaseResultMap" >
+    <result column="pintroduction" property="pintroduction" jdbcType="LONGVARCHAR" />
+    <result column="pbackground" property="pbackground" jdbcType="LONGVARCHAR" />
+    <result column="pcontent" property="pcontent" jdbcType="LONGVARCHAR" />
+    <result column="pscheme" property="pscheme" jdbcType="LONGVARCHAR" />
+    <result column="pcondition" property="pcondition" jdbcType="LONGVARCHAR" />
+    <result column="ptarget" property="ptarget" jdbcType="LONGVARCHAR" />
+    <result column="pprogress" property="pprogress" jdbcType="LONGVARCHAR" />
+    <result column="schoolcondition" property="schoolcondition" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pid, sid, tid, theyear, pname, ptype, prank, begintime, endtime, technology, officecost, 
+    officemark, materialcost, materialmark, bookcost, bookmark, postcost, postmark, phonecost, 
+    phonemark, transportationcost, transportationmark, maintaincost, maintainmark, printcost, 
+    printmark, isteam, stu6, stu5, stu4, stu3, stu2, stu1, torank, tostatus, tmid, isissue
+  </sql>
+  <sql id="Blob_Column_List" >
+    pintroduction, pbackground, pcontent, pscheme, pcondition, ptarget, pprogress, schoolcondition
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.nun.wjq.project.model.ProjectExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.nun.wjq.project.model.ProjectExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from project
+    where pid = #{pid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from project
+    where pid = #{pid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.nun.wjq.project.model.ProjectExample" >
+    delete from project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.nun.wjq.project.model.ProjectWithBLOBs" >
+    insert into project (pid, sid, tid, 
+      theyear, pname, ptype, 
+      prank, begintime, endtime, 
+      technology, officecost, officemark, 
+      materialcost, materialmark, bookcost, 
+      bookmark, postcost, postmark, 
+      phonecost, phonemark, transportationcost, 
+      transportationmark, maintaincost, maintainmark, 
+      printcost, printmark, isteam, 
+      stu6, stu5, stu4, stu3, 
+      stu2, stu1, torank, tostatus, 
+      tmid, isissue, pintroduction, 
+      pbackground, pcontent, pscheme, 
+      pcondition, ptarget, pprogress, 
+      schoolcondition)
+    values (#{pid,jdbcType=INTEGER}, #{sid,jdbcType=INTEGER}, #{tid,jdbcType=INTEGER}, 
+      #{theyear,jdbcType=INTEGER}, #{pname,jdbcType=VARCHAR}, #{ptype,jdbcType=CHAR}, 
+      #{prank,jdbcType=CHAR}, #{begintime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, 
+      #{technology,jdbcType=VARCHAR}, #{officecost,jdbcType=DOUBLE}, #{officemark,jdbcType=VARCHAR}, 
+      #{materialcost,jdbcType=DOUBLE}, #{materialmark,jdbcType=VARCHAR}, #{bookcost,jdbcType=DOUBLE}, 
+      #{bookmark,jdbcType=VARCHAR}, #{postcost,jdbcType=DOUBLE}, #{postmark,jdbcType=VARCHAR}, 
+      #{phonecost,jdbcType=DOUBLE}, #{phonemark,jdbcType=VARCHAR}, #{transportationcost,jdbcType=DOUBLE}, 
+      #{transportationmark,jdbcType=VARCHAR}, #{maintaincost,jdbcType=DOUBLE}, #{maintainmark,jdbcType=VARCHAR}, 
+      #{printcost,jdbcType=DOUBLE}, #{printmark,jdbcType=VARCHAR}, #{isteam,jdbcType=INTEGER}, 
+      #{stu6,jdbcType=VARCHAR}, #{stu5,jdbcType=VARCHAR}, #{stu4,jdbcType=VARCHAR}, #{stu3,jdbcType=VARCHAR}, 
+      #{stu2,jdbcType=VARCHAR}, #{stu1,jdbcType=VARCHAR}, #{torank,jdbcType=CHAR}, #{tostatus,jdbcType=INTEGER}, 
+      #{tmid,jdbcType=INTEGER}, #{isissue,jdbcType=INTEGER}, #{pintroduction,jdbcType=LONGVARCHAR}, 
+      #{pbackground,jdbcType=LONGVARCHAR}, #{pcontent,jdbcType=LONGVARCHAR}, #{pscheme,jdbcType=LONGVARCHAR}, 
+      #{pcondition,jdbcType=LONGVARCHAR}, #{ptarget,jdbcType=LONGVARCHAR}, #{pprogress,jdbcType=LONGVARCHAR}, 
+      #{schoolcondition,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nun.wjq.project.model.ProjectWithBLOBs" >
+    insert into project
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="tid != null" >
+        tid,
+      </if>
+      <if test="theyear != null" >
+        theyear,
+      </if>
+      <if test="pname != null" >
+        pname,
+      </if>
+      <if test="ptype != null" >
+        ptype,
+      </if>
+      <if test="prank != null" >
+        prank,
+      </if>
+      <if test="begintime != null" >
+        begintime,
+      </if>
+      <if test="endtime != null" >
+        endtime,
+      </if>
+      <if test="technology != null" >
+        technology,
+      </if>
+      <if test="officecost != null" >
+        officecost,
+      </if>
+      <if test="officemark != null" >
+        officemark,
+      </if>
+      <if test="materialcost != null" >
+        materialcost,
+      </if>
+      <if test="materialmark != null" >
+        materialmark,
+      </if>
+      <if test="bookcost != null" >
+        bookcost,
+      </if>
+      <if test="bookmark != null" >
+        bookmark,
+      </if>
+      <if test="postcost != null" >
+        postcost,
+      </if>
+      <if test="postmark != null" >
+        postmark,
+      </if>
+      <if test="phonecost != null" >
+        phonecost,
+      </if>
+      <if test="phonemark != null" >
+        phonemark,
+      </if>
+      <if test="transportationcost != null" >
+        transportationcost,
+      </if>
+      <if test="transportationmark != null" >
+        transportationmark,
+      </if>
+      <if test="maintaincost != null" >
+        maintaincost,
+      </if>
+      <if test="maintainmark != null" >
+        maintainmark,
+      </if>
+      <if test="printcost != null" >
+        printcost,
+      </if>
+      <if test="printmark != null" >
+        printmark,
+      </if>
+      <if test="isteam != null" >
+        isteam,
+      </if>
+      <if test="stu6 != null" >
+        stu6,
+      </if>
+      <if test="stu5 != null" >
+        stu5,
+      </if>
+      <if test="stu4 != null" >
+        stu4,
+      </if>
+      <if test="stu3 != null" >
+        stu3,
+      </if>
+      <if test="stu2 != null" >
+        stu2,
+      </if>
+      <if test="stu1 != null" >
+        stu1,
+      </if>
+      <if test="torank != null" >
+        torank,
+      </if>
+      <if test="tostatus != null" >
+        tostatus,
+      </if>
+      <if test="tmid != null" >
+        tmid,
+      </if>
+      <if test="isissue != null" >
+        isissue,
+      </if>
+      <if test="pintroduction != null" >
+        pintroduction,
+      </if>
+      <if test="pbackground != null" >
+        pbackground,
+      </if>
+      <if test="pcontent != null" >
+        pcontent,
+      </if>
+      <if test="pscheme != null" >
+        pscheme,
+      </if>
+      <if test="pcondition != null" >
+        pcondition,
+      </if>
+      <if test="ptarget != null" >
+        ptarget,
+      </if>
+      <if test="pprogress != null" >
+        pprogress,
+      </if>
+      <if test="schoolcondition != null" >
+        schoolcondition,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="tid != null" >
+        #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="theyear != null" >
+        #{theyear,jdbcType=INTEGER},
+      </if>
+      <if test="pname != null" >
+        #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="ptype != null" >
+        #{ptype,jdbcType=CHAR},
+      </if>
+      <if test="prank != null" >
+        #{prank,jdbcType=CHAR},
+      </if>
+      <if test="begintime != null" >
+        #{begintime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="technology != null" >
+        #{technology,jdbcType=VARCHAR},
+      </if>
+      <if test="officecost != null" >
+        #{officecost,jdbcType=DOUBLE},
+      </if>
+      <if test="officemark != null" >
+        #{officemark,jdbcType=VARCHAR},
+      </if>
+      <if test="materialcost != null" >
+        #{materialcost,jdbcType=DOUBLE},
+      </if>
+      <if test="materialmark != null" >
+        #{materialmark,jdbcType=VARCHAR},
+      </if>
+      <if test="bookcost != null" >
+        #{bookcost,jdbcType=DOUBLE},
+      </if>
+      <if test="bookmark != null" >
+        #{bookmark,jdbcType=VARCHAR},
+      </if>
+      <if test="postcost != null" >
+        #{postcost,jdbcType=DOUBLE},
+      </if>
+      <if test="postmark != null" >
+        #{postmark,jdbcType=VARCHAR},
+      </if>
+      <if test="phonecost != null" >
+        #{phonecost,jdbcType=DOUBLE},
+      </if>
+      <if test="phonemark != null" >
+        #{phonemark,jdbcType=VARCHAR},
+      </if>
+      <if test="transportationcost != null" >
+        #{transportationcost,jdbcType=DOUBLE},
+      </if>
+      <if test="transportationmark != null" >
+        #{transportationmark,jdbcType=VARCHAR},
+      </if>
+      <if test="maintaincost != null" >
+        #{maintaincost,jdbcType=DOUBLE},
+      </if>
+      <if test="maintainmark != null" >
+        #{maintainmark,jdbcType=VARCHAR},
+      </if>
+      <if test="printcost != null" >
+        #{printcost,jdbcType=DOUBLE},
+      </if>
+      <if test="printmark != null" >
+        #{printmark,jdbcType=VARCHAR},
+      </if>
+      <if test="isteam != null" >
+        #{isteam,jdbcType=INTEGER},
+      </if>
+      <if test="stu6 != null" >
+        #{stu6,jdbcType=VARCHAR},
+      </if>
+      <if test="stu5 != null" >
+        #{stu5,jdbcType=VARCHAR},
+      </if>
+      <if test="stu4 != null" >
+        #{stu4,jdbcType=VARCHAR},
+      </if>
+      <if test="stu3 != null" >
+        #{stu3,jdbcType=VARCHAR},
+      </if>
+      <if test="stu2 != null" >
+        #{stu2,jdbcType=VARCHAR},
+      </if>
+      <if test="stu1 != null" >
+        #{stu1,jdbcType=VARCHAR},
+      </if>
+      <if test="torank != null" >
+        #{torank,jdbcType=CHAR},
+      </if>
+      <if test="tostatus != null" >
+        #{tostatus,jdbcType=INTEGER},
+      </if>
+      <if test="tmid != null" >
+        #{tmid,jdbcType=INTEGER},
+      </if>
+      <if test="isissue != null" >
+        #{isissue,jdbcType=INTEGER},
+      </if>
+      <if test="pintroduction != null" >
+        #{pintroduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pbackground != null" >
+        #{pbackground,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pcontent != null" >
+        #{pcontent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pscheme != null" >
+        #{pscheme,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pcondition != null" >
+        #{pcondition,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ptarget != null" >
+        #{ptarget,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pprogress != null" >
+        #{pprogress,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="schoolcondition != null" >
+        #{schoolcondition,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.nun.wjq.project.model.ProjectExample" resultType="java.lang.Integer" >
+    select count(*) from project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update project
+    <set >
+      <if test="record.pid != null" >
+        pid = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.sid != null" >
+        sid = #{record.sid,jdbcType=INTEGER},
+      </if>
+      <if test="record.tid != null" >
+        tid = #{record.tid,jdbcType=INTEGER},
+      </if>
+      <if test="record.theyear != null" >
+        theyear = #{record.theyear,jdbcType=INTEGER},
+      </if>
+      <if test="record.pname != null" >
+        pname = #{record.pname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ptype != null" >
+        ptype = #{record.ptype,jdbcType=CHAR},
+      </if>
+      <if test="record.prank != null" >
+        prank = #{record.prank,jdbcType=CHAR},
+      </if>
+      <if test="record.begintime != null" >
+        begintime = #{record.begintime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endtime != null" >
+        endtime = #{record.endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.technology != null" >
+        technology = #{record.technology,jdbcType=VARCHAR},
+      </if>
+      <if test="record.officecost != null" >
+        officecost = #{record.officecost,jdbcType=DOUBLE},
+      </if>
+      <if test="record.officemark != null" >
+        officemark = #{record.officemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.materialcost != null" >
+        materialcost = #{record.materialcost,jdbcType=DOUBLE},
+      </if>
+      <if test="record.materialmark != null" >
+        materialmark = #{record.materialmark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookcost != null" >
+        bookcost = #{record.bookcost,jdbcType=DOUBLE},
+      </if>
+      <if test="record.bookmark != null" >
+        bookmark = #{record.bookmark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postcost != null" >
+        postcost = #{record.postcost,jdbcType=DOUBLE},
+      </if>
+      <if test="record.postmark != null" >
+        postmark = #{record.postmark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phonecost != null" >
+        phonecost = #{record.phonecost,jdbcType=DOUBLE},
+      </if>
+      <if test="record.phonemark != null" >
+        phonemark = #{record.phonemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transportationcost != null" >
+        transportationcost = #{record.transportationcost,jdbcType=DOUBLE},
+      </if>
+      <if test="record.transportationmark != null" >
+        transportationmark = #{record.transportationmark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maintaincost != null" >
+        maintaincost = #{record.maintaincost,jdbcType=DOUBLE},
+      </if>
+      <if test="record.maintainmark != null" >
+        maintainmark = #{record.maintainmark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.printcost != null" >
+        printcost = #{record.printcost,jdbcType=DOUBLE},
+      </if>
+      <if test="record.printmark != null" >
+        printmark = #{record.printmark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isteam != null" >
+        isteam = #{record.isteam,jdbcType=INTEGER},
+      </if>
+      <if test="record.stu6 != null" >
+        stu6 = #{record.stu6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stu5 != null" >
+        stu5 = #{record.stu5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stu4 != null" >
+        stu4 = #{record.stu4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stu3 != null" >
+        stu3 = #{record.stu3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stu2 != null" >
+        stu2 = #{record.stu2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stu1 != null" >
+        stu1 = #{record.stu1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.torank != null" >
+        torank = #{record.torank,jdbcType=CHAR},
+      </if>
+      <if test="record.tostatus != null" >
+        tostatus = #{record.tostatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.tmid != null" >
+        tmid = #{record.tmid,jdbcType=INTEGER},
+      </if>
+      <if test="record.isissue != null" >
+        isissue = #{record.isissue,jdbcType=INTEGER},
+      </if>
+      <if test="record.pintroduction != null" >
+        pintroduction = #{record.pintroduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.pbackground != null" >
+        pbackground = #{record.pbackground,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.pcontent != null" >
+        pcontent = #{record.pcontent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.pscheme != null" >
+        pscheme = #{record.pscheme,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.pcondition != null" >
+        pcondition = #{record.pcondition,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.ptarget != null" >
+        ptarget = #{record.ptarget,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.pprogress != null" >
+        pprogress = #{record.pprogress,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.schoolcondition != null" >
+        schoolcondition = #{record.schoolcondition,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update project
+    set pid = #{record.pid,jdbcType=INTEGER},
+      sid = #{record.sid,jdbcType=INTEGER},
+      tid = #{record.tid,jdbcType=INTEGER},
+      theyear = #{record.theyear,jdbcType=INTEGER},
+      pname = #{record.pname,jdbcType=VARCHAR},
+      ptype = #{record.ptype,jdbcType=CHAR},
+      prank = #{record.prank,jdbcType=CHAR},
+      begintime = #{record.begintime,jdbcType=VARCHAR},
+      endtime = #{record.endtime,jdbcType=VARCHAR},
+      technology = #{record.technology,jdbcType=VARCHAR},
+      officecost = #{record.officecost,jdbcType=DOUBLE},
+      officemark = #{record.officemark,jdbcType=VARCHAR},
+      materialcost = #{record.materialcost,jdbcType=DOUBLE},
+      materialmark = #{record.materialmark,jdbcType=VARCHAR},
+      bookcost = #{record.bookcost,jdbcType=DOUBLE},
+      bookmark = #{record.bookmark,jdbcType=VARCHAR},
+      postcost = #{record.postcost,jdbcType=DOUBLE},
+      postmark = #{record.postmark,jdbcType=VARCHAR},
+      phonecost = #{record.phonecost,jdbcType=DOUBLE},
+      phonemark = #{record.phonemark,jdbcType=VARCHAR},
+      transportationcost = #{record.transportationcost,jdbcType=DOUBLE},
+      transportationmark = #{record.transportationmark,jdbcType=VARCHAR},
+      maintaincost = #{record.maintaincost,jdbcType=DOUBLE},
+      maintainmark = #{record.maintainmark,jdbcType=VARCHAR},
+      printcost = #{record.printcost,jdbcType=DOUBLE},
+      printmark = #{record.printmark,jdbcType=VARCHAR},
+      isteam = #{record.isteam,jdbcType=INTEGER},
+      stu6 = #{record.stu6,jdbcType=VARCHAR},
+      stu5 = #{record.stu5,jdbcType=VARCHAR},
+      stu4 = #{record.stu4,jdbcType=VARCHAR},
+      stu3 = #{record.stu3,jdbcType=VARCHAR},
+      stu2 = #{record.stu2,jdbcType=VARCHAR},
+      stu1 = #{record.stu1,jdbcType=VARCHAR},
+      torank = #{record.torank,jdbcType=CHAR},
+      tostatus = #{record.tostatus,jdbcType=INTEGER},
+      tmid = #{record.tmid,jdbcType=INTEGER},
+      isissue = #{record.isissue,jdbcType=INTEGER},
+      pintroduction = #{record.pintroduction,jdbcType=LONGVARCHAR},
+      pbackground = #{record.pbackground,jdbcType=LONGVARCHAR},
+      pcontent = #{record.pcontent,jdbcType=LONGVARCHAR},
+      pscheme = #{record.pscheme,jdbcType=LONGVARCHAR},
+      pcondition = #{record.pcondition,jdbcType=LONGVARCHAR},
+      ptarget = #{record.ptarget,jdbcType=LONGVARCHAR},
+      pprogress = #{record.pprogress,jdbcType=LONGVARCHAR},
+      schoolcondition = #{record.schoolcondition,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update project
+    set pid = #{record.pid,jdbcType=INTEGER},
+      sid = #{record.sid,jdbcType=INTEGER},
+      tid = #{record.tid,jdbcType=INTEGER},
+      theyear = #{record.theyear,jdbcType=INTEGER},
+      pname = #{record.pname,jdbcType=VARCHAR},
+      ptype = #{record.ptype,jdbcType=CHAR},
+      prank = #{record.prank,jdbcType=CHAR},
+      begintime = #{record.begintime,jdbcType=VARCHAR},
+      endtime = #{record.endtime,jdbcType=VARCHAR},
+      technology = #{record.technology,jdbcType=VARCHAR},
+      officecost = #{record.officecost,jdbcType=DOUBLE},
+      officemark = #{record.officemark,jdbcType=VARCHAR},
+      materialcost = #{record.materialcost,jdbcType=DOUBLE},
+      materialmark = #{record.materialmark,jdbcType=VARCHAR},
+      bookcost = #{record.bookcost,jdbcType=DOUBLE},
+      bookmark = #{record.bookmark,jdbcType=VARCHAR},
+      postcost = #{record.postcost,jdbcType=DOUBLE},
+      postmark = #{record.postmark,jdbcType=VARCHAR},
+      phonecost = #{record.phonecost,jdbcType=DOUBLE},
+      phonemark = #{record.phonemark,jdbcType=VARCHAR},
+      transportationcost = #{record.transportationcost,jdbcType=DOUBLE},
+      transportationmark = #{record.transportationmark,jdbcType=VARCHAR},
+      maintaincost = #{record.maintaincost,jdbcType=DOUBLE},
+      maintainmark = #{record.maintainmark,jdbcType=VARCHAR},
+      printcost = #{record.printcost,jdbcType=DOUBLE},
+      printmark = #{record.printmark,jdbcType=VARCHAR},
+      isteam = #{record.isteam,jdbcType=INTEGER},
+      stu6 = #{record.stu6,jdbcType=VARCHAR},
+      stu5 = #{record.stu5,jdbcType=VARCHAR},
+      stu4 = #{record.stu4,jdbcType=VARCHAR},
+      stu3 = #{record.stu3,jdbcType=VARCHAR},
+      stu2 = #{record.stu2,jdbcType=VARCHAR},
+      stu1 = #{record.stu1,jdbcType=VARCHAR},
+      torank = #{record.torank,jdbcType=CHAR},
+      tostatus = #{record.tostatus,jdbcType=INTEGER},
+      tmid = #{record.tmid,jdbcType=INTEGER},
+      isissue = #{record.isissue,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nun.wjq.project.model.ProjectWithBLOBs" >
+    update project
+    <set >
+      <if test="sid != null" >
+        sid = #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="tid != null" >
+        tid = #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="theyear != null" >
+        theyear = #{theyear,jdbcType=INTEGER},
+      </if>
+      <if test="pname != null" >
+        pname = #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="ptype != null" >
+        ptype = #{ptype,jdbcType=CHAR},
+      </if>
+      <if test="prank != null" >
+        prank = #{prank,jdbcType=CHAR},
+      </if>
+      <if test="begintime != null" >
+        begintime = #{begintime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null" >
+        endtime = #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="technology != null" >
+        technology = #{technology,jdbcType=VARCHAR},
+      </if>
+      <if test="officecost != null" >
+        officecost = #{officecost,jdbcType=DOUBLE},
+      </if>
+      <if test="officemark != null" >
+        officemark = #{officemark,jdbcType=VARCHAR},
+      </if>
+      <if test="materialcost != null" >
+        materialcost = #{materialcost,jdbcType=DOUBLE},
+      </if>
+      <if test="materialmark != null" >
+        materialmark = #{materialmark,jdbcType=VARCHAR},
+      </if>
+      <if test="bookcost != null" >
+        bookcost = #{bookcost,jdbcType=DOUBLE},
+      </if>
+      <if test="bookmark != null" >
+        bookmark = #{bookmark,jdbcType=VARCHAR},
+      </if>
+      <if test="postcost != null" >
+        postcost = #{postcost,jdbcType=DOUBLE},
+      </if>
+      <if test="postmark != null" >
+        postmark = #{postmark,jdbcType=VARCHAR},
+      </if>
+      <if test="phonecost != null" >
+        phonecost = #{phonecost,jdbcType=DOUBLE},
+      </if>
+      <if test="phonemark != null" >
+        phonemark = #{phonemark,jdbcType=VARCHAR},
+      </if>
+      <if test="transportationcost != null" >
+        transportationcost = #{transportationcost,jdbcType=DOUBLE},
+      </if>
+      <if test="transportationmark != null" >
+        transportationmark = #{transportationmark,jdbcType=VARCHAR},
+      </if>
+      <if test="maintaincost != null" >
+        maintaincost = #{maintaincost,jdbcType=DOUBLE},
+      </if>
+      <if test="maintainmark != null" >
+        maintainmark = #{maintainmark,jdbcType=VARCHAR},
+      </if>
+      <if test="printcost != null" >
+        printcost = #{printcost,jdbcType=DOUBLE},
+      </if>
+      <if test="printmark != null" >
+        printmark = #{printmark,jdbcType=VARCHAR},
+      </if>
+      <if test="isteam != null" >
+        isteam = #{isteam,jdbcType=INTEGER},
+      </if>
+      <if test="stu6 != null" >
+        stu6 = #{stu6,jdbcType=VARCHAR},
+      </if>
+      <if test="stu5 != null" >
+        stu5 = #{stu5,jdbcType=VARCHAR},
+      </if>
+      <if test="stu4 != null" >
+        stu4 = #{stu4,jdbcType=VARCHAR},
+      </if>
+      <if test="stu3 != null" >
+        stu3 = #{stu3,jdbcType=VARCHAR},
+      </if>
+      <if test="stu2 != null" >
+        stu2 = #{stu2,jdbcType=VARCHAR},
+      </if>
+      <if test="stu1 != null" >
+        stu1 = #{stu1,jdbcType=VARCHAR},
+      </if>
+      <if test="torank != null" >
+        torank = #{torank,jdbcType=CHAR},
+      </if>
+      <if test="tostatus != null" >
+        tostatus = #{tostatus,jdbcType=INTEGER},
+      </if>
+      <if test="tmid != null" >
+        tmid = #{tmid,jdbcType=INTEGER},
+      </if>
+      <if test="isissue != null" >
+        isissue = #{isissue,jdbcType=INTEGER},
+      </if>
+      <if test="pintroduction != null" >
+        pintroduction = #{pintroduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pbackground != null" >
+        pbackground = #{pbackground,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pcontent != null" >
+        pcontent = #{pcontent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pscheme != null" >
+        pscheme = #{pscheme,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pcondition != null" >
+        pcondition = #{pcondition,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ptarget != null" >
+        ptarget = #{ptarget,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pprogress != null" >
+        pprogress = #{pprogress,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="schoolcondition != null" >
+        schoolcondition = #{schoolcondition,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.nun.wjq.project.model.ProjectWithBLOBs" >
+    update project
+    set sid = #{sid,jdbcType=INTEGER},
+      tid = #{tid,jdbcType=INTEGER},
+      theyear = #{theyear,jdbcType=INTEGER},
+      pname = #{pname,jdbcType=VARCHAR},
+      ptype = #{ptype,jdbcType=CHAR},
+      prank = #{prank,jdbcType=CHAR},
+      begintime = #{begintime,jdbcType=VARCHAR},
+      endtime = #{endtime,jdbcType=VARCHAR},
+      technology = #{technology,jdbcType=VARCHAR},
+      officecost = #{officecost,jdbcType=DOUBLE},
+      officemark = #{officemark,jdbcType=VARCHAR},
+      materialcost = #{materialcost,jdbcType=DOUBLE},
+      materialmark = #{materialmark,jdbcType=VARCHAR},
+      bookcost = #{bookcost,jdbcType=DOUBLE},
+      bookmark = #{bookmark,jdbcType=VARCHAR},
+      postcost = #{postcost,jdbcType=DOUBLE},
+      postmark = #{postmark,jdbcType=VARCHAR},
+      phonecost = #{phonecost,jdbcType=DOUBLE},
+      phonemark = #{phonemark,jdbcType=VARCHAR},
+      transportationcost = #{transportationcost,jdbcType=DOUBLE},
+      transportationmark = #{transportationmark,jdbcType=VARCHAR},
+      maintaincost = #{maintaincost,jdbcType=DOUBLE},
+      maintainmark = #{maintainmark,jdbcType=VARCHAR},
+      printcost = #{printcost,jdbcType=DOUBLE},
+      printmark = #{printmark,jdbcType=VARCHAR},
+      isteam = #{isteam,jdbcType=INTEGER},
+      stu6 = #{stu6,jdbcType=VARCHAR},
+      stu5 = #{stu5,jdbcType=VARCHAR},
+      stu4 = #{stu4,jdbcType=VARCHAR},
+      stu3 = #{stu3,jdbcType=VARCHAR},
+      stu2 = #{stu2,jdbcType=VARCHAR},
+      stu1 = #{stu1,jdbcType=VARCHAR},
+      torank = #{torank,jdbcType=CHAR},
+      tostatus = #{tostatus,jdbcType=INTEGER},
+      tmid = #{tmid,jdbcType=INTEGER},
+      isissue = #{isissue,jdbcType=INTEGER},
+      pintroduction = #{pintroduction,jdbcType=LONGVARCHAR},
+      pbackground = #{pbackground,jdbcType=LONGVARCHAR},
+      pcontent = #{pcontent,jdbcType=LONGVARCHAR},
+      pscheme = #{pscheme,jdbcType=LONGVARCHAR},
+      pcondition = #{pcondition,jdbcType=LONGVARCHAR},
+      ptarget = #{ptarget,jdbcType=LONGVARCHAR},
+      pprogress = #{pprogress,jdbcType=LONGVARCHAR},
+      schoolcondition = #{schoolcondition,jdbcType=LONGVARCHAR}
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nun.wjq.project.model.Project" >
+    update project
+    set sid = #{sid,jdbcType=INTEGER},
+      tid = #{tid,jdbcType=INTEGER},
+      theyear = #{theyear,jdbcType=INTEGER},
+      pname = #{pname,jdbcType=VARCHAR},
+      ptype = #{ptype,jdbcType=CHAR},
+      prank = #{prank,jdbcType=CHAR},
+      begintime = #{begintime,jdbcType=VARCHAR},
+      endtime = #{endtime,jdbcType=VARCHAR},
+      technology = #{technology,jdbcType=VARCHAR},
+      officecost = #{officecost,jdbcType=DOUBLE},
+      officemark = #{officemark,jdbcType=VARCHAR},
+      materialcost = #{materialcost,jdbcType=DOUBLE},
+      materialmark = #{materialmark,jdbcType=VARCHAR},
+      bookcost = #{bookcost,jdbcType=DOUBLE},
+      bookmark = #{bookmark,jdbcType=VARCHAR},
+      postcost = #{postcost,jdbcType=DOUBLE},
+      postmark = #{postmark,jdbcType=VARCHAR},
+      phonecost = #{phonecost,jdbcType=DOUBLE},
+      phonemark = #{phonemark,jdbcType=VARCHAR},
+      transportationcost = #{transportationcost,jdbcType=DOUBLE},
+      transportationmark = #{transportationmark,jdbcType=VARCHAR},
+      maintaincost = #{maintaincost,jdbcType=DOUBLE},
+      maintainmark = #{maintainmark,jdbcType=VARCHAR},
+      printcost = #{printcost,jdbcType=DOUBLE},
+      printmark = #{printmark,jdbcType=VARCHAR},
+      isteam = #{isteam,jdbcType=INTEGER},
+      stu6 = #{stu6,jdbcType=VARCHAR},
+      stu5 = #{stu5,jdbcType=VARCHAR},
+      stu4 = #{stu4,jdbcType=VARCHAR},
+      stu3 = #{stu3,jdbcType=VARCHAR},
+      stu2 = #{stu2,jdbcType=VARCHAR},
+      stu1 = #{stu1,jdbcType=VARCHAR},
+      torank = #{torank,jdbcType=CHAR},
+      tostatus = #{tostatus,jdbcType=INTEGER},
+      tmid = #{tmid,jdbcType=INTEGER},
+      isissue = #{isissue,jdbcType=INTEGER}
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectBySidOrStu" parameterType="com.nun.wjq.project.model.Student" resultType="com.nun.wjq.project.result.Pst">
+  	SELECT 
+	  `project`.* ,student.*,teacher.*
+	FROM
+	  `project`,
+	  	student,
+	  	teacher
+	WHERE (student.sid = #{sid} 
+	  OR stu1 = ${snumber} 
+	  OR stu2 = ${snumber} 
+	  OR stu3 = ${snumber} 
+	  OR stu4 = ${snumber} 
+	  OR stu5 = ${snumber} 
+	  OR stu6 = ${snumber} ) and student.sid=project.sid and teacher.tid=project.tid 
+	  order by theyear desc
+  </select>
+  <select id="selectBySidAndPrank" parameterType="com.nun.wjq.project.model.Project" resultType="com.nun.wjq.project.model.Project">
+  	select * from project where sid=#{sid} and (prank=#{prank} or prank=#{officemark})
+  </select>
+  
+  
+</mapper>

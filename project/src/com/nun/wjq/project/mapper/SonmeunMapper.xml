@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nun.wjq.project.mapper.SonmeunMapper" >
+  <resultMap id="BaseResultMap" type="com.nun.wjq.project.model.Sonmeun" >
+    <id column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="smeunname" property="smeunname" jdbcType="VARCHAR" />
+    <result column="meunurl" property="meunurl" jdbcType="VARCHAR" />
+    <result column="sorder" property="sorder" jdbcType="INTEGER" />
+    <result column="role" property="role" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sid, pid, smeunname, meunurl, sorder, role
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.nun.wjq.project.model.SonmeunExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sonmeun
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sonmeun
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sonmeun
+    where sid = #{sid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.nun.wjq.project.model.SonmeunExample" >
+    delete from sonmeun
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.nun.wjq.project.model.Sonmeun" >
+    insert into sonmeun (sid, pid, smeunname, 
+      meunurl, sorder, role
+      )
+    values (#{sid,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{smeunname,jdbcType=VARCHAR}, 
+      #{meunurl,jdbcType=VARCHAR}, #{sorder,jdbcType=INTEGER}, #{role,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.nun.wjq.project.model.Sonmeun" >
+    insert into sonmeun
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="smeunname != null" >
+        smeunname,
+      </if>
+      <if test="meunurl != null" >
+        meunurl,
+      </if>
+      <if test="sorder != null" >
+        sorder,
+      </if>
+      <if test="role != null" >
+        role,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="smeunname != null" >
+        #{smeunname,jdbcType=VARCHAR},
+      </if>
+      <if test="meunurl != null" >
+        #{meunurl,jdbcType=VARCHAR},
+      </if>
+      <if test="sorder != null" >
+        #{sorder,jdbcType=INTEGER},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.nun.wjq.project.model.SonmeunExample" resultType="java.lang.Integer" >
+    select count(*) from sonmeun
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sonmeun
+    <set >
+      <if test="record.sid != null" >
+        sid = #{record.sid,jdbcType=INTEGER},
+      </if>
+      <if test="record.pid != null" >
+        pid = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.smeunname != null" >
+        smeunname = #{record.smeunname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.meunurl != null" >
+        meunurl = #{record.meunurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sorder != null" >
+        sorder = #{record.sorder,jdbcType=INTEGER},
+      </if>
+      <if test="record.role != null" >
+        role = #{record.role,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sonmeun
+    set sid = #{record.sid,jdbcType=INTEGER},
+      pid = #{record.pid,jdbcType=INTEGER},
+      smeunname = #{record.smeunname,jdbcType=VARCHAR},
+      meunurl = #{record.meunurl,jdbcType=VARCHAR},
+      sorder = #{record.sorder,jdbcType=INTEGER},
+      role = #{record.role,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nun.wjq.project.model.Sonmeun" >
+    update sonmeun
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="smeunname != null" >
+        smeunname = #{smeunname,jdbcType=VARCHAR},
+      </if>
+      <if test="meunurl != null" >
+        meunurl = #{meunurl,jdbcType=VARCHAR},
+      </if>
+      <if test="sorder != null" >
+        sorder = #{sorder,jdbcType=INTEGER},
+      </if>
+      <if test="role != null" >
+        role = #{role,jdbcType=INTEGER},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nun.wjq.project.model.Sonmeun" >
+    update sonmeun
+    set pid = #{pid,jdbcType=INTEGER},
+      smeunname = #{smeunname,jdbcType=VARCHAR},
+      meunurl = #{meunurl,jdbcType=VARCHAR},
+      sorder = #{sorder,jdbcType=INTEGER},
+      role = #{role,jdbcType=INTEGER}
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="getSonmeuns1" resultType="com.nun.wjq.project.model.Sonmeun">
+  	SELECT 
+ 	 `sonmeun`.* 
+	FROM
+	  `sonmeun` 
+	WHERE `sonmeun`.`role` = 1 
+	ORDER BY `sonmeun`.`sorder` 
+  </select>
+  
+  
+  <select id="getSonmeuns2" resultType="com.nun.wjq.project.model.Sonmeun">
+  	SELECT 
+ 	 `sonmeun`.* 
+	FROM
+	  `parentmeun`,
+	  `sonmeun` 
+	WHERE `parentmeun`.`role` = 2 
+	  AND `parentmeun`.`pid` = `sonmeun`.`pid` 
+	ORDER BY `sonmeun`.`sorder` 
+  </select>
+  <select id="getSonmeuns3" resultType="com.nun.wjq.project.model.Sonmeun">
+  	SELECT 
+ 	 `sonmeun`.* 
+	FROM
+	  `parentmeun`,
+	  `sonmeun` 
+	WHERE `parentmeun`.`role` = 3 
+	  AND `parentmeun`.`pid` = `sonmeun`.`pid` 
+	ORDER BY `sonmeun`.`sorder` 
+  </select>
+  <select id="getSonmeuns4" resultType="com.nun.wjq.project.model.Sonmeun">
+  	SELECT 
+ 	 `sonmeun`.* 
+	FROM
+	  `parentmeun`,
+	  `sonmeun` 
+	WHERE `parentmeun`.`role` = 4 
+	  AND `parentmeun`.`pid` = `sonmeun`.`pid` 
+	ORDER BY `sonmeun`.`sorder` 
+  </select>
+  
+</mapper>

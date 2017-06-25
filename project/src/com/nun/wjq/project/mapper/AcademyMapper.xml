@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nun.wjq.project.mapper.AcademyMapper" >
+  <resultMap id="BaseResultMap" type="com.nun.wjq.project.model.Academy" >
+    <id column="aid" property="aid" jdbcType="INTEGER" />
+    <result column="academyname" property="academyname" jdbcType="VARCHAR" />
+    <result column="academycode" property="academycode" jdbcType="VARCHAR" />
+    <result column="recommendNumber" property="recommendnumber" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    aid, academyname, academycode, recommendNumber, time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.nun.wjq.project.model.AcademyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from academy
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from academy
+    where aid = #{aid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from academy
+    where aid = #{aid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.nun.wjq.project.model.AcademyExample" >
+    delete from academy
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.nun.wjq.project.model.Academy" >
+    insert into academy (aid, academyname, academycode, 
+      recommendNumber, time)
+    values (#{aid,jdbcType=INTEGER}, #{academyname,jdbcType=VARCHAR}, #{academycode,jdbcType=VARCHAR}, 
+      #{recommendnumber,jdbcType=INTEGER}, #{time,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nun.wjq.project.model.Academy" >
+    insert into academy
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="aid != null" >
+        aid,
+      </if>
+      <if test="academyname != null" >
+        academyname,
+      </if>
+      <if test="academycode != null" >
+        academycode,
+      </if>
+      <if test="recommendnumber != null" >
+        recommendNumber,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="aid != null" >
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="academyname != null" >
+        #{academyname,jdbcType=VARCHAR},
+      </if>
+      <if test="academycode != null" >
+        #{academycode,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendnumber != null" >
+        #{recommendnumber,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.nun.wjq.project.model.AcademyExample" resultType="java.lang.Integer" >
+    select count(*) from academy
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update academy
+    <set >
+      <if test="record.aid != null" >
+        aid = #{record.aid,jdbcType=INTEGER},
+      </if>
+      <if test="record.academyname != null" >
+        academyname = #{record.academyname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.academycode != null" >
+        academycode = #{record.academycode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recommendnumber != null" >
+        recommendNumber = #{record.recommendnumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update academy
+    set aid = #{record.aid,jdbcType=INTEGER},
+      academyname = #{record.academyname,jdbcType=VARCHAR},
+      academycode = #{record.academycode,jdbcType=VARCHAR},
+      recommendNumber = #{record.recommendnumber,jdbcType=INTEGER},
+      time = #{record.time,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nun.wjq.project.model.Academy" >
+    update academy
+    <set >
+      <if test="academyname != null" >
+        academyname = #{academyname,jdbcType=VARCHAR},
+      </if>
+      <if test="academycode != null" >
+        academycode = #{academycode,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendnumber != null" >
+        recommendNumber = #{recommendnumber,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nun.wjq.project.model.Academy" >
+    update academy
+    set academyname = #{academyname,jdbcType=VARCHAR},
+      academycode = #{academycode,jdbcType=VARCHAR},
+      recommendNumber = #{recommendnumber,jdbcType=INTEGER},
+      time = #{time,jdbcType=VARCHAR}
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+</mapper>
