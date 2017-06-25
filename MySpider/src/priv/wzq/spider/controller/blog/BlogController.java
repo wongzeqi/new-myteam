@@ -17,7 +17,7 @@ import priv.wzq.utils.Page;
 @Controller
 @RequestMapping("/blog")
 public class BlogController {
-	
+	//
 	@Autowired CommonMapper commonMapper;
 	@Autowired BlogMapper blogMapper;
 	@RequestMapping("/b")
