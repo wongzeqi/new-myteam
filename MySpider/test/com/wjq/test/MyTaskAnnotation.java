@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
   
 /** 
  * 基于注解的定时器 
- * @author hj 
+ * @author wjq 
  */  
 @Component
 public class MyTaskAnnotation {  
