@@ -12,6 +12,7 @@ import priv.wzq.spider.mapper.blog.BlogMapper;
 import priv.wzq.spider.mapper.news.CommonMapper;
 import priv.wzq.spider.model.blog.Blog;
 import priv.wzq.spider.model.blog.BlogVo;
+import priv.wzq.utils.Page;
 
 @Controller
 @RequestMapping("/blog")
@@ -61,6 +62,12 @@ public class BlogController {
 	 */
 	@RequestMapping("/listAllBlogs.action")
 	public ModelAndView listAllBlogs(BlogVo blogVo){
+		if(blogVo.getPage()==null){
+			blogVo.setPage(new Page());
+		}
+		if(blogVo.getBlog()==null){
+			blogVo.setBlog(new Blog());
+		}
 		ModelAndView m = new ModelAndView();
 		List<Blog> blogs = blogMapper.listAllBlogs(blogVo);
 		int totalItemCount = blogMapper.getAllBlogsCount(blogVo);

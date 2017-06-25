@@ -29,5 +29,8 @@ public class Page {
 	public void setItemCount(int itemCount) {
 		this.itemCount = itemCount;
 	}
+	public Page() {
+		this.pageCount=1;
+	}
 	
 }
