@@ -398,7 +398,7 @@ String mypath = basePath+"project/";
           <label></label>
         </div>
         <div class="field">
-          <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+          <button class="button bg-main icon-check-square-o" type="submit">提交</button>
         </div>
       </div>
     </form>
@@ -420,7 +420,6 @@ String mypath = basePath+"project/";
 				$("#tid").val(data.tid);
 			},
 			error : function() {
-				alert("失败");
 			}
 		});
 	}); 
@@ -438,7 +437,6 @@ String mypath = basePath+"project/";
 				$("#sname1").val(data.sname);
 			},
 			error : function() {
-				alert("失败");
 			}
 		});
 	}); 
@@ -457,7 +455,6 @@ String mypath = basePath+"project/";
 				$("#sname2").val(data.sname);
 			},
 			error : function() {
-				alert("失败");
 			}
 		});
 	}); 
@@ -495,7 +492,6 @@ String mypath = basePath+"project/";
 				$("#sname4").val(data.sname);
 			},
 			error : function() {
-				alert("失败");
 			}
 		});
 	}); 
@@ -513,7 +509,6 @@ String mypath = basePath+"project/";
 				$("#sname5").val(data.sname);
 			},
 			error : function() {
-				alert("失败");
 			}
 		});
 	}); 

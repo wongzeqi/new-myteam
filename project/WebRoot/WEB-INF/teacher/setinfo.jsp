@@ -34,7 +34,7 @@ String mypath = basePath+"project/";
           <label>姓名:</label>
         </div>
         <div class="field">
-          <input type="text" class="input disable" name="sname" value="${teacher.tname }" />
+          <input type="text" class="input disable" name="tname" value="${teacher.tname }" />
           <input type="hidden" class="input" name="tid" value="${teacher.tid }" />
           <div class="tips"></div>
         </div>
@@ -45,7 +45,7 @@ String mypath = basePath+"project/";
           <label>教工号:</label>
         </div>
         <div class="field">
-          <input type="text" class="input" name="snumber" value="${teacher.tnumber }" />
+          <input type="text" class="input" name="tnumber" value="${teacher.tnumber }" />
         </div>
       </div>
       <div class="form-group">
@@ -53,7 +53,7 @@ String mypath = basePath+"project/";
           <label>学院：</label>
         </div>
         <div class="field">
-          <input type="text" class="input" name="academy" value="${teacher.tacademy }" placeholder="请输入学院..." data-validate="required:请输入学院..." />
+          <input type="text" class="input" name="tacademy" value="${teacher.tacademy }" placeholder="请输入学院..." data-validate="required:请输入学院..." />
           <div class="tips"></div>
         </div>
       </div>
@@ -62,7 +62,7 @@ String mypath = basePath+"project/";
           <label>职称：</label>
         </div>
         <div class="field">
-           <input type="text" class="input" name="major" value="${teacher.title }"  placeholder="请输入职称..." data-validate="required:请输入专业..."/>
+           <input type="text" class="input" name="ptitle" value="${teacher.ptitle }"  placeholder="请输入职称..." data-validate="required:请输入专业..."/>
           <div class="tips"></div>
         </div>
       </div>
@@ -72,7 +72,7 @@ String mypath = basePath+"project/";
           <label>手机：</label>
         </div>
         <div class="field">
-          <input type="text" class="input" name="phone" value="${teacher.tphone }" placeholder="请输入手机号..." data-validate="required:请输入手机号..."/>
+          <input type="text" class="input" name="tphone" value="${teacher.tphone }" placeholder="请输入手机号..." data-validate="required:请输入手机号..."/>
           <div class="tips"></div>
         </div>
       </div>
@@ -81,7 +81,7 @@ String mypath = basePath+"project/";
           <label>邮箱：</label>
         </div>
         <div class="field">
-          <input type="email" class="input" name="email" value="${teacher.temail }" placeholder="请输入邮箱..." data-validate="required:请输入邮箱..."/>
+          <input type="email" class="input" name="temail" value="${teacher.temail }" placeholder="请输入邮箱..." data-validate="required:请输入邮箱..."/>
           <div class="tips"></div>
         </div>
       </div>

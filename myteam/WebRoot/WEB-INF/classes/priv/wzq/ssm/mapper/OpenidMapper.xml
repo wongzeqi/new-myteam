@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="priv.wzq.ssm.mapper.OpenidMapper" >
+  <resultMap id="BaseResultMap" type="priv.wzq.ssm.po.Openid" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="open_id" property="openId" jdbcType="VARCHAR" />
+    <result column="role" property="role" jdbcType="INTEGER" />
+    <result column="schoolNumber" property="schoolnumber" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, open_id, role, schoolNumber
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="priv.wzq.ssm.po.OpenidExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from openid
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from openid
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from openid
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="priv.wzq.ssm.po.OpenidExample" >
+    delete from openid
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="priv.wzq.ssm.po.Openid" >
+    insert into openid (id, open_id, role, 
+      schoolNumber)
+    values (#{id,jdbcType=INTEGER}, #{openId,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, 
+      #{schoolnumber,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="priv.wzq.ssm.po.Openid" >
+    insert into openid
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="openId != null" >
+        open_id,
+      </if>
+      <if test="role != null" >
+        role,
+      </if>
+      <if test="schoolnumber != null" >
+        schoolNumber,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=INTEGER},
+      </if>
+      <if test="schoolnumber != null" >
+        #{schoolnumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="priv.wzq.ssm.po.OpenidExample" resultType="java.lang.Integer" >
+    select count(*) from openid
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update openid
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.openId != null" >
+        open_id = #{record.openId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.role != null" >
+        role = #{record.role,jdbcType=INTEGER},
+      </if>
+      <if test="record.schoolnumber != null" >
+        schoolNumber = #{record.schoolnumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update openid
+    set id = #{record.id,jdbcType=INTEGER},
+      open_id = #{record.openId,jdbcType=VARCHAR},
+      role = #{record.role,jdbcType=INTEGER},
+      schoolNumber = #{record.schoolnumber,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="priv.wzq.ssm.po.Openid" >
+    update openid
+    <set >
+      <if test="openId != null" >
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        role = #{role,jdbcType=INTEGER},
+      </if>
+      <if test="schoolnumber != null" >
+        schoolNumber = #{schoolnumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="priv.wzq.ssm.po.Openid" >
+    update openid
+    set open_id = #{openId,jdbcType=VARCHAR},
+      role = #{role,jdbcType=INTEGER},
+      schoolNumber = #{schoolnumber,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  <delete id="deleteByOpenid" parameterType="java.lang.String">
+      delete from openid where open_id =#{openid}
+  </delete>
+  
+  <select id="getRoleByOpenid" parameterType="java.lang.String" resultType="int">
+      select role from openid where open_id =#{openid}
+  </select>
+  
+  <update id="setRoleByOpenid" parameterType="priv.wzq.ssm.po.Openid">
+      update openid set role = #{role} where open_id =  #{openId}
+  </update>
+  
+  
+  <update id="setSchoolNumber" parameterType="priv.wzq.ssm.po.Openid">
+      update openid set schoolNumber = #{schoolnumber} ,role = #{role} where open_id = #{openId}
+  </update>
+  
+  
+  <update id="setRoleBySchoolNumber" parameterType="priv.wzq.ssm.po.Openid">
+      update openid set role = #{role} where schoolNumber =#{schoolnumber}
+  </update>
+  
+  <select id="getOpenidEneityByOpenid" resultType="priv.wzq.ssm.po.Openid" parameterType="java.lang.String">
+      select * from openid where open_id = #{openid}
+  </select>
+  
+  
+  <select id="getSchoolNumberByOpenid" parameterType="java.lang.String" resultType="java.lang.String">
+      select schoolNumber from openid where open_id=#{openid}
+  </select>
+  
+  <select id="getAdminInfo" resultType="priv.wzq.ssm.po.ExOpenid">
+  		SELECT 
+		  openid.schoolNumber,
+		  member.name,
+		  role 
+		FROM
+		  openid,
+		  member 
+		WHERE openid.schoolNumber = member.schoolNumber 
+		  AND role >= 2 
+  </select>
+  
+  
+</mapper>

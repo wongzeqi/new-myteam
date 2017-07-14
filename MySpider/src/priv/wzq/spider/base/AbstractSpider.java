@@ -80,6 +80,11 @@ public abstract class AbstractSpider<T> {
 		return as.get(0).attr("href");
 	}
 
+	protected static String getHref(Document doc, String selector) {
+		Elements as = doc.select(selector);
+		return as.get(5).attr("href");
+	}
+	
 	protected static String getAText(Document doc, String selector) {
 		Elements as = doc.select(selector);
 		if (as.size() == 1) {

@@ -17,6 +17,28 @@ public class ProjectWithBLOBs extends Project {
 
     private String schoolcondition;
 
+    private String changereason;
+
+    private String removereason;
+
+    private String changetmsg;
+
+    private String changeamsg;
+
+    private String changesmsg;
+
+    private String removetmsg;
+
+    private String removeamsg;
+
+    private String removesmsg;
+
+    private String teachercheckidea;
+
+    private String academycheckidea;
+
+    private String schoolcheckidea;
+
     public String getPintroduction() {
         return pintroduction;
     }
@@ -79,5 +101,93 @@ public class ProjectWithBLOBs extends Project {
 
     public void setSchoolcondition(String schoolcondition) {
         this.schoolcondition = schoolcondition == null ? null : schoolcondition.trim();
+    }
+
+    public String getChangereason() {
+        return changereason;
+    }
+
+    public void setChangereason(String changereason) {
+        this.changereason = changereason == null ? null : changereason.trim();
+    }
+
+    public String getRemovereason() {
+        return removereason;
+    }
+
+    public void setRemovereason(String removereason) {
+        this.removereason = removereason == null ? null : removereason.trim();
+    }
+
+    public String getChangetmsg() {
+        return changetmsg;
+    }
+
+    public void setChangetmsg(String changetmsg) {
+        this.changetmsg = changetmsg == null ? null : changetmsg.trim();
+    }
+
+    public String getChangeamsg() {
+        return changeamsg;
+    }
+
+    public void setChangeamsg(String changeamsg) {
+        this.changeamsg = changeamsg == null ? null : changeamsg.trim();
+    }
+
+    public String getChangesmsg() {
+        return changesmsg;
+    }
+
+    public void setChangesmsg(String changesmsg) {
+        this.changesmsg = changesmsg == null ? null : changesmsg.trim();
+    }
+
+    public String getRemovetmsg() {
+        return removetmsg;
+    }
+
+    public void setRemovetmsg(String removetmsg) {
+        this.removetmsg = removetmsg == null ? null : removetmsg.trim();
+    }
+
+    public String getRemoveamsg() {
+        return removeamsg;
+    }
+
+    public void setRemoveamsg(String removeamsg) {
+        this.removeamsg = removeamsg == null ? null : removeamsg.trim();
+    }
+
+    public String getRemovesmsg() {
+        return removesmsg;
+    }
+
+    public void setRemovesmsg(String removesmsg) {
+        this.removesmsg = removesmsg == null ? null : removesmsg.trim();
+    }
+
+    public String getTeachercheckidea() {
+        return teachercheckidea;
+    }
+
+    public void setTeachercheckidea(String teachercheckidea) {
+        this.teachercheckidea = teachercheckidea == null ? null : teachercheckidea.trim();
+    }
+
+    public String getAcademycheckidea() {
+        return academycheckidea;
+    }
+
+    public void setAcademycheckidea(String academycheckidea) {
+        this.academycheckidea = academycheckidea == null ? null : academycheckidea.trim();
+    }
+
+    public String getSchoolcheckidea() {
+        return schoolcheckidea;
+    }
+
+    public void setSchoolcheckidea(String schoolcheckidea) {
+        this.schoolcheckidea = schoolcheckidea == null ? null : schoolcheckidea.trim();
     }
 }

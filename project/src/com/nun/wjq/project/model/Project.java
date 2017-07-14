@@ -75,6 +75,20 @@ public class Project {
 
     private Integer isissue;
 
+    private Integer ischange;
+
+    private Integer isremove;
+
+    private Integer removestatus;
+
+    private Integer changestatus;
+
+    private String firstterm;
+
+    private String secondterm;
+
+    private String endterm;
+
     public Integer getPid() {
         return pid;
     }
@@ -369,5 +383,61 @@ public class Project {
 
     public void setIsissue(Integer isissue) {
         this.isissue = isissue;
+    }
+
+    public Integer getIschange() {
+        return ischange;
+    }
+
+    public void setIschange(Integer ischange) {
+        this.ischange = ischange;
+    }
+
+    public Integer getIsremove() {
+        return isremove;
+    }
+
+    public void setIsremove(Integer isremove) {
+        this.isremove = isremove;
+    }
+
+    public Integer getRemovestatus() {
+        return removestatus;
+    }
+
+    public void setRemovestatus(Integer removestatus) {
+        this.removestatus = removestatus;
+    }
+
+    public Integer getChangestatus() {
+        return changestatus;
+    }
+
+    public void setChangestatus(Integer changestatus) {
+        this.changestatus = changestatus;
+    }
+
+    public String getFirstterm() {
+        return firstterm;
+    }
+
+    public void setFirstterm(String firstterm) {
+        this.firstterm = firstterm == null ? null : firstterm.trim();
+    }
+
+    public String getSecondterm() {
+        return secondterm;
+    }
+
+    public void setSecondterm(String secondterm) {
+        this.secondterm = secondterm == null ? null : secondterm.trim();
+    }
+
+    public String getEndterm() {
+        return endterm;
+    }
+
+    public void setEndterm(String endterm) {
+        this.endterm = endterm == null ? null : endterm.trim();
     }
 }

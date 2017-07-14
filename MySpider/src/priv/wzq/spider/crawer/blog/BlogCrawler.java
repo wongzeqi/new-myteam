@@ -52,9 +52,16 @@ public class BlogCrawler extends AbstractSpider<Blog>{
 	
 	
 	public static void main(String[] args) throws Exception {
-		Document doc = getDoc("http://blog.csdn.net/?ref=toolbar_logo&page=2");
-		doc.setBaseUri("http://blog.csdn.net/yanmiao0715/article/details/73278169");
-		System.out.println(doc);
+		while(true){
+			Document doc = getDoc("https://www.baidu.com/s?wd=%E7%8E%8B%E5%98%89%E7%90%AA%2C%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2&pn=20&oq=%E7%8E%8B%E5%98%89%E7%90%AA%2C%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2&ie=utf-8&rsv_idx=1&rsv_pq=9dca8c5f00003837&rsv_t=3c3f8jtWkUPnKbIQTUD868JN%2BM%2FN5hxaNNaUq0pq7KtHxuzu1G0uWfWmueo");
+			doc.setBaseUri("https://www.baidu.com");
+			
+			String href =  getHref(doc, ".t a");
+			Document doc1 = getDoc(href);
+			
+			System.out.println(doc1);
+			Thread.sleep(5000) ;
+		}
 	}
 	
 	

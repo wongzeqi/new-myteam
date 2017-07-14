@@ -39,6 +39,13 @@
     <result column="tostatus" property="tostatus" jdbcType="INTEGER" />
     <result column="tmid" property="tmid" jdbcType="INTEGER" />
     <result column="isissue" property="isissue" jdbcType="INTEGER" />
+    <result column="ischange" property="ischange" jdbcType="INTEGER" />
+    <result column="isremove" property="isremove" jdbcType="INTEGER" />
+    <result column="removestatus" property="removestatus" jdbcType="INTEGER" />
+    <result column="changestatus" property="changestatus" jdbcType="INTEGER" />
+    <result column="firstterm" property="firstterm" jdbcType="VARCHAR" />
+    <result column="secondterm" property="secondterm" jdbcType="VARCHAR" />
+    <result column="endterm" property="endterm" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.nun.wjq.project.model.ProjectWithBLOBs" extends="BaseResultMap" >
     <result column="pintroduction" property="pintroduction" jdbcType="LONGVARCHAR" />
@@ -49,6 +56,17 @@
     <result column="ptarget" property="ptarget" jdbcType="LONGVARCHAR" />
     <result column="pprogress" property="pprogress" jdbcType="LONGVARCHAR" />
     <result column="schoolcondition" property="schoolcondition" jdbcType="LONGVARCHAR" />
+    <result column="changereason" property="changereason" jdbcType="LONGVARCHAR" />
+    <result column="removereason" property="removereason" jdbcType="LONGVARCHAR" />
+    <result column="changetmsg" property="changetmsg" jdbcType="LONGVARCHAR" />
+    <result column="changeamsg" property="changeamsg" jdbcType="LONGVARCHAR" />
+    <result column="changesmsg" property="changesmsg" jdbcType="LONGVARCHAR" />
+    <result column="removetmsg" property="removetmsg" jdbcType="LONGVARCHAR" />
+    <result column="removeamsg" property="removeamsg" jdbcType="LONGVARCHAR" />
+    <result column="removesmsg" property="removesmsg" jdbcType="LONGVARCHAR" />
+    <result column="teachercheckidea" property="teachercheckidea" jdbcType="LONGVARCHAR" />
+    <result column="academycheckidea" property="academycheckidea" jdbcType="LONGVARCHAR" />
+    <result column="schoolcheckidea" property="schoolcheckidea" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -112,10 +130,13 @@
     pid, sid, tid, theyear, pname, ptype, prank, begintime, endtime, technology, officecost, 
     officemark, materialcost, materialmark, bookcost, bookmark, postcost, postmark, phonecost, 
     phonemark, transportationcost, transportationmark, maintaincost, maintainmark, printcost, 
-    printmark, isteam, stu6, stu5, stu4, stu3, stu2, stu1, torank, tostatus, tmid, isissue
+    printmark, isteam, stu6, stu5, stu4, stu3, stu2, stu1, torank, tostatus, tmid, isissue, 
+    ischange, isremove, removestatus, changestatus, firstterm, secondterm, endterm
   </sql>
   <sql id="Blob_Column_List" >
-    pintroduction, pbackground, pcontent, pscheme, pcondition, ptarget, pprogress, schoolcondition
+    pintroduction, pbackground, pcontent, pscheme, pcondition, ptarget, pprogress, schoolcondition, 
+    changereason, removereason, changetmsg, changeamsg, changesmsg, removetmsg, removeamsg, 
+    removesmsg, teachercheckidea, academycheckidea, schoolcheckidea
   </sql>
   <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.nun.wjq.project.model.ProjectExample" >
     select
@@ -177,10 +198,16 @@
       printcost, printmark, isteam, 
       stu6, stu5, stu4, stu3, 
       stu2, stu1, torank, tostatus, 
-      tmid, isissue, pintroduction, 
-      pbackground, pcontent, pscheme, 
-      pcondition, ptarget, pprogress, 
-      schoolcondition)
+      tmid, isissue, ischange, 
+      isremove, removestatus, changestatus, 
+      firstterm, secondterm, endterm, 
+      pintroduction, pbackground, pcontent, 
+      pscheme, pcondition, ptarget, 
+      pprogress, schoolcondition, changereason, 
+      removereason, changetmsg, changeamsg, 
+      changesmsg, removetmsg, removeamsg, 
+      removesmsg, teachercheckidea, academycheckidea, 
+      schoolcheckidea)
     values (#{pid,jdbcType=INTEGER}, #{sid,jdbcType=INTEGER}, #{tid,jdbcType=INTEGER}, 
       #{theyear,jdbcType=INTEGER}, #{pname,jdbcType=VARCHAR}, #{ptype,jdbcType=CHAR}, 
       #{prank,jdbcType=CHAR}, #{begintime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, 
@@ -192,10 +219,16 @@
       #{printcost,jdbcType=DOUBLE}, #{printmark,jdbcType=VARCHAR}, #{isteam,jdbcType=INTEGER}, 
       #{stu6,jdbcType=VARCHAR}, #{stu5,jdbcType=VARCHAR}, #{stu4,jdbcType=VARCHAR}, #{stu3,jdbcType=VARCHAR}, 
       #{stu2,jdbcType=VARCHAR}, #{stu1,jdbcType=VARCHAR}, #{torank,jdbcType=CHAR}, #{tostatus,jdbcType=INTEGER}, 
-      #{tmid,jdbcType=INTEGER}, #{isissue,jdbcType=INTEGER}, #{pintroduction,jdbcType=LONGVARCHAR}, 
-      #{pbackground,jdbcType=LONGVARCHAR}, #{pcontent,jdbcType=LONGVARCHAR}, #{pscheme,jdbcType=LONGVARCHAR}, 
-      #{pcondition,jdbcType=LONGVARCHAR}, #{ptarget,jdbcType=LONGVARCHAR}, #{pprogress,jdbcType=LONGVARCHAR}, 
-      #{schoolcondition,jdbcType=LONGVARCHAR})
+      #{tmid,jdbcType=INTEGER}, #{isissue,jdbcType=INTEGER}, #{ischange,jdbcType=INTEGER}, 
+      #{isremove,jdbcType=INTEGER}, #{removestatus,jdbcType=INTEGER}, #{changestatus,jdbcType=INTEGER}, 
+      #{firstterm,jdbcType=VARCHAR}, #{secondterm,jdbcType=VARCHAR}, #{endterm,jdbcType=VARCHAR}, 
+      #{pintroduction,jdbcType=LONGVARCHAR}, #{pbackground,jdbcType=LONGVARCHAR}, #{pcontent,jdbcType=LONGVARCHAR}, 
+      #{pscheme,jdbcType=LONGVARCHAR}, #{pcondition,jdbcType=LONGVARCHAR}, #{ptarget,jdbcType=LONGVARCHAR}, 
+      #{pprogress,jdbcType=LONGVARCHAR}, #{schoolcondition,jdbcType=LONGVARCHAR}, #{changereason,jdbcType=LONGVARCHAR}, 
+      #{removereason,jdbcType=LONGVARCHAR}, #{changetmsg,jdbcType=LONGVARCHAR}, #{changeamsg,jdbcType=LONGVARCHAR}, 
+      #{changesmsg,jdbcType=LONGVARCHAR}, #{removetmsg,jdbcType=LONGVARCHAR}, #{removeamsg,jdbcType=LONGVARCHAR}, 
+      #{removesmsg,jdbcType=LONGVARCHAR}, #{teachercheckidea,jdbcType=LONGVARCHAR}, #{academycheckidea,jdbcType=LONGVARCHAR}, 
+      #{schoolcheckidea,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.nun.wjq.project.model.ProjectWithBLOBs" >
     insert into project
@@ -311,6 +344,27 @@
       <if test="isissue != null" >
         isissue,
       </if>
+      <if test="ischange != null" >
+        ischange,
+      </if>
+      <if test="isremove != null" >
+        isremove,
+      </if>
+      <if test="removestatus != null" >
+        removestatus,
+      </if>
+      <if test="changestatus != null" >
+        changestatus,
+      </if>
+      <if test="firstterm != null" >
+        firstterm,
+      </if>
+      <if test="secondterm != null" >
+        secondterm,
+      </if>
+      <if test="endterm != null" >
+        endterm,
+      </if>
       <if test="pintroduction != null" >
         pintroduction,
       </if>
@@ -334,6 +388,39 @@
       </if>
       <if test="schoolcondition != null" >
         schoolcondition,
+      </if>
+      <if test="changereason != null" >
+        changereason,
+      </if>
+      <if test="removereason != null" >
+        removereason,
+      </if>
+      <if test="changetmsg != null" >
+        changetmsg,
+      </if>
+      <if test="changeamsg != null" >
+        changeamsg,
+      </if>
+      <if test="changesmsg != null" >
+        changesmsg,
+      </if>
+      <if test="removetmsg != null" >
+        removetmsg,
+      </if>
+      <if test="removeamsg != null" >
+        removeamsg,
+      </if>
+      <if test="removesmsg != null" >
+        removesmsg,
+      </if>
+      <if test="teachercheckidea != null" >
+        teachercheckidea,
+      </if>
+      <if test="academycheckidea != null" >
+        academycheckidea,
+      </if>
+      <if test="schoolcheckidea != null" >
+        schoolcheckidea,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -448,6 +535,27 @@
       <if test="isissue != null" >
         #{isissue,jdbcType=INTEGER},
       </if>
+      <if test="ischange != null" >
+        #{ischange,jdbcType=INTEGER},
+      </if>
+      <if test="isremove != null" >
+        #{isremove,jdbcType=INTEGER},
+      </if>
+      <if test="removestatus != null" >
+        #{removestatus,jdbcType=INTEGER},
+      </if>
+      <if test="changestatus != null" >
+        #{changestatus,jdbcType=INTEGER},
+      </if>
+      <if test="firstterm != null" >
+        #{firstterm,jdbcType=VARCHAR},
+      </if>
+      <if test="secondterm != null" >
+        #{secondterm,jdbcType=VARCHAR},
+      </if>
+      <if test="endterm != null" >
+        #{endterm,jdbcType=VARCHAR},
+      </if>
       <if test="pintroduction != null" >
         #{pintroduction,jdbcType=LONGVARCHAR},
       </if>
@@ -471,6 +579,39 @@
       </if>
       <if test="schoolcondition != null" >
         #{schoolcondition,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="changereason != null" >
+        #{changereason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="removereason != null" >
+        #{removereason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="changetmsg != null" >
+        #{changetmsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="changeamsg != null" >
+        #{changeamsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="changesmsg != null" >
+        #{changesmsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="removetmsg != null" >
+        #{removetmsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="removeamsg != null" >
+        #{removeamsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="removesmsg != null" >
+        #{removesmsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="teachercheckidea != null" >
+        #{teachercheckidea,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="academycheckidea != null" >
+        #{academycheckidea,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="schoolcheckidea != null" >
+        #{schoolcheckidea,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -594,6 +735,27 @@
       <if test="record.isissue != null" >
         isissue = #{record.isissue,jdbcType=INTEGER},
       </if>
+      <if test="record.ischange != null" >
+        ischange = #{record.ischange,jdbcType=INTEGER},
+      </if>
+      <if test="record.isremove != null" >
+        isremove = #{record.isremove,jdbcType=INTEGER},
+      </if>
+      <if test="record.removestatus != null" >
+        removestatus = #{record.removestatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.changestatus != null" >
+        changestatus = #{record.changestatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.firstterm != null" >
+        firstterm = #{record.firstterm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secondterm != null" >
+        secondterm = #{record.secondterm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endterm != null" >
+        endterm = #{record.endterm,jdbcType=VARCHAR},
+      </if>
       <if test="record.pintroduction != null" >
         pintroduction = #{record.pintroduction,jdbcType=LONGVARCHAR},
       </if>
@@ -617,6 +779,39 @@
       </if>
       <if test="record.schoolcondition != null" >
         schoolcondition = #{record.schoolcondition,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.changereason != null" >
+        changereason = #{record.changereason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.removereason != null" >
+        removereason = #{record.removereason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.changetmsg != null" >
+        changetmsg = #{record.changetmsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.changeamsg != null" >
+        changeamsg = #{record.changeamsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.changesmsg != null" >
+        changesmsg = #{record.changesmsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.removetmsg != null" >
+        removetmsg = #{record.removetmsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.removeamsg != null" >
+        removeamsg = #{record.removeamsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.removesmsg != null" >
+        removesmsg = #{record.removesmsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.teachercheckidea != null" >
+        teachercheckidea = #{record.teachercheckidea,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.academycheckidea != null" >
+        academycheckidea = #{record.academycheckidea,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.schoolcheckidea != null" >
+        schoolcheckidea = #{record.schoolcheckidea,jdbcType=LONGVARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -662,6 +857,13 @@
       tostatus = #{record.tostatus,jdbcType=INTEGER},
       tmid = #{record.tmid,jdbcType=INTEGER},
       isissue = #{record.isissue,jdbcType=INTEGER},
+      ischange = #{record.ischange,jdbcType=INTEGER},
+      isremove = #{record.isremove,jdbcType=INTEGER},
+      removestatus = #{record.removestatus,jdbcType=INTEGER},
+      changestatus = #{record.changestatus,jdbcType=INTEGER},
+      firstterm = #{record.firstterm,jdbcType=VARCHAR},
+      secondterm = #{record.secondterm,jdbcType=VARCHAR},
+      endterm = #{record.endterm,jdbcType=VARCHAR},
       pintroduction = #{record.pintroduction,jdbcType=LONGVARCHAR},
       pbackground = #{record.pbackground,jdbcType=LONGVARCHAR},
       pcontent = #{record.pcontent,jdbcType=LONGVARCHAR},
@@ -669,7 +871,18 @@
       pcondition = #{record.pcondition,jdbcType=LONGVARCHAR},
       ptarget = #{record.ptarget,jdbcType=LONGVARCHAR},
       pprogress = #{record.pprogress,jdbcType=LONGVARCHAR},
-      schoolcondition = #{record.schoolcondition,jdbcType=LONGVARCHAR}
+      schoolcondition = #{record.schoolcondition,jdbcType=LONGVARCHAR},
+      changereason = #{record.changereason,jdbcType=LONGVARCHAR},
+      removereason = #{record.removereason,jdbcType=LONGVARCHAR},
+      changetmsg = #{record.changetmsg,jdbcType=LONGVARCHAR},
+      changeamsg = #{record.changeamsg,jdbcType=LONGVARCHAR},
+      changesmsg = #{record.changesmsg,jdbcType=LONGVARCHAR},
+      removetmsg = #{record.removetmsg,jdbcType=LONGVARCHAR},
+      removeamsg = #{record.removeamsg,jdbcType=LONGVARCHAR},
+      removesmsg = #{record.removesmsg,jdbcType=LONGVARCHAR},
+      teachercheckidea = #{record.teachercheckidea,jdbcType=LONGVARCHAR},
+      academycheckidea = #{record.academycheckidea,jdbcType=LONGVARCHAR},
+      schoolcheckidea = #{record.schoolcheckidea,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -712,7 +925,14 @@
       torank = #{record.torank,jdbcType=CHAR},
       tostatus = #{record.tostatus,jdbcType=INTEGER},
       tmid = #{record.tmid,jdbcType=INTEGER},
-      isissue = #{record.isissue,jdbcType=INTEGER}
+      isissue = #{record.isissue,jdbcType=INTEGER},
+      ischange = #{record.ischange,jdbcType=INTEGER},
+      isremove = #{record.isremove,jdbcType=INTEGER},
+      removestatus = #{record.removestatus,jdbcType=INTEGER},
+      changestatus = #{record.changestatus,jdbcType=INTEGER},
+      firstterm = #{record.firstterm,jdbcType=VARCHAR},
+      secondterm = #{record.secondterm,jdbcType=VARCHAR},
+      endterm = #{record.endterm,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -828,6 +1048,27 @@
       <if test="isissue != null" >
         isissue = #{isissue,jdbcType=INTEGER},
       </if>
+      <if test="ischange != null" >
+        ischange = #{ischange,jdbcType=INTEGER},
+      </if>
+      <if test="isremove != null" >
+        isremove = #{isremove,jdbcType=INTEGER},
+      </if>
+      <if test="removestatus != null" >
+        removestatus = #{removestatus,jdbcType=INTEGER},
+      </if>
+      <if test="changestatus != null" >
+        changestatus = #{changestatus,jdbcType=INTEGER},
+      </if>
+      <if test="firstterm != null" >
+        firstterm = #{firstterm,jdbcType=VARCHAR},
+      </if>
+      <if test="secondterm != null" >
+        secondterm = #{secondterm,jdbcType=VARCHAR},
+      </if>
+      <if test="endterm != null" >
+        endterm = #{endterm,jdbcType=VARCHAR},
+      </if>
       <if test="pintroduction != null" >
         pintroduction = #{pintroduction,jdbcType=LONGVARCHAR},
       </if>
@@ -851,6 +1092,39 @@
       </if>
       <if test="schoolcondition != null" >
         schoolcondition = #{schoolcondition,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="changereason != null" >
+        changereason = #{changereason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="removereason != null" >
+        removereason = #{removereason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="changetmsg != null" >
+        changetmsg = #{changetmsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="changeamsg != null" >
+        changeamsg = #{changeamsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="changesmsg != null" >
+        changesmsg = #{changesmsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="removetmsg != null" >
+        removetmsg = #{removetmsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="removeamsg != null" >
+        removeamsg = #{removeamsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="removesmsg != null" >
+        removesmsg = #{removesmsg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="teachercheckidea != null" >
+        teachercheckidea = #{teachercheckidea,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="academycheckidea != null" >
+        academycheckidea = #{academycheckidea,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="schoolcheckidea != null" >
+        schoolcheckidea = #{schoolcheckidea,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where pid = #{pid,jdbcType=INTEGER}
@@ -893,6 +1167,13 @@
       tostatus = #{tostatus,jdbcType=INTEGER},
       tmid = #{tmid,jdbcType=INTEGER},
       isissue = #{isissue,jdbcType=INTEGER},
+      ischange = #{ischange,jdbcType=INTEGER},
+      isremove = #{isremove,jdbcType=INTEGER},
+      removestatus = #{removestatus,jdbcType=INTEGER},
+      changestatus = #{changestatus,jdbcType=INTEGER},
+      firstterm = #{firstterm,jdbcType=VARCHAR},
+      secondterm = #{secondterm,jdbcType=VARCHAR},
+      endterm = #{endterm,jdbcType=VARCHAR},
       pintroduction = #{pintroduction,jdbcType=LONGVARCHAR},
       pbackground = #{pbackground,jdbcType=LONGVARCHAR},
       pcontent = #{pcontent,jdbcType=LONGVARCHAR},
@@ -900,7 +1181,18 @@
       pcondition = #{pcondition,jdbcType=LONGVARCHAR},
       ptarget = #{ptarget,jdbcType=LONGVARCHAR},
       pprogress = #{pprogress,jdbcType=LONGVARCHAR},
-      schoolcondition = #{schoolcondition,jdbcType=LONGVARCHAR}
+      schoolcondition = #{schoolcondition,jdbcType=LONGVARCHAR},
+      changereason = #{changereason,jdbcType=LONGVARCHAR},
+      removereason = #{removereason,jdbcType=LONGVARCHAR},
+      changetmsg = #{changetmsg,jdbcType=LONGVARCHAR},
+      changeamsg = #{changeamsg,jdbcType=LONGVARCHAR},
+      changesmsg = #{changesmsg,jdbcType=LONGVARCHAR},
+      removetmsg = #{removetmsg,jdbcType=LONGVARCHAR},
+      removeamsg = #{removeamsg,jdbcType=LONGVARCHAR},
+      removesmsg = #{removesmsg,jdbcType=LONGVARCHAR},
+      teachercheckidea = #{teachercheckidea,jdbcType=LONGVARCHAR},
+      academycheckidea = #{academycheckidea,jdbcType=LONGVARCHAR},
+      schoolcheckidea = #{schoolcheckidea,jdbcType=LONGVARCHAR}
     where pid = #{pid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.nun.wjq.project.model.Project" >
@@ -940,11 +1232,18 @@
       torank = #{torank,jdbcType=CHAR},
       tostatus = #{tostatus,jdbcType=INTEGER},
       tmid = #{tmid,jdbcType=INTEGER},
-      isissue = #{isissue,jdbcType=INTEGER}
+      isissue = #{isissue,jdbcType=INTEGER},
+      ischange = #{ischange,jdbcType=INTEGER},
+      isremove = #{isremove,jdbcType=INTEGER},
+      removestatus = #{removestatus,jdbcType=INTEGER},
+      changestatus = #{changestatus,jdbcType=INTEGER},
+      firstterm = #{firstterm,jdbcType=VARCHAR},
+      secondterm = #{secondterm,jdbcType=VARCHAR},
+      endterm = #{endterm,jdbcType=VARCHAR}
     where pid = #{pid,jdbcType=INTEGER}
   </update>
   
-  <select id="selectBySidOrStu" parameterType="com.nun.wjq.project.model.Student" resultType="com.nun.wjq.project.result.Pst">
+    <select id="selectBySidOrStu" parameterType="com.nun.wjq.project.model.Student" resultType="com.nun.wjq.project.result.Pst">
   	SELECT 
 	  `project`.* ,student.*,teacher.*
 	FROM
@@ -961,8 +1260,52 @@
 	  order by theyear desc
   </select>
   <select id="selectBySidAndPrank" parameterType="com.nun.wjq.project.model.Project" resultType="com.nun.wjq.project.model.Project">
-  	select * from project where sid=#{sid} and (prank=#{prank} or prank=#{officemark})
+  	select * from project where sid=#{sid} and (prank=#{prank} or prank=#{officemark}) and isissue = 1 and tostatus = 3
   </select>
   
+  <select id="selectProjectBySid" parameterType="com.nun.wjq.project.model.Project" resultType="com.nun.wjq.project.model.Project">
+  	select * from project where sid=#{sid} and isissue = 1 and tostatus = 3
+  </select>
   
+
+  <!-- //根据老师的id查询他所指导的项目 
+  	1.这个人提出撤项
+  -->
+  <select id="selectProjectByTid" resultType="com.nun.wjq.project.result.Pst" parameterType="com.nun.wjq.project.model.Project">
+  	select 
+	  project.*,
+	  student.*,
+	  teacher.* 
+  	 from  
+  	  project,
+	  student,
+	  teacher
+    <where>
+      teacher.tid=#{tid}
+      <if test="ischange != null" >
+        and ischange = #{ischange}
+      </if>
+      <if test="changestatus != null" >
+        and changestatus = #{changestatus}
+      </if>
+      <if test="isremove != null" >
+        and isremove = #{isremove}
+      </if>
+      <if test="removestatus != null" >
+        and removestatus = #{removestatus}
+      </if>
+       <if test="isissue != null" >
+        and isissue = #{isissue}
+      </if>
+      <if test="isteam != null" >
+        and isteam = #{isteam}
+      </if>
+      <if test="tostatus != null" >
+        and tostatus = #{tostatus}
+      </if>
+      AND project.`tid` = teacher.`tid`
+ 	 AND student.`sid` = project.`sid`
+    </where>   
+  </select>
+  	
 </mapper>

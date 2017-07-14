@@ -25,7 +25,7 @@ String mypath = basePath+"project/";
 	<script>
 		var editor;
 		KindEditor.ready(function(K) {
-			editor = K.create('textarea[name="content"]', {
+			editor = K.create('textarea[name="removereason"]', {
 				allowFileManager : true
 			});
 			K('input[name=getHtml]').click(function(e) {
@@ -68,8 +68,10 @@ function del(id,mid){
 </script>
 <div  id="add">
   <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>项目基本信息</strong></div>
+  
+  <h3 style="color:red">${message }</h3>
   <div class="body-content">
-    <form method="post" class="form-x" action="">    
+    <form method="post" class="form-x" action="<%=basePath %>studentgoto/submitremoveproject.action">    
       <div class="form-group">
         <div class="label">
           <label>项目名称：</label>
@@ -94,31 +96,9 @@ function del(id,mid){
       
       
       
-      <div class="form-group">
-        <div class="label">
-          <label>原级别：</label>
-        </div>
-        <div class="field">
-        	<select style="padding:5px 15px; border:1px solid #ddd;">
-			      <option id="prank" >
-			      	<c:if test="${projectList[0].prank eq 'c'}">校级(团队)</c:if>
-			      	<c:if test="${projectList[0].prank eq 'd'}">校级</c:if>
-			      </option>
-    		</select>
-        </div>
-      </div>
+     
       
-      <div class="form-group">
-        <div class="label">
-          <label>变更级别：</label>
-        </div>
-        <div class="field">
-        	<select style="padding:5px 15px; name="prank" border:1px solid #ddd;">
-	          <option value="a">国家级</option>
-	    	  <option value="b">区级</option>
-    		</select>
-        </div>
-      </div>
+     
       
       
      <div class="panel-head" style="margin-bottom: 20px;"><strong>撤项原因</strong></div>
@@ -127,7 +107,7 @@ function del(id,mid){
           <label>一、原因（理由）：</label>
         </div>
         <div class="field">
-          <textarea name="content" style="width:800px;height:200px;">KindEditor</textarea>
+          <textarea name="removereason" style="width:800px;height:200px;"></textarea>
           <div class="tips"></div>
         </div>
       </div>

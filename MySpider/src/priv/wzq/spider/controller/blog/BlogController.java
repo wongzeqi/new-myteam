@@ -32,13 +32,13 @@ public class BlogController {
 	@RequestMapping("/getBlogs")
 	public String getBlogs() throws Exception{
 		//http://blog.csdn.net/mobile/newarticle.html?&page=2
-		String url = "http://blog.csdn.net/code/newarticle.html?&page=";
-		for(int i=140;i<=255;i++){
+		String url = "http://blog.csdn.net/cloud/newarticle.html";
+		for(int i=2;i<=255;i++){
 			String url2 = url +i;
 			List<Blog> list = BlogCrawler.getList(url2);
 			
 			for(Blog b :list ){
-				b.setBlogSort("编程语言");
+				b.setBlogSort("云计算");
 				b.setWebId(2);
 				if(!b.getBlogContent().trim().equals("")){
 					try{
@@ -70,7 +70,9 @@ public class BlogController {
 		}
 		ModelAndView m = new ModelAndView();
 		List<Blog> blogs = blogMapper.listAllBlogs(blogVo);
+		
 		int totalItemCount = blogMapper.getAllBlogsCount(blogVo);
+		
 		m.addObject("pageCount", blogVo.getPage().getPageCount());
 		if(totalItemCount%blogVo.getPage().getItemCount()==0){
 			m.addObject("totalPage", totalItemCount/blogVo.getPage().getItemCount());

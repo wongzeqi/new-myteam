@@ -1,14 +1,14 @@
 package com.nun.wjq.project.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.nun.wjq.project.model.Project;
 import com.nun.wjq.project.model.ProjectExample;
 import com.nun.wjq.project.model.ProjectWithBLOBs;
 import com.nun.wjq.project.model.Student;
 import com.nun.wjq.project.result.Pst;
-
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
 
 public interface ProjectMapper {
     int countByExample(ProjectExample example);
@@ -38,8 +38,15 @@ public interface ProjectMapper {
     int updateByPrimaryKeyWithBLOBs(ProjectWithBLOBs record);
 
     int updateByPrimaryKey(Project record);
-
+    
 	List<Pst> selectBySidOrStu(Student s);
 
 	List<Project> selectBySidAndPrank(Project p);
+
+	List<Project> selectProjectBySid(Project p);
+	//根据老师查询他所指导的项目(条件查询)
+	List<Pst> selectProjectByTid(Project p);
+
+	
+    
 }

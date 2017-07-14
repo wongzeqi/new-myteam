@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="priv.wzq.ssm.mapper.QjitemMapper" >
+  <resultMap id="BaseResultMap" type="priv.wzq.ssm.po.Qjitem" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="qjtype" property="qjtype" jdbcType="VARCHAR" />
+    <result column="qjweek" property="qjweek" jdbcType="VARCHAR" />
+    <result column="m_id" property="mId" jdbcType="INTEGER" />
+    <result column="reason" property="reason" jdbcType="VARCHAR" />
+    <result column="qjtime" property="qjtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, qjtype, qjweek, m_id, reason, qjtime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="priv.wzq.ssm.po.QjitemExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from qjitem
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from qjitem
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from qjitem
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="priv.wzq.ssm.po.QjitemExample" >
+    delete from qjitem
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="priv.wzq.ssm.po.Qjitem" >
+    insert into qjitem (id, qjtype, qjweek, 
+      m_id, reason, qjtime
+      )
+    values (#{id,jdbcType=INTEGER}, #{qjtype,jdbcType=VARCHAR}, #{qjweek,jdbcType=VARCHAR}, 
+      #{mId,jdbcType=INTEGER}, #{reason,jdbcType=VARCHAR}, #{qjtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="priv.wzq.ssm.po.Qjitem" >
+    insert into qjitem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="qjtype != null" >
+        qjtype,
+      </if>
+      <if test="qjweek != null" >
+        qjweek,
+      </if>
+      <if test="mId != null" >
+        m_id,
+      </if>
+      <if test="reason != null" >
+        reason,
+      </if>
+      <if test="qjtime != null" >
+        qjtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="qjtype != null" >
+        #{qjtype,jdbcType=VARCHAR},
+      </if>
+      <if test="qjweek != null" >
+        #{qjweek,jdbcType=VARCHAR},
+      </if>
+      <if test="mId != null" >
+        #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="qjtime != null" >
+        #{qjtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="priv.wzq.ssm.po.QjitemExample" resultType="java.lang.Integer" >
+    select count(*) from qjitem
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update qjitem
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.qjtype != null" >
+        qjtype = #{record.qjtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qjweek != null" >
+        qjweek = #{record.qjweek,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mId != null" >
+        m_id = #{record.mId,jdbcType=INTEGER},
+      </if>
+      <if test="record.reason != null" >
+        reason = #{record.reason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qjtime != null" >
+        qjtime = #{record.qjtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update qjitem
+    set id = #{record.id,jdbcType=INTEGER},
+      qjtype = #{record.qjtype,jdbcType=VARCHAR},
+      qjweek = #{record.qjweek,jdbcType=VARCHAR},
+      m_id = #{record.mId,jdbcType=INTEGER},
+      reason = #{record.reason,jdbcType=VARCHAR},
+      qjtime = #{record.qjtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="priv.wzq.ssm.po.Qjitem" >
+    update qjitem
+    <set >
+      <if test="qjtype != null" >
+        qjtype = #{qjtype,jdbcType=VARCHAR},
+      </if>
+      <if test="qjweek != null" >
+        qjweek = #{qjweek,jdbcType=VARCHAR},
+      </if>
+      <if test="mId != null" >
+        m_id = #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null" >
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="qjtime != null" >
+        qjtime = #{qjtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="priv.wzq.ssm.po.Qjitem" >
+    update qjitem
+    set qjtype = #{qjtype,jdbcType=VARCHAR},
+      qjweek = #{qjweek,jdbcType=VARCHAR},
+      m_id = #{mId,jdbcType=INTEGER},
+      reason = #{reason,jdbcType=VARCHAR},
+      qjtime = #{qjtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getQjitemsAndSchoolNumberName" resultType="priv.wzq.ssm.po.QjitemsCostom">
+      SELECT 
+	  member.`name`,
+	  member.`schoolNumber`,
+	  qjitem.* 
+	FROM
+	  member,
+	  qjitem 
+	WHERE qjitem.`m_id` = member.id 
+  </select>
+  	
+  <select id="getCountByType" parameterType="priv.wzq.ssm.po.QjitemsCostom" resultType="int">
+     SELECT 
+	  COUNT(*) 
+	 FROM
+	  qjitem 
+	 WHERE qjitem.m_id = 
+	  (SELECT 
+	    member.id 
+	  FROM
+	    member 
+	  WHERE member.`schoolNumber` = #{schoolnumber}) 
+	  AND qjitem.`qjtype` = #{qjtype} ;
+  </select>
+  
+  
+  <select id="getAllQjitemsBySchoolNumber" parameterType="java.lang.String" resultType="priv.wzq.ssm.po.QjitemsCostom">
+    SELECT 
+	  qjitem.*,
+	  member.`schoolNumber`,
+	  member.`name` 
+	FROM
+	  qjitem,
+	  member 
+	WHERE member.`id` = qjitem.`m_id` 
+	  AND member.`schoolNumber` = #{schoolnumber} 
+  </select>
+  
+   <select id="getAllQjitemsCoustomByType" parameterType="java.lang.String" resultType="priv.wzq.ssm.po.QjitemsCostom">
+      SELECT 
+	  qjitem.*,
+	  member.`schoolNumber`,
+	  member.`name` 
+	FROM
+	  qjitem,
+	  member 
+	WHERE member.`id` = qjitem.`m_id` 
+	  AND qjitem.qjtype = #{param} 
+  </select>
+   <select id="getQjTimesByType" resultType="int" parameterType="priv.wzq.ssm.po.ExOpenid">
+  	SELECT     
+	  COUNT(qjitem.`id`) 
+	FROM
+	  qjitem,
+	  openid,
+	  member 
+	WHERE open_id = #{openid}
+	  AND member.schoolNumber = openid.`schoolNumber` AND qjitem.`m_id` = member.`id`AND qjitem.qjtype=#{qjtype} ;
+  </select>
+  <select id="getQjTimes" resultType="int" parameterType="priv.wzq.ssm.po.ExOpenid">
+  	SELECT 
+ 	 COUNT(qjitem.`id`) 
+	FROM
+	  qjitem,
+	  openid,
+	  member 
+	WHERE open_id = #{openid}
+	  AND member.schoolNumber = openid.`schoolNumber` AND qjitem.`m_id` = member.`id` ;
+	  	
+  </select>
+ <select id="getQjTimesBySchoolNumber" resultType="int" parameterType="priv.wzq.ssm.po.ExOpenid">
+  	SELECT 
+	  COUNT(qjitem.`id`) 
+	FROM
+	  qjitem,
+	  member 
+	WHERE member.`schoolNumber` = #{schoolnumber} 
+	  AND qjitem.`m_id` = member.`id` 
+  </select>
+  
+  
+</mapper>

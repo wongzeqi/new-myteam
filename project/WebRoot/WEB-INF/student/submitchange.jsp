@@ -25,7 +25,7 @@ String mypath = basePath+"project/";
 	<script>
 		var editor;
 		KindEditor.ready(function(K) {
-			editor = K.create('textarea[name="content"]', {
+			editor = K.create('textarea[name="changereason"]', {
 				allowFileManager : true
 			});
 			K('input[name=getHtml]').click(function(e) {
@@ -69,7 +69,7 @@ function del(id,mid){
 <div  id="add">
   <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>项目基本信息</strong></div>
   <div class="body-content">
-    <form method="post" class="form-x" action="">    
+    <form method="post" class="form-x" action="<%=basePath %>studentgoto/submitchangeproject.action">    
       <div class="form-group">
         <div class="label">
           <label>项目名称：</label>
@@ -127,7 +127,7 @@ function del(id,mid){
           <label>一、原因（理由）：</label>
         </div>
         <div class="field">
-          <textarea name="content" style="width:800px;height:200px;">KindEditor</textarea>
+          <textarea name="changereason" style="width:800px;height:200px;"></textarea>
           <div class="tips"></div>
         </div>
       </div>

@@ -62,18 +62,43 @@ String mypath = basePath+"project/";
           	</td>
           
           <td>
-           <c:if test="${project.isissue eq 1 }">等待审核</c:if>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq 0}">指导老师审核中</c:if>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq -1}">指导老师未通过</c:if>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq 1}">学院审核中</c:if>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq -2}">学院未通过</c:if>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq 2}">学校审核中</c:if>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq -3}">学校未通过</c:if>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq 3}">审核通过</c:if>
            <c:if test="${project.isissue eq 0 }">未提交</c:if>
           </td>
           
          
-          <c:if test="${project.isissue eq 0}">
-          	<td><div class="button-group"> <a class="button border-blue" href="javascript:void(0)" onclick=""><span class="icon-info"></span>提交申请</a><a class="button border-red" href="javascript:void(0)" onclick="return del(1)"><span class="icon"></span>删除</a></div></td>
-         </c:if>
-          <c:if test="${project.isissue eq 1}">
-          	<td><div class="button-group"> <a class="button border-blue" href="javascript:void(0)" onclick=""><span class="icon-info"></span>查看详情</a></div>
-          </c:if>
-          
+         
+	          <c:if test="${project.isissue eq 0 and project.sid eq student.sid}">
+	          	<td>
+		          	<div class="button-group"> 
+			          	<a class="button border-blue" href="<%=basePath %>studentgoto/getProjectInfoById.action?pid=${project.pid}" onclick=""><span class="icon-info"></span>修改</a>
+			          	<a class="button border-blue" href="" onclick=""><span class="icon-info"></span>提交</a>
+			          	<a class="button border-red" href="<%=basePath %>studentgoto/deleteProjectById.action?pid=${project.pid}" onclick=""><span class="icon"></span>删除</a>
+		          	</div>
+	          	</td>
+	         </c:if>
+	          <c:if test="${project.isissue eq 1 and project.sid eq student.sid}">
+	          	<td>
+		          	<div class="button-group">
+		         	 	<a class="button border-blue" href="<%=basePath %>studentgoto/getProjectInfoById.action?pid=${project.pid}" onclick=""><span class="icon-info"></span>详情</a>
+		          	</div>
+	          	</td>
+	          </c:if>
+        
+	          <c:if test="${project.sid ne student.sid}">
+	          	<td>
+	          	<button class="button border-green disabled" href="#" onclick=""><span class="icon"></span>非负责人无法操作</button>
+	          	</td>
+	          </c:if>
+         
+         
+         
         </tr>
        </c:forEach> 
     </table>
