@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -152,10 +153,10 @@ public class StudentController {
 			studentService.updateStudentInfoById(s);
 			session.setAttribute("student", s);
 			m.addObject("message", "密码修改成功！");
-			m.setViewName("/WEB-INF/teacher/pass.jsp");
+			m.setViewName("/WEB-INF/student/pass.jsp");
 		}else{
 			m.addObject("message", "两次密码不一致，或者当前密码错误！");
-			m.setViewName("/WEB-INF/teacher/pass.jsp");
+			m.setViewName("/WEB-INF/student/pass.jsp");
 		}
 		return m;
 	}
@@ -167,7 +168,7 @@ public class StudentController {
 	 * @param projectWithBLOBs
 	 * @return
 	 */
-	@RequestMapping("/applyprojectsubmit.action")
+	@RequestMapping(value="/applyprojectsubmit.action",method=RequestMethod.POST)
 	public ModelAndView applyproject(HttpSession session,String[] content,ProjectWithBLOBs projectWithBLOBs){
 		ModelAndView m = new ModelAndView();
 		Student s = (Student)session.getAttribute("student");
@@ -210,8 +211,9 @@ public class StudentController {
 	 * @param projectWithBLOBs
 	 * @return
 	 */
-	@RequestMapping("/modifyprojectsubmit.action")
+	@RequestMapping(value="/modifyprojectsubmit.action",method=RequestMethod.POST)
 	public ModelAndView modifyproject(HttpSession session,String[] content,ProjectWithBLOBs projectWithBLOBs){
+		
 		ModelAndView m = new ModelAndView();
 		Student s = (Student)session.getAttribute("student");
 		//设置项目简介
@@ -320,6 +322,24 @@ public class StudentController {
 		return m;
 	}
 	
+	
+	/**
+	 * 将暂存的信息进行提交
+	 * @param project
+	 * @return
+	 */
+	@RequestMapping("/submitproject.action")
+	public ModelAndView submitproject(ProjectWithBLOBs project){
+		ModelAndView m = new ModelAndView();
+		
+		project.setIsissue(1);
+		project.setTostatus(0);
+		
+		projectService.updateProjectInfoById(project);
+		m.addObject("message","申请项目已经提交，请耐心等待审核！");
+		m.setViewName("/WEB-INF/tips.jsp");
+		return m;
+	}
 	//----------------------------------------json------------------------------------------------//
 	@RequestMapping("/getName.action")
 	public @ResponseBody Student getTeacherByTnumber(String snumber){

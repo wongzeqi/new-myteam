@@ -109,12 +109,9 @@ String mypath = basePath+"project/";
  <div class="panel-head" style="margin-bottom: 20px;"><strong><span class="icon-pencil-square-o"></span>负责人基本信息</strong></div>
 	<h4 style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;请仔细检查你的基本信息，后果自负！</h4>
   	<p>&nbsp;&nbsp;&nbsp;&nbsp;负责人姓名 ： ${student.sname} 负责人学号：${student.snumber }</p>
-  <c:if test="${empty student.nation or empty student.academy or empty student.major or student.clazz eq 0 or empty student.phone or empty student.email}">
-  	<h3 style="color:red">请将信息完善后进行项目申请，且确保基本信息准确无误！</h3>
-  </c:if>
-  <c:if test="${!empty student.nation and !empty student.academy and !empty student.major and  !empty student.phone and !empty student.email}">
+  
   <div class="body-content">
-    <form method="post" class="form-x" action="<%= basePath%>studentgoto/applyprojectsubmit.action">
+    <form method="post" class="form-x" action="<%= basePath%>studentgoto/modifyprojectsubmit.action">
     	
       <div class="panel-head" style="margin-bottom: 20px;"><strong></span>选择指导老师</strong></div>
       <div class="form-group">
@@ -124,7 +121,8 @@ String mypath = basePath+"project/";
         <div class="field">
            <input id="tnmuber" type="text" class="input w50"   value="${teacher.tnumber }" placeholder="请输入指导老师教工号..." data-validate="required:请输入指导老师教工号..."/>
            <input id="tname" class="input w50" value="${teacher.tname }" style="margin-left: 50px;" placeholder="老师姓名">
-           <input id="tid"  type="hidden" name="tid"> 
+           <input id="tid"  type="hidden" name="tid" value="${teacher.tid }">
+           <input id="pid"  type="hidden" name="pid" value="${project.pid }">  
           <div class="tips"></div>
         </div>
       </div>
@@ -197,19 +195,22 @@ String mypath = basePath+"project/";
         </div>
         <div class="field">
         	<select style="padding:5px 15px; border:1px solid #ddd;" name="prank">
-        		<c:if test="${project.prank }=='a'">
-        			<option value="a">国家级项目</option>
+        		<c:if test="${project.prank=='a' }">
+        			<option value="a">(原)国家级项目</option>
         		</c:if>
-        		<c:if test="${project.prank }=='b'">
-        			<option value="b">区级项目</option>
+        		<c:if test="${project.prank =='b'}">
+        			<option value="b">(原)区级项目</option>
         		</c:if>
-        		<c:if test="${project.prank }=='c'">
-        			<option value="c">校级项目(团队)</option>
+        		<c:if test="${project.prank =='c'}">
+        			<option value="c">(原)校级项目(团队)</option>
         		</c:if>
-        		<c:if test="${project.prank }=='d'">
-        			<option value="d">校级项目</option>
+        		<c:if test="${project.prank eq 'd'}">
+        			<option value="d">(原)校级项目</option>
         		</c:if>
-        		
+        		<option value="a">国家级项目</option>
+        		<option value="b">区级项目</option>
+        		<option value="c">校级项目(团队)</option>
+        		<option value="d">校级项目</option>
         	</select>
         </div>
       </div>
@@ -218,7 +219,7 @@ String mypath = basePath+"project/";
           <label>开始日期：</label>
         </div>
         <div class="field">
-          <input id="txtBeginDate" type="text" class="input w50" name="begintime" value="" placeholder="请填写项目开始日期..." data-validate="required:请填写项目开始日期.." />
+          <input id="txtBeginDate" type="text" class="input w50" name="begintime" value="${project.begintime }" placeholder="请填写项目开始日期..." data-validate="required:请填写项目开始日期.." />
           <div class="tips"></div>
         </div>
       </div>
@@ -227,7 +228,7 @@ String mypath = basePath+"project/";
           <label>结束日期：</label>
         </div>
         <div class="field">
-           <input id="txtEndDate" type="text" class="input w50" name="endtime" value=""  placeholder="请填写项目结束日期..." data-validate="required:请填写项目结束日期..."/>
+           <input id="txtEndDate" type="text" class="input w50" name="endtime" value="${project.endtime }"  placeholder="请填写项目结束日期..." data-validate="required:请填写项目结束日期..."/>
           <div class="tips"></div>
         </div>
       </div>
@@ -406,12 +407,14 @@ String mypath = basePath+"project/";
         <div class="label">
           <label></label>
         </div>
-        <div class="field">
-        </div>
+        <c:if test="${project.isissue eq 0 }">
+	        <div class="field">
+	        	<button class="button bg-main icon-check-square-o" type="submit">修改</button>
+	        </div>
+        </c:if>
       </div>
     </form>
   </div>
-</c:if>
 </div>
 <script type="text/javascript">
 	$("#tnmuber").keyup(function(event){ 

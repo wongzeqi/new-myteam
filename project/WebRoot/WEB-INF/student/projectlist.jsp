@@ -62,13 +62,15 @@ String mypath = basePath+"project/";
           	</td>
           
           <td>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq 0}">指导老师审核中</c:if>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq -1}">指导老师未通过</c:if>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq 1}">学院审核中</c:if>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq -2}">学院未通过</c:if>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq 2}">学校审核中</c:if>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq 0 and project.prank ne 'c'}">指导老师审核中</c:if>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq -1 and project.prank ne 'c'}">指导老师未通过</c:if>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq 1 and project.prank ne 'c'}">学院审核中</c:if>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq -2 and project.prank ne 'c'}">学院未通过</c:if>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq 2 and project.prank ne 'c'}">学校审核中</c:if>
            <c:if test="${project.isissue eq 1 and project.tostatus eq -3}">学校未通过</c:if>
            <c:if test="${project.isissue eq 1 and project.tostatus eq 3}">审核通过</c:if>
+           
+           <c:if test="${project.isissue eq 1 and project.tostatus eq 1 and project.prank eq 'c'}">学校审核中</c:if>
            <c:if test="${project.isissue eq 0 }">未提交</c:if>
           </td>
           
@@ -78,8 +80,8 @@ String mypath = basePath+"project/";
 	          	<td>
 		          	<div class="button-group"> 
 			          	<a class="button border-blue" href="<%=basePath %>studentgoto/getProjectInfoById.action?pid=${project.pid}" onclick=""><span class="icon-info"></span>修改</a>
-			          	<a class="button border-blue" href="" onclick=""><span class="icon-info"></span>提交</a>
-			          	<a class="button border-red" href="<%=basePath %>studentgoto/deleteProjectById.action?pid=${project.pid}" onclick=""><span class="icon"></span>删除</a>
+			          	<a class="button border-blue" href="<%=basePath %>studentgoto/submitproject.action?pid=${project.pid}" onclick="submit()"><span class="icon-info"></span>提交</a>
+			          	<a class="button border-red" href="<%=basePath %>studentgoto/deleteProjectById.action?pid=${project.pid}" onclick="del()"><span class="icon"></span>删除</a>
 		          	</div>
 	          	</td>
 	         </c:if>
@@ -106,10 +108,17 @@ String mypath = basePath+"project/";
 </form>
 <script type="text/javascript">
 
-function del(id){
-	if(confirm("您确定要删除吗?")){
-		
-	}
+function del() {
+var msg = "您确定要删除吗？\n\n请确认！";
+	if (confirm(msg)==true){
+	}	
+}
+
+
+function submit() {
+var msg = "您确定要删除吗？\n\n请确认！";
+	if (confirm(msg)==true){
+	}	
 }
 
 $("#checkall").click(function(){ 

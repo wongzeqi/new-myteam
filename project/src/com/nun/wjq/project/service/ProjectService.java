@@ -14,4 +14,12 @@ public interface ProjectService {
 
 	void updateProjectInfoById(ProjectWithBLOBs project);
 
+	void teacheragreeremove(ProjectWithBLOBs project);
+
+	void teacherdisagreeremove(ProjectWithBLOBs project);
+
+	void teacheragreechange(ProjectWithBLOBs project);
+
+	void teacherdisagreechange(ProjectWithBLOBs project);
+
 }

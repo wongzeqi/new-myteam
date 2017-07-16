@@ -39,7 +39,23 @@ String mypath = basePath+"project/";
 				<h1><img src="<%=mypath %>images/logo.jpg" class="radius-circle rotate-hover" height="50" alt="" />北方民族大学创新实践项目申报系统${message }</h1>
 			</div>
 			<div class="head-l" style="float: right; padding-right: 50px;">
-				<a class="button button-little bg-green" href="" target="_blank"><span class="icon-home"></span>欢迎${student.sname }${teacher.tname }${academyadmin.academyname}超级管理员<c:if test="${empty schooladmin}">管理员</c:if></a> &nbsp;&nbsp;
+				<a class="button button-little bg-green" href="" target="_blank">
+					<span class="icon-home"></span>
+					欢迎
+					<c:if test="${!empty student}">
+						${student.sname }
+					</c:if>
+					<c:if test="${!empty teacher}">
+						${teacher.tname }
+					</c:if>
+					<c:if test="${!empty academyadmin}">
+						${academyadmin.academyname}管理员
+					</c:if>
+					<c:if test="${!empty schooladmin}">
+						超级管理员
+					</c:if>
+					
+				</a> &nbsp;&nbsp;
 				<a class="button button-little bg-red" href="<%=basePath %>login/goto.html"><span class="icon-power-off"></span> 退出登录</a>
 			</div>
 		</div>

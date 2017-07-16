@@ -51,12 +51,21 @@ public class LoginController {
 	 * @return
 	 * @throws Exception
 	 */
+	private void  removesession(HttpSession session){
+		session.removeAttribute("teacher");
+		session.removeAttribute("student");
+		session.removeAttribute("academyadmin");
+		session.removeAttribute("schooladmin");
+	}
+	
+	
 	@RequestMapping("/academylogin.html")
 	public ModelAndView academylogin(User user,HttpSession session) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 		Academyadmin a = academyadminMapper.login(user);
 		if(a!=null){
+			removesession(session);
 			session.setAttribute("academyadmin", a);
 			//查询权限菜单
 			List <Parentmeun> allParentmeun = parentmeunMapper.getParentMeuns3();
@@ -86,6 +95,7 @@ public class LoginController {
 		ModelAndView modelAndView = new ModelAndView();
 		Schooladmin s = schooladminMapper.login(user);
 		if(s!=null){
+			removesession(session);
 			session.setAttribute("schooladmin", s);
 			//查询权限菜单
 			List <Parentmeun> allParentmeun = parentmeunMapper.getParentMeuns4();
@@ -115,6 +125,7 @@ public class LoginController {
 		Student s = studentMapper.login(user);
 		if(s!=null){
 			System.out.println(s.getSname());
+			removesession(session);
 			session.setAttribute("student", s);
 			//查询权限菜单
 			List <Parentmeun> allParentmeun = parentmeunMapper.getParentMeuns1();
@@ -150,6 +161,7 @@ public class LoginController {
 		ModelAndView modelAndView = new ModelAndView();
 		Teacher t = teacherMapper.login(user);
 		if(t!=null){
+			removesession(session);
 			session.setAttribute("teacher",t);
 			//查询权限菜单
 			List <Parentmeun> allParentmeun = parentmeunMapper.getParentMeuns2();
@@ -169,9 +181,7 @@ public class LoginController {
 	
 	@RequestMapping("/goto.html")
 	public String gotoLogin(HttpSession session) throws Exception{
-		if(session.getAttribute("user")!=null){
-			session.removeAttribute("user");
-		}
+		removesession(session);
 		return "/WEB-INF/login.jsp";
 	}
 	

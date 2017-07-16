@@ -70,8 +70,8 @@ String mypath = basePath+"project/";
           	
           	<td>
           	<div class="button-group"> 
-          		<a class="button border-blue" href="<%=basePath %>studentgoto/getProjectInfoById.action?pid=${project.pid}" onclick=""></span>同意</a>
-          		<a class="button border-blue" href="" onclick=""></span>不同意</a>
+          		<a class="button border-blue" href="<%=basePath %>teachergoto/agreeremove.action?pid=${project.pid}" onclick=""></span>同意</a>
+          		<a class="button border-blue" href="<%=basePath %>teachergoto/disagreeremove.action?pid=${project.pid}" onclick=""></span>不同意</a>
           	</div>
           	</td>
           

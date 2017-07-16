@@ -62,19 +62,27 @@ String mypath = basePath+"project/";
           	</td>
           
           <td>
-           <c:if test="${project.isissue eq 1 }">等待审核</c:if>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq 0 and project.prank ne 'c'}">指导老师审核中</c:if>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq -1 and project.prank ne 'c'}">指导老师未通过</c:if>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq 1 and project.prank ne 'c'}">学院审核中</c:if>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq -2 and project.prank ne 'c'}">学院未通过</c:if>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq 2 and project.prank ne 'c'}">学校审核中</c:if>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq -3}">学校未通过</c:if>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq 3}">审核通过</c:if>
+           
+           <c:if test="${project.isissue eq 1 and project.tostatus eq 1 and project.prank eq 'c'}">学校审核中</c:if>
            <c:if test="${project.isissue eq 0 }">未提交</c:if>
           </td>
           
          
           <c:if test="${project.isissue eq 0}">
           	
-          	<td><div class="button-group"> <a class="button border-blue" href="<%=basePath %>studentgoto/getProjectInfoById.action?pid=${project.pid}" onclick=""><span class="icon-info"></span>详情</a>
+          	<td><div class="button-group"> <a class="button border-blue" href="<%=basePath %>teachergoto/getProjectInfoById.action?pid=${project.pid}" onclick=""><span class="icon-info"></span>详情</a>
           	 <a class="button border-blue" href="" onclick=""><span class="icon-info"></span>提交</a>
           	<a class="button border-red" href="<%=basePath %>studentgoto/deleteProjectById.action" onclick=""><span class="icon"></span>删除</a></div></td>
          </c:if>
           <c:if test="${project.isissue eq 1}">
-          	<td><div class="button-group"> <a class="button border-blue" href="<%=basePath %>studentgoto/getProjectInfoById.action?pid=${project.pid}" onclick=""><span class="icon-info"></span>详情</a></div></td>
+          	<td><div class="button-group"> <a class="button border-blue" href="<%=basePath %>teachergoto/getProjectInfoById.action?pid=${project.pid}" onclick=""><span class="icon-info"></span>详情</a></div></td>
           </c:if>
           
         </tr>

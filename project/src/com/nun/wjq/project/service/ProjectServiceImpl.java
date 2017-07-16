@@ -37,6 +37,31 @@ public class ProjectServiceImpl implements ProjectService{
 		// TODO Auto-generated method stub
 		projectMapper.updateByPrimaryKeySelective(project);
 	}
+	@Override
+	public void teacheragreeremove(ProjectWithBLOBs project) {
+		project.setRemovestatus(1);
+		projectMapper.updateByPrimaryKeySelective(project);
+	}
+	@Override
+	public void teacherdisagreeremove(ProjectWithBLOBs project) {
+		project.setRemovestatus(-1);
+		project.setIsremove(0);
+		projectMapper.updateByPrimaryKeySelective(project);
+		
+	}
+	@Override
+	public void teacheragreechange(ProjectWithBLOBs project) {
+		project.setChangestatus(1);
+		projectMapper.updateByPrimaryKeySelective(project);
+		
+	}
+	@Override
+	public void teacherdisagreechange(ProjectWithBLOBs project) {
+		project.setChangestatus(-1);
+		project.setIschange(0);
+		projectMapper.updateByPrimaryKeySelective(project);
+		
+	}
 
 	
 }

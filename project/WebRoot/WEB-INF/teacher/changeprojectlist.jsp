@@ -69,12 +69,12 @@ String mypath = basePath+"project/";
          
           <c:if test="${project.isissue eq 0}">
           	
-          	<td><div class="button-group"> <a class="button border-blue" href="<%=basePath %>studentgoto/getProjectInfoById.action?pid=${project.pid}" onclick=""><span class="icon-info"></span>详情</a>
+          	<td><div class="button-group"> <a class="button border-blue" href="<%=basePath %>teachergoto/getProjectInfoById.action?pid=${project.pid}" onclick=""><span class="icon-info"></span>详情</a>
           	 <a class="button border-blue" href="" onclick=""><span class="icon-info"></span>提交</a>
           	<a class="button border-red" href="<%=basePath %>studentgoto/deleteProjectById.action" onclick=""><span class="icon"></span>删除</a></div></td>
          </c:if>
           <c:if test="${project.isissue eq 1}">
-          	<td><div class="button-group"> <a class="button border-blue" href="<%=basePath %>studentgoto/getProjectInfoById.action?pid=${project.pid}" onclick=""><span class="icon-info"></span>详情</a></div></td>
+          	<td><div class="button-group"> <a class="button border-blue" href="<%=basePath %>teachergoto/getProjectInfoById.action?pid=${project.pid}" onclick=""><span class="icon-info"></span>详情</a></div></td>
           </c:if>
           
         </tr>

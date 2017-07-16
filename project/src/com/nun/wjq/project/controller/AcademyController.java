@@ -1,12 +1,17 @@
 package com.nun.wjq.project.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.nun.wjq.project.mapper.ProjectMapper;
 import com.nun.wjq.project.mapper.StudentMapper;
 import com.nun.wjq.project.mapper.TeacherMapper;
+import com.nun.wjq.project.model.Academyadmin;
+import com.nun.wjq.project.service.AcademyadminService;
 import com.nun.wjq.project.service.ProjectService;
 import com.nun.wjq.project.service.StudentService;
 
@@ -19,10 +24,40 @@ public class AcademyController {
 	@Autowired ProjectMapper projectMapper;
 	@Autowired ProjectService projectService;
 	@Autowired TeacherMapper teacherMapper;
+	@Autowired AcademyadminService academyadminService;
+	
 	//----------------------点击菜单跳转页面--------------------------//
 		
+	//点击去修改密码的页面
+	@RequestMapping("/gotosetpass.action")
+	public String gotosetpass(){
+		return "/WEB-INF/academyadmin/pass.jsp";
+	}
 		
+	//------------------------------------数据操作---------------------//
+	/**
+	 * 更新密码学院管理员 修改密码
+	 * @param session
+	 * @param academyadmin
+	 * @return
+	 */
+	@RequestMapping("/updatepass.action")
+	public ModelAndView updatepass(HttpSession session,String newpass,String renewpass,String mpass){
+		ModelAndView m = new ModelAndView();
+		Academyadmin s = (Academyadmin)session.getAttribute("academy");
+		if(renewpass.equals(newpass)&&mpass.equals(s.getPassword())){
+			s.setPassword(renewpass);
+			academyadminService.updateAcademyadminInfoById(s);
+			session.setAttribute("academy", s);
+			m.addObject("message", "密码修改成功！");
+			m.setViewName("/WEB-INF/academyadmin/pass.jsp");
+		}else{
+			m.addObject("message", "两次密码不一致，或者当前密码错误！");
+			m.setViewName("/WEB-INF/academyadmin/pass.jsp");
+		}
+		return m;
+	}
 		
-		
-		
+	
+	
 }

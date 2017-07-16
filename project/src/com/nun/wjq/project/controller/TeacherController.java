@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nun.wjq.project.mapper.ProjectMapper;
+import com.nun.wjq.project.mapper.StudentMapper;
 import com.nun.wjq.project.mapper.TeacherMapper;
 import com.nun.wjq.project.model.Project;
 import com.nun.wjq.project.model.ProjectWithBLOBs;
+import com.nun.wjq.project.model.Student;
 import com.nun.wjq.project.model.Teacher;
 import com.nun.wjq.project.result.Pst;
 import com.nun.wjq.project.service.ProjectService;
@@ -26,7 +28,7 @@ public class TeacherController {
 	@Autowired TeacherService teacherService;
 	@Autowired ProjectMapper projectMapper;
 	@Autowired ProjectService projectService;
-	
+	@Autowired StudentMapper studentMapper;
 	//---------------------数据操作--------------------------//
 	@RequestMapping("/getName.action")
 	public @ResponseBody Teacher getTeacherByTnumber(String tnumber){
@@ -189,11 +191,9 @@ public class TeacherController {
 		//封装project老师的id
 		p.setTid(tid);
 		//变更状态为0（0等待老师审核，-1不通过，1等待学院审核，2等待学校审核，3审核通过）
-		p.setTostatus(3);
-		//设置是团队项目
 		List <Pst> projectList = projectMapper.selectProjectByTid(p);
 		m.addObject("projectList", projectList);
-		m.setViewName("/WEB-INF/teacher/removeprojectlist.jsp");
+		m.setViewName("/WEB-INF/teacher/teacherallproject.jsp");
 		return m;
 	}
 	
@@ -203,6 +203,75 @@ public class TeacherController {
 		ModelAndView m = new ModelAndView();
 		m.addObject("pst", p);
 		m.setViewName("/WEB-INF/teacher/teachercheckproject.jsp");
+		return m;
+	}
+	
+	//点击同意撤项
+	@RequestMapping("/agreeremove.action")
+	public ModelAndView teacheragreeremove(ProjectWithBLOBs project){
+		ModelAndView m = new ModelAndView();
+		projectService.teacheragreeremove(project);
+		m.setViewName("/WEB-INF/tips.jsp");
+		return m;
+	}
+	
+	//指导老师不同意撤项
+	@RequestMapping("/disagreeremove.action")
+	public ModelAndView teacherdisagreeremove(ProjectWithBLOBs project){
+		ModelAndView m = new ModelAndView();
+		projectService.teacherdisagreeremove(project);
+		m.setViewName("/WEB-INF/tips.jsp");
+		return m;
+	}
+	
+	
+	
+	//指导老师同意变更申请
+	@RequestMapping("/agreechange.action")
+	public ModelAndView teacheragreechange(ProjectWithBLOBs project){
+		ModelAndView m = new ModelAndView();
+		projectService.teacheragreechange(project);
+		m.setViewName("/WEB-INF/tips.jsp");
+		return m;
+	}
+	
+	//指导老师不同意变更申请
+	@RequestMapping("/disagreechange.action")
+	public ModelAndView teacherdisagreechange(ProjectWithBLOBs project){
+		ModelAndView m = new ModelAndView();
+		projectService.teacherdisagreechange(project);
+		m.setViewName("/WEB-INF/tips.jsp");
+		return m;
+	}
+	
+	//指导老师点击已经审核项目但是还未通过的项目
+	@RequestMapping("/listaftercheckprojects.action")
+	public ModelAndView listaftercheckprojects(HttpSession session, ProjectWithBLOBs project){
+		ModelAndView m = new ModelAndView();
+		Teacher t = (Teacher)session.getAttribute("teacher");
+		project.setTid(t.getTid());
+		project.setIsissue(1);
+		projectMapper.selectProjectByTid(project);
+		m.setViewName("/WEB-INF/tips.jsp");
+		return m;
+	}
+	
+	//指导老师点击查看详情
+	@RequestMapping("/getProjectInfoById.action")
+	public ModelAndView getProjectInfoById(int pid){
+		ModelAndView m = new ModelAndView();
+		//查询到项目的信息
+		ProjectWithBLOBs project = projectMapper.selectByPrimaryKey(pid);
+		//查询老师的信息
+		Teacher teacher = teacherMapper.selectByPrimaryKey(project.getTid());
+		//获取学生的信息
+		Student s = studentMapper.selectByPrimaryKey(project.getSid());
+
+		m.addObject("teacher",teacher);
+		m.addObject("project", project);
+		//添加负责人信息
+		m.addObject("fzr", s);
+		m.setViewName("/WEB-INF/teacher/projectinfo.jsp");
 		return m;
 	}
 	

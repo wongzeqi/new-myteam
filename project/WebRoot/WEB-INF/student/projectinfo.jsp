@@ -108,7 +108,8 @@ String mypath = basePath+"project/";
 
  <div class="panel-head" style="margin-bottom: 20px;"><strong><span class="icon-pencil-square-o"></span>负责人基本信息</strong></div>
 	<h4 style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;请仔细检查你的基本信息，后果自负！</h4>
-  	<p>&nbsp;&nbsp;&nbsp;&nbsp;负责人姓名 ： ${student.sname} 负责人学号：${student.snumber }</p>
+  	<p>&nbsp;&nbsp;&nbsp;&nbsp;负责人姓名 ： ${fzr.sname} 负责人学号：${fzr.snumber } 负责人手机：${fzr.phone }</p>
+  	<p>&nbsp;&nbsp;&nbsp;&nbsp;负责人所在学院 ： ${fzr.academy} 负责人专业：${fzr.major }</p>
   <c:if test="${empty student.nation or empty student.academy or empty student.major or student.clazz eq 0 or empty student.phone or empty student.email}">
   	<h3 style="color:red">请将信息完善后进行项目申请，且确保基本信息准确无误！</h3>
   </c:if>
@@ -124,7 +125,8 @@ String mypath = basePath+"project/";
         <div class="field">
            <input id="tnmuber" type="text" class="input w50"   value="${teacher.tnumber }" placeholder="请输入指导老师教工号..." data-validate="required:请输入指导老师教工号..."/>
            <input id="tname" class="input w50" value="${teacher.tname }" style="margin-left: 50px;" placeholder="老师姓名">
-           <input id="tid"  type="hidden" name="tid"> 
+           <input id="tid"  type="hidden" name="tid" value="${teacher.tid }">
+           <input id="pid"  type="hidden" name="pid" value="${project.pid }">  
           <div class="tips"></div>
         </div>
       </div>
@@ -409,9 +411,11 @@ String mypath = basePath+"project/";
         <div class="label">
           <label></label>
         </div>
-        <div class="field">
-        	<button class="button bg-main icon-check-square-o" type="submit">修改</button>
-        </div>
+        <c:if test="${project.isissue eq 0 }">
+	        <div class="field">
+	        	<button class="button bg-main icon-check-square-o" type="submit">修改</button>
+	        </div>
+        </c:if>
       </div>
     </form>
   </div>

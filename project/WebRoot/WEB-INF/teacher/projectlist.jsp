@@ -77,7 +77,7 @@ String mypath = basePath+"project/";
           
           	<td>
 	          	<div class="button-group">
-	          		 <a class="button border-blue" href="<%=basePath %>studentgoto/getProjectInfoById.action?pid=${project.pid}" onclick=""></span>详情</a>
+	          		 <a class="button border-blue" href="<%=basePath %>teachergoto/getProjectInfoById.action?pid=${project.pid}" onclick=""></span>详情</a>
 	          		 <a class="button border-blue" href="<%=basePath %>teachergoto/teachergotocheck.action?prank=${project.prank}&pname=${project.pname}&sname=${project.sname}&pid=${project.pid}" onclick=""></span>审核</a>
 	          	</div>
           	</td>
