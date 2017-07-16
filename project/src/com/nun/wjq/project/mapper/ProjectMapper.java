@@ -46,6 +46,12 @@ public interface ProjectMapper {
 	List<Project> selectProjectBySid(Project p);
 	//根据老师查询他所指导的项目(条件查询)
 	List<Pst> selectProjectByTid(Project p);
+	//根据
+	List<Pst> selectProjectByAcademyadmin(String academyname);
+	
+	List<Pst> selectChangeProjectByAcademyadmin(String academyname);
+
+	List<Pst> selectRemoveProjectByAcademyadmin(String academyname);
 
 	
     

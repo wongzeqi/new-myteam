@@ -1307,5 +1307,54 @@
  	 AND student.`sid` = project.`sid`
     </where>   
   </select>
+  
+  
+  <select id="selectProjectByAcademyadmin" resultType="com.nun.wjq.project.result.Pst" parameterType="String">
+  	SELECT 
+	  project.*,
+	  student.*,
+	  teacher.* 
+	FROM
+	  project,
+	  student,
+	  teacher 
+	WHERE student.`academy` = #{academy} 
+	  AND teacher.tid = project.`tid` 
+	  AND student.sid = project.`sid` 
+	  AND project.`isteam` = 0
+  </select>
+  	
+  <select id="selectChangeProjectByAcademyadmin" resultType="com.nun.wjq.project.result.Pst" parameterType="String">
+  	SELECT 
+	  project.*,
+	  student.*,
+	  teacher.* 
+	FROM
+	  project,
+	  student,
+	  teacher 
+	WHERE student.`academy` = #{academy} 
+	  AND teacher.tid = project.`tid` 
+	  AND student.sid = project.`sid` 
+	  AND project.`isteam` = 0
+	  and project.ischange = 1
+  </select>	
+  
+  
+  <select id="selectRemoveProjectByAcademyadmin" resultType="com.nun.wjq.project.result.Pst" parameterType="String">
+  	SELECT 
+	  project.*,
+	  student.*,
+	  teacher.* 
+	FROM
+	  project,
+	  student,
+	  teacher 
+	WHERE student.`academy` = #{academy} 
+	  AND teacher.tid = project.`tid` 
+	  AND student.sid = project.`sid` 
+	  AND project.`isteam` = 0
+	  and project.isremove = 1
+  </select>
   	
 </mapper>

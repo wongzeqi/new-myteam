@@ -35,10 +35,21 @@ String mypath = basePath+"project/";
         </div>
         <div class="field">
           <label style="line-height:33px;">
-           ${student.sname }
-           ${teacher.tname }
-           ${academyadmin.academyadmin }
-           	超级管理员
+          <c:if test="${!empty student}">
+          	 ${student.sname }
+          </c:if>
+          <c:if test="${!empty teacher}">
+          	 ${teacher.sname }
+          </c:if>
+          <c:if test="${!empty academyadmin}">
+          	 ${academyadmin.academyname }
+          </c:if>
+          <c:if test="${!empty teacher}">
+          	 ${teacher.sname }
+          </c:if>
+          <c:if test="${!empty schooladmin}">
+          	超级管理员
+          </c:if>
           </label>
         </div>
       </div>      

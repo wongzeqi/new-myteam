@@ -17,4 +17,7 @@
 	
 	<bean name="projectService" class="com.nun.wjq.project.service.ProjectServiceImpl"></bean>
 	<bean name="teacherService" class="com.nun.wjq.project.service.TeacherServiceImpl"></bean>
+	<bean name="academyadminService" class="com.nun.wjq.project.service.AcademyadminServiceImpl"></bean>
+	
+	
 </beans>
