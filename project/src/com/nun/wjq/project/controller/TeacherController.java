@@ -1,5 +1,6 @@
 package com.nun.wjq.project.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -129,10 +130,21 @@ public class TeacherController {
 		Teacher t = (Teacher) session.getAttribute("teacher");
 		Project p = new Project();
 		p.setTid(t.getTid());
-		p.setTostatus(0);
 		p.setIsissue(1);
+		//已经审核的项目和未审核的项目
 		List <Pst> projectList = projectMapper.selectProjectByTid(p);
-		m.addObject("projectList", projectList);
+		List<Pst> yprojects = new ArrayList<Pst>();
+		List<Pst> wprojects = new ArrayList<Pst>();
+		for(Pst pst : projectList){
+			if(pst.getTostatus()==0){
+				//未审核的项目
+				wprojects.add(pst);
+			}else{
+				yprojects.add(pst);
+			}
+		}
+		m.addObject("wprojects", wprojects);
+		m.addObject("yprojects", yprojects);
 		m.setViewName("/WEB-INF/teacher/projectlist.jsp");
 		return m;
 	}
@@ -148,12 +160,21 @@ public class TeacherController {
 		//设置是否改变状态为1
 		p.setIschange(1);
 		//变更状态为0（0等待老师审核，-1不通过，1等待学院审核，2等待学校审核，3审核通过）
-		p.setChangestatus(0);
 		//团队项目不需要指导老师审核变更（直接是创新创业学院审核就可以）
 		//设置是团队项目
 		p.setIsteam(0);
 		List <Pst> projectList = projectMapper.selectProjectByTid(p);
-		m.addObject("projectList", projectList);
+		List<Pst> yproject = new ArrayList<Pst>();
+		List<Pst> wproject = new ArrayList<Pst>();
+		for(Pst pst :projectList){
+			if(pst.getChangestatus()==0){
+				wproject.add(pst);
+			}else{
+				yproject.add(pst);
+			}
+		}
+		m.addObject("wproject", wproject);
+		m.addObject("yproject", yproject);
 		m.setViewName("/WEB-INF/teacher/changeprojectlist.jsp");
 		return m;
 	}
@@ -274,6 +295,8 @@ public class TeacherController {
 		m.setViewName("/WEB-INF/teacher/projectinfo.jsp");
 		return m;
 	}
+	
+	//老师点击变革申请审核
 	
 	
 }

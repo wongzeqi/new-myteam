@@ -22,7 +22,7 @@ String mypath = basePath+"project/";
 <body>
 <form method="post" action="">
   <div>
-    <div class="panel-head"><strong class="icon-reorder">我指导的项目</strong></div>
+    <div class="panel-head"><strong class="icon-reorder">待审核项目列表</strong></div>
     <div class="padding border-bottom">
       <ul class="search">
         <li>
@@ -44,8 +44,8 @@ String mypath = basePath+"project/";
         <th>审核状态</th>   
         <th>操作</th>
       </tr>     
-      <c:forEach items="${projectList }" var="project">
-        <tr>
+      <c:forEach items="${wprojects }" var="project">
+        <tr <c:if test="${project.tostatus eq -3 }">style="color:red"</c:if> <c:if test="${project.tostatus eq 3 }">style="color:green"</c:if>>
           <td>${project.theyear }</td>
           <td>${project.pname}</td>
           <td>${project.sname }</td>
@@ -79,6 +79,78 @@ String mypath = basePath+"project/";
 	          	<div class="button-group">
 	          		 <a class="button border-blue" href="<%=basePath %>teachergoto/getProjectInfoById.action?pid=${project.pid}" onclick=""></span>详情</a>
 	          		 <a class="button border-blue" href="<%=basePath %>teachergoto/teachergotocheck.action?prank=${project.prank}&pname=${project.pname}&sname=${project.sname}&pid=${project.pid}" onclick=""></span>审核</a>
+	          	</div>
+          	</td>
+        
+          
+        </tr>
+       </c:forEach> 
+    </table>
+    
+    
+    
+    
+    
+    
+    
+    <div class="panel-head"><strong class="icon-reorder">完成审核列表</strong></div>
+    <div class="padding border-bottom">
+      <ul class="search">
+        <li>
+        	<input type="text" placeholder="请输入搜索关键字" name="keywords" class="input" style="width:250px; line-height:17px;display:inline-block" />
+          <a href="javascript:void(0)" class="button border-main icon-search" onclick="changesearch()" > 搜索</a></li>
+        </li>
+      </ul>
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th>年份</th>       
+        <th>项目名称</th>
+        <th>负责人</th>
+        <th>学号</th>
+        <th>手机号</th>
+        <th>指导老师</th>
+        <th>学院</th>
+        <th>项目等级</th>
+        <th>审核状态</th>   
+        <th>操作</th>
+      </tr>     
+      <c:forEach items="${yprojects }" var="project">
+        <tr <c:if test="${project.tostatus eq -3 }">style="color:red"</c:if> <c:if test="${project.tostatus eq 3 }">style="color:green"</c:if>>
+          <td>${project.theyear }</td>
+          <td>${project.pname}</td>
+          <td>${project.sname }</td>
+          <td>${project.snumber }</td>  
+          <td>${project.phone }</td>         
+          <td>${project.tname }</td>
+          <td>${project.academy }</td>
+          
+          	<td>
+          		<c:if test="${project.prank eq 'a' }">国家级<c:if test="${project.isteam eq 1 }">(团队)</c:if></c:if>
+          		<c:if test="${project.prank eq 'b' }">区级<c:if test="${project.isteam eq 1 }">(团队)</c:if></c:if>
+       			<c:if test="${project.prank eq 'c' }">校级(团队)</c:if>
+          		<c:if test="${project.prank eq 'd' }">校级</c:if>
+          	</td>
+          
+          <td>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq 0 and project.prank ne 'c'}">指导老师审核中</c:if>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq -1 and project.prank ne 'c'}">指导老师未通过</c:if>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq 1 and project.prank ne 'c'}">学院审核中</c:if>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq -2 and project.prank ne 'c'}">学院未通过</c:if>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq 2 and project.prank ne 'c'}">学校审核中</c:if>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq -3}">学校未通过</c:if>
+           <c:if test="${project.isissue eq 1 and project.tostatus eq 3}">审核通过</c:if>
+           
+           <c:if test="${project.isissue eq 1 and project.tostatus eq 1 and project.prank eq 'c'}">学校审核中</c:if>
+           <c:if test="${project.isissue eq 0 }">未提交</c:if>
+          </td>
+          
+         
+          
+          
+          	<td>
+	          	<div class="button-group">
+	          		 <a class="button border-blue" href="<%=basePath %>teachergoto/getProjectInfoById.action?pid=${project.pid}" onclick=""></span>详情</a>
 	          	</div>
           	</td>
         

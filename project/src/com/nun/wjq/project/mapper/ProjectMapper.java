@@ -8,6 +8,7 @@ import com.nun.wjq.project.model.Project;
 import com.nun.wjq.project.model.ProjectExample;
 import com.nun.wjq.project.model.ProjectWithBLOBs;
 import com.nun.wjq.project.model.Student;
+import com.nun.wjq.project.parameter.AcademySelectProject;
 import com.nun.wjq.project.result.Pst;
 
 public interface ProjectMapper {
@@ -47,12 +48,8 @@ public interface ProjectMapper {
 	//根据老师查询他所指导的项目(条件查询)
 	List<Pst> selectProjectByTid(Project p);
 	//根据
-	List<Pst> selectProjectByAcademyadmin(String academyname);
+	List<Pst> selectProjectByAcademyadmin(AcademySelectProject asp);
 	
-	List<Pst> selectChangeProjectByAcademyadmin(String academyname);
-
-	List<Pst> selectRemoveProjectByAcademyadmin(String academyname);
-
 	
     
 }

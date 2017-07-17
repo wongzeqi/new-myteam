@@ -76,27 +76,23 @@ String mypath = basePath+"project/";
           
          
          
-	          <c:if test="${project.isissue eq 0 and project.tostatus eq 1}">
+	          <c:if test="${project.isissue eq 1 and project.tostatus eq 1}">
 	          	<td>
 		          	<div class="button-group"> 
-			          	<a class="button border-blue" href="<%=basePath %>studentgoto/getProjectInfoById.action?pid=${project.pid}" onclick=""></span>审核</a>
-			          	<a class="button border-blue" href="<%=basePath %>studentgoto/submitproject.action?pid=${project.pid}" onclick="submit()">详情</a>
+			          	<a class="button border-blue" href="<%=basePath %>academyadmin/academyadmingotocheck.action?pid=${project.pid}&pname=${project.pname}&sname=${project.sname}&prank=${project.prank}&teachercheckidea=${project.teachercheckidea}"></span>审核</a>
+			          	<a class="button border-blue" href="<%=basePath %>academyadmin/getProjectInfoById.action?pid=${project.pid}">详情</a>
 		          	</div>
 	          	</td>
 	         </c:if>
 	          <c:if test="${project.isissue eq 1 and project.tostatus ne 1}">
 	          	<td>
 		          	<div class="button-group">
-		         	 	<a class="button border-blue" href="<%=basePath %>studentgoto/getProjectInfoById.action?pid=${project.pid}" onclick=""><span class="icon-info"></span>详情</a>
+		         	 	<a class="button border-blue" href="<%=basePath %>academyadmin/getProjectInfoById.action?pid=${project.pid}" onclick=""><span class="icon-info"></span>详情</a>
 		          	</div>
 	          	</td>
 	          </c:if>
         
-	          <c:if test="${project.sid ne student.sid}">
-	          	<td>
-	          	<button class="button border-green disabled" href="#" onclick=""><span class="icon"></span>非负责人无法操作</button>
-	          	</td>
-	          </c:if>
+	         
          
          
          

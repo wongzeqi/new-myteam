@@ -17,6 +17,8 @@ public class ProjectServiceImpl implements ProjectService{
 	public void setChangeReason(ProjectWithBLOBs pb) {
 		//首先他提交申请
 		pb.setIschange(1);
+		//让后将状态设置为0
+		pb.setChangestatus(0);
 		projectMapper.updateByPrimaryKeySelective(pb);
 	}
 	//撤项

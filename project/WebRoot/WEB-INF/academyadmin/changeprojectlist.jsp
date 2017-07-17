@@ -62,24 +62,39 @@ String mypath = basePath+"project/";
           	</td>
           
           <td>
-           <c:if test="${project.isissue eq 1 }">等待审核</c:if>
-           <c:if test="${project.isissue eq 0 }">未提交</c:if>
+           <c:if test="${project.changestatus eq -3 }">学校审核未通过</c:if>
+           <c:if test="${project.changestatus eq -2 }">学院审核未通过</c:if>
+           <c:if test="${project.changestatus eq -1 }">指导老师审核未通过</c:if>
+           <c:if test="${project.changestatus eq 3 }">学校通过</c:if>
+           <c:if test="${project.changestatus eq 2 }">学校审核中</c:if>
+           <c:if test="${project.changestatus eq 1 }">学院审核中</c:if>
+           <c:if test="${project.changestatus eq 0 }">指导老师审核中</c:if>
           </td>
           
          
-          <c:if test="${project.isissue eq 0}">
-          	
-          	<td><div class="button-group"> <a class="button border-blue" href="<%=basePath %>teachergoto/getProjectInfoById.action?pid=${project.pid}" onclick=""><span class="icon-info"></span>详情</a>
-          	 <a class="button border-blue" href="" onclick=""><span class="icon-info"></span>提交</a>
-          	<a class="button border-red" href="<%=basePath %>studentgoto/deleteProjectById.action" onclick=""><span class="icon"></span>删除</a></div></td>
-         </c:if>
-          <c:if test="${project.isissue eq 1}">
-          	<td><div class="button-group"> <a class="button border-blue" href="<%=basePath %>teachergoto/getProjectInfoById.action?pid=${project.pid}" onclick=""><span class="icon-info"></span>详情</a></div></td>
-          </c:if>
+        <td>
+       	<div class="button-group"> 
+       	<a class="button border-blue" href="<%=basePath %>academyadmin/getProjectInfoById.action?pid=${project.pid}" onclick="">详情</a>
+       	<a class="button border-blue" href="<%=basePath %>academyadmin/agreechange.action?pid=${project.pid}" ></span>同意</a>
+       	<a class="button border-blue" href="<%=basePath %>academyadmin/disagreechange.action?pid=${project.pid}" onclick="">不同意</a>
+       	</div>
+       	</td>
           
         </tr>
        </c:forEach> 
     </table>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
   </div>
 </form>
 <script type="text/javascript">

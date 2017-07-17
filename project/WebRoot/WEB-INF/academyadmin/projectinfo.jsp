@@ -108,20 +108,7 @@ String mypath = basePath+"project/";
 
  <div class="panel-head" style="margin-bottom: 20px;"><strong><span class="icon-pencil-square-o"></span>负责人基本信息</strong></div>
 	<h4 style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;请仔细检查你的基本信息，后果自负！</h4>
-  	<p>&nbsp;&nbsp;&nbsp;&nbsp;负责人姓名 ： ${fzr.sname} 负责人学号：${fzr.snumber }</p>
-  
-  <c:if test="${!empty project.changereason and project.changereason != ''}">
-  <div class="panel-head" style="margin-bottom: 20px;"><strong></span>项目变更理由</strong></div>
-  	<div class="form-group" style="margin-left: 5%;">
-        <div class="label" style="width: 30%; text-align: left;">
-          <label>变更理由：</label>
-        </div>
-        <div class="field">
-          <textarea name="content" style="width:800px;height:200px;">${project.changereason }</textarea>
-          <div class="tips"></div>
-        </div>
-      </div>
-  </c:if>
+  	<p>&nbsp;&nbsp;&nbsp;&nbsp;负责人姓名 ： ${student.sname} 负责人学号：${student.snumber }</p>
   
   <div class="body-content">
     <form method="post" class="form-x" action="<%= basePath%>studentgoto/modifyprojectsubmit.action">

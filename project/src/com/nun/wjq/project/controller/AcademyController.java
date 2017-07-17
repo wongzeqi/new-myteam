@@ -13,6 +13,10 @@ import com.nun.wjq.project.mapper.ProjectMapper;
 import com.nun.wjq.project.mapper.StudentMapper;
 import com.nun.wjq.project.mapper.TeacherMapper;
 import com.nun.wjq.project.model.Academyadmin;
+import com.nun.wjq.project.model.ProjectWithBLOBs;
+import com.nun.wjq.project.model.Student;
+import com.nun.wjq.project.model.Teacher;
+import com.nun.wjq.project.parameter.AcademySelectProject;
 import com.nun.wjq.project.result.Pst;
 import com.nun.wjq.project.service.AcademyadminService;
 import com.nun.wjq.project.service.ProjectService;
@@ -42,7 +46,11 @@ public class AcademyController {
 		ModelAndView m = new ModelAndView();
 		//查询条件
 		Academyadmin ac = (Academyadmin)session.getAttribute("academyadmin");
-		List<Pst> projectList = projectMapper.selectProjectByAcademyadmin(ac.getAcademyname());
+		//学院查询项目的条件
+		AcademySelectProject asp = new AcademySelectProject();
+		asp.setAcademyname(ac.getAcademyname()); 
+		
+		List<Pst> projectList = projectMapper.selectProjectByAcademyadmin(asp);
 		m.addObject("projectList", projectList);
 		m.setViewName("/WEB-INF/academyadmin/projectlist.jsp");
 		return m;
@@ -53,7 +61,11 @@ public class AcademyController {
 		ModelAndView m = new ModelAndView();
 		//查询条件
 		Academyadmin ac = (Academyadmin)session.getAttribute("academyadmin");
-		List<Pst> projectList = projectMapper.selectChangeProjectByAcademyadmin(ac.getAcademyname());
+		AcademySelectProject asp = new AcademySelectProject();
+		asp.setAcademyname(ac.getAcademyname()); 
+		asp.setIschange(1);
+		
+		List<Pst> projectList = projectMapper.selectProjectByAcademyadmin(asp);
 		m.addObject("projectList", projectList);
 		m.setViewName("/WEB-INF/academyadmin/changeprojectlist.jsp");
 		return m;
@@ -64,12 +76,44 @@ public class AcademyController {
 		ModelAndView m = new ModelAndView();
 		//查询条件
 		Academyadmin ac = (Academyadmin)session.getAttribute("academyadmin");
-		List<Pst> projectList = projectMapper.selectRemoveProjectByAcademyadmin(ac.getAcademyname());
+		AcademySelectProject asp = new AcademySelectProject();
+		asp.setAcademyname(ac.getAcademyname()); 
+		asp.setIsremove(1);
+		List<Pst> projectList = projectMapper.selectProjectByAcademyadmin(asp);
 		m.addObject("projectList", projectList);
 		m.setViewName("/WEB-INF/academyadmin/removeprojectlist.jsp");
 		return m;
 	}
+	//学院管理员点击审核项目
+	@RequestMapping("/academyadmingotocheck.action")
+	public ModelAndView academyadmingotocheck(Pst p){
+		ModelAndView m = new ModelAndView();
+		//还要查询出指导老师给的意见
+		ProjectWithBLOBs project =  projectMapper.selectByPrimaryKey(p.getPid());
+		p.setTeachercheckidea(project.getTeachercheckidea());
+		m.addObject("pst", p);
+		m.setViewName("/WEB-INF/academyadmin/academycheckproject.jsp");
+		return m;
+	}
 	
+	//学院点击查看详情
+	@RequestMapping("/getProjectInfoById.action")
+	public ModelAndView getProjectInfoById(int pid){
+		ModelAndView m = new ModelAndView();
+		//查询到项目的信息
+		ProjectWithBLOBs project = projectMapper.selectByPrimaryKey(pid);
+		//查询老师的信息
+		Teacher teacher = teacherMapper.selectByPrimaryKey(project.getTid());
+		//获取学生的信息
+		Student s = studentMapper.selectByPrimaryKey(project.getSid());
+
+		m.addObject("teacher",teacher);
+		m.addObject("project", project);
+		//添加负责人信息
+		m.addObject("fzr", s);
+		m.setViewName("/WEB-INF/academyadmin/projectinfo.jsp");
+		return m;
+	}
 	
 	//------------------------------------数据操作---------------------//
 	/**
@@ -94,7 +138,30 @@ public class AcademyController {
 		}
 		return m;
 	}
-		
+	
+	/**
+	 * 学院填写审核意见
+	 * @param project
+	 * @param ispass
+	 * @param idea
+	 * @return
+	 */
+	@RequestMapping("/fullcheckidea.action")
+	public ModelAndView fullcheckidea(ProjectWithBLOBs project,int ispass,String[]  idea){
+		ModelAndView m = new ModelAndView();
+		//老师审核完毕设置为1
+		if(ispass==1){
+			project.setTostatus(2);
+		}else{
+			project.setTostatus(-2);
+		}
+		//将第二个学院填写的意见设置进去
+		project.setAcademycheckidea(idea[1]);
+		projectService.updateProjectInfoById(project);
+		m.setViewName("/WEB-INF/tips.jsp");
+		m.addObject("message", "审核成功！");
+		return m;
+	}	
 	
 	
 }

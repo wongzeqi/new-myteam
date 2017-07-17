@@ -1260,7 +1260,7 @@
 	  order by theyear desc
   </select>
   <select id="selectBySidAndPrank" parameterType="com.nun.wjq.project.model.Project" resultType="com.nun.wjq.project.model.Project">
-  	select * from project where sid=#{sid} and (prank=#{prank} or prank=#{officemark}) and isissue = 1 and tostatus = 3
+  	select * from project where sid=#{sid} and (prank=#{prank} or prank=#{officemark}) and isissue = 1 and tostatus = 3 and (ischange = 0 and isremove = 0) 
   </select>
   
   <select id="selectProjectBySid" parameterType="com.nun.wjq.project.model.Project" resultType="com.nun.wjq.project.model.Project">
@@ -1309,7 +1309,7 @@
   </select>
   
   
-  <select id="selectProjectByAcademyadmin" resultType="com.nun.wjq.project.result.Pst" parameterType="String">
+  <select id="selectProjectByAcademyadmin" resultType="com.nun.wjq.project.result.Pst" parameterType="com.nun.wjq.project.parameter.AcademySelectProject">
   	SELECT 
 	  project.*,
 	  student.*,
@@ -1317,44 +1317,35 @@
 	FROM
 	  project,
 	  student,
-	  teacher 
-	WHERE student.`academy` = #{academy} 
-	  AND teacher.tid = project.`tid` 
-	  AND student.sid = project.`sid` 
-	  AND project.`isteam` = 0
-  </select>
-  	
-  <select id="selectChangeProjectByAcademyadmin" resultType="com.nun.wjq.project.result.Pst" parameterType="String">
-  	SELECT 
-	  project.*,
-	  student.*,
-	  teacher.* 
-	FROM
-	  project,
-	  student,
-	  teacher 
-	WHERE student.`academy` = #{academy} 
-	  AND teacher.tid = project.`tid` 
-	  AND student.sid = project.`sid` 
-	  AND project.`isteam` = 0
-	  and project.ischange = 1
-  </select>	
-  
-  
-  <select id="selectRemoveProjectByAcademyadmin" resultType="com.nun.wjq.project.result.Pst" parameterType="String">
-  	SELECT 
-	  project.*,
-	  student.*,
-	  teacher.* 
-	FROM
-	  project,
-	  student,
-	  teacher 
-	WHERE student.`academy` = #{academy} 
-	  AND teacher.tid = project.`tid` 
-	  AND student.sid = project.`sid` 
-	  AND project.`isteam` = 0
-	  and project.isremove = 1
+	  teacher
+	  
+	  
+	 <where>
+      student.`academy` = #{academyname}  AND project.`isteam` = 0
+      <if test="ischange != null" >
+        and ischange = #{ischange}
+      </if>
+      <if test="changestatus != null" >
+        and changestatus = #{changestatus}
+      </if>
+      <if test="isremove != null" >
+        and isremove = #{isremove}
+      </if>
+      <if test="removestatus != null" >
+        and removestatus = #{removestatus}
+      </if>
+       <if test="isissue != null" >
+        and isissue = #{isissue}
+      </if>
+      <if test="isteam != null" >
+        and isteam = #{isteam}
+      </if>
+      <if test="tostatus != null" >
+        and tostatus = #{tostatus}
+      </if>
+      AND project.`tid` = teacher.`tid`
+ 	 AND student.`sid` = project.`sid`
+    </where>        
   </select>
   	
 </mapper>

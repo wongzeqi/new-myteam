@@ -1,8 +1,8 @@
 package com.nun.wjq.project.result;
 
-import com.nun.wjq.project.model.Project;
+import com.nun.wjq.project.model.ProjectWithBLOBs;
 
-public class Pst extends Project{
+public class Pst extends ProjectWithBLOBs{
 	private Integer sid;
 
     private String sname;

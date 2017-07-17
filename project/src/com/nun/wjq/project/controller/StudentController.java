@@ -1,5 +1,6 @@
 package com.nun.wjq.project.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -64,12 +65,28 @@ public class StudentController {
 		return m;
 	}
 	//点击查看我的项目(包括我参与的项目)
+	
+	
+	
+	
 	@RequestMapping("/listproject.action")
 	public ModelAndView listproject(HttpSession session){
 		Student s  = (Student) session.getAttribute("student");
 		ModelAndView m = new ModelAndView();
 		List <Pst>  projectList = projectMapper.selectBySidOrStu(s);
-		m.addObject("projectList", projectList);
+		List<Pst> myProjects = new ArrayList<Pst>();
+		List<Pst> notMyProject = new ArrayList<Pst>();
+		//分成两大类我参与的项目 以及我负责的项目
+		for(Project p: projectList){
+			if(p.getSid()==s.getSid()){
+				myProjects.add((Pst) p);
+			}else{
+				notMyProject.add((Pst) p);
+			}
+		}
+		
+		m.addObject("myProjects", myProjects);
+		m.addObject("notMyProject", notMyProject);
 		m.setViewName("/WEB-INF/student/projectlist.jsp");
 		return m;
 	}
