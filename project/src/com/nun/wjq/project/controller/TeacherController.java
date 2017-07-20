@@ -254,6 +254,7 @@ public class TeacherController {
 	public ModelAndView teacherdisagreeremove(ProjectWithBLOBs project){
 		ModelAndView m = new ModelAndView();
 		projectService.teacherdisagreeremove(project);
+		
 		m.setViewName("/WEB-INF/tips.jsp");
 		return m;
 	}
