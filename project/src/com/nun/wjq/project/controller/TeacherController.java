@@ -92,9 +92,12 @@ public class TeacherController {
 		ModelAndView m = new ModelAndView();
 		//老师审核完毕设置为1
 		if(ispass==1){
+			if(project.getPrank().equals("c")){
+				project.setTostatus(2);
+			}
 			project.setTostatus(1);
 		}else{
-			project.setTostatus(0);
+			project.setTostatus(-1);
 		}
 		projectService.updateProjectInfoById(project);
 		m.setViewName("/WEB-INF/tips.jsp");
@@ -135,12 +138,14 @@ public class TeacherController {
 		List <Pst> projectList = projectMapper.selectProjectByTid(p);
 		List<Pst> yprojects = new ArrayList<Pst>();
 		List<Pst> wprojects = new ArrayList<Pst>();
-		for(Pst pst : projectList){
-			if(pst.getTostatus()==0){
-				//未审核的项目
-				wprojects.add(pst);
-			}else{
-				yprojects.add(pst);
+		if(projectList.size()>0){
+			for(Pst pst : projectList){
+				if(pst.getTostatus()==0){
+					//未审核的项目
+					wprojects.add(pst);
+				}else{
+					yprojects.add(pst);
+				}
 			}
 		}
 		m.addObject("wprojects", wprojects);
@@ -164,13 +169,19 @@ public class TeacherController {
 		//设置是团队项目
 		p.setIsteam(0);
 		List <Pst> projectList = projectMapper.selectProjectByTid(p);
+		
+		
+		
 		List<Pst> yproject = new ArrayList<Pst>();
 		List<Pst> wproject = new ArrayList<Pst>();
-		for(Pst pst :projectList){
-			if(pst.getChangestatus()==0){
-				wproject.add(pst);
-			}else{
-				yproject.add(pst);
+		if(projectList.size()>0){
+			for(Pst pst :projectList){
+				System.out.println(pst.getChangestatus());
+				if(pst.getChangestatus()==1){
+					wproject.add(pst);
+				}else{
+					yproject.add(pst);
+				}
 			}
 		}
 		m.addObject("wproject", wproject);
@@ -212,6 +223,8 @@ public class TeacherController {
 		//封装project老师的id
 		p.setTid(tid);
 		//变更状态为0（0等待老师审核，-1不通过，1等待学院审核，2等待学校审核，3审核通过）
+		//必须是学生提交
+		p.setIsissue(1);
 		List <Pst> projectList = projectMapper.selectProjectByTid(p);
 		m.addObject("projectList", projectList);
 		m.setViewName("/WEB-INF/teacher/teacherallproject.jsp");
@@ -251,6 +264,7 @@ public class TeacherController {
 	@RequestMapping("/agreechange.action")
 	public ModelAndView teacheragreechange(ProjectWithBLOBs project){
 		ModelAndView m = new ModelAndView();
+		project.setChangestatus(2);
 		projectService.teacheragreechange(project);
 		m.setViewName("/WEB-INF/tips.jsp");
 		return m;

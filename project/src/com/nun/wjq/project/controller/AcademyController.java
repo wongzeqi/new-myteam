@@ -49,12 +49,32 @@ public class AcademyController {
 		//学院查询项目的条件
 		AcademySelectProject asp = new AcademySelectProject();
 		asp.setAcademyname(ac.getAcademyname()); 
-		
+		asp.setTostatus(1);
+		asp.setIsteam(0);
 		List<Pst> projectList = projectMapper.selectProjectByAcademyadmin(asp);
 		m.addObject("projectList", projectList);
 		m.setViewName("/WEB-INF/academyadmin/projectlist.jsp");
 		return m;
 	}
+	
+	//学院管理员点击已经项目审核（差不是团队）
+	@RequestMapping("/academycheckedlistproject.action")
+	public ModelAndView academycheckedlistproject(HttpSession session ){
+		ModelAndView m = new ModelAndView();
+		//查询条件
+		Academyadmin ac = (Academyadmin)session.getAttribute("academyadmin");
+		//学院查询项目的条件
+		AcademySelectProject asp = new AcademySelectProject();
+		asp.setAcademyname(ac.getAcademyname()); 
+		//
+		asp.setTostatus(1);
+		List<Pst> projectList = projectMapper.selectCheckedProjectByAcademyadmin(asp);
+		m.addObject("projectList", projectList);
+		m.setViewName("/WEB-INF/academyadmin/projectlist.jsp");
+		return m;
+	}
+	
+	
 	//点击变更审核
 	@RequestMapping("/academychangecheck.action")
 	public ModelAndView academychangecheck(HttpSession session ){
@@ -64,12 +84,36 @@ public class AcademyController {
 		AcademySelectProject asp = new AcademySelectProject();
 		asp.setAcademyname(ac.getAcademyname()); 
 		asp.setIschange(1);
-		
+		//指导老师通过的审核
+		asp.setChangestatus(1);
 		List<Pst> projectList = projectMapper.selectProjectByAcademyadmin(asp);
+		
+		
 		m.addObject("projectList", projectList);
 		m.setViewName("/WEB-INF/academyadmin/changeprojectlist.jsp");
 		return m;
 	}
+	
+	
+	//点击已经审核过的变更申请
+	@RequestMapping("/academyyijichangecheck.action")
+	public ModelAndView academyyijichangecheck(HttpSession session ){
+		ModelAndView m = new ModelAndView();
+		//查询条件
+		Academyadmin ac = (Academyadmin)session.getAttribute("academyadmin");
+		AcademySelectProject asp = new AcademySelectProject();
+		asp.setAcademyname(ac.getAcademyname()); 
+		asp.setIschange(1);
+		//指导老师通过的审核
+		List<Pst> projectList = projectMapper.selectChangeCheckedProjectByAcademyadmin(asp);
+		
+		m.addObject("projectList", projectList);
+		m.setViewName("/WEB-INF/academyadmin/changeprojectlist.jsp");
+		return m;
+	}
+	
+	
+	
 	//点击撤项审核
 	@RequestMapping("/academyremovecheck.action")
 	public ModelAndView academyremovecheck(HttpSession session ){
@@ -79,11 +123,30 @@ public class AcademyController {
 		AcademySelectProject asp = new AcademySelectProject();
 		asp.setAcademyname(ac.getAcademyname()); 
 		asp.setIsremove(1);
+		asp.setRemovestatus(1);
 		List<Pst> projectList = projectMapper.selectProjectByAcademyadmin(asp);
 		m.addObject("projectList", projectList);
 		m.setViewName("/WEB-INF/academyadmin/removeprojectlist.jsp");
 		return m;
 	}
+	
+	//点击撤项审核
+	@RequestMapping("/academyyijiremovecheck.action")
+	public ModelAndView academyyijremovecheck(HttpSession session ){
+		ModelAndView m = new ModelAndView();
+		//查询条件
+		Academyadmin ac = (Academyadmin)session.getAttribute("academyadmin");
+		AcademySelectProject asp = new AcademySelectProject();
+		asp.setAcademyname(ac.getAcademyname()); 
+		asp.setIsremove(1);
+		List<Pst> projectList = projectMapper.selectRemoveProjectCheckedByAcademyadmin(asp);
+		m.addObject("projectList", projectList);
+		m.setViewName("/WEB-INF/academyadmin/removeprojectlist.jsp");
+		return m;
+	}
+	
+	
+	
 	//学院管理员点击审核项目
 	@RequestMapping("/academyadmingotocheck.action")
 	public ModelAndView academyadmingotocheck(Pst p){
@@ -163,5 +226,35 @@ public class AcademyController {
 		return m;
 	}	
 	
+	/**
+	 * 学院点击同意变更
+	 */
+	
+	@RequestMapping("/agreechange.action")
+	public ModelAndView agreechange(ProjectWithBLOBs project){
+		ModelAndView m = new ModelAndView();
+		project.setChangestatus(2);
+		//将第二个学院填写的意见设置进去
+		projectService.updateProjectInfoById(project);
+		m.setViewName("/WEB-INF/tips.jsp");
+		m.addObject("message", "操作成功！");
+		return m;
+	}	
+	
+	
+	/**
+	 * 学院点击bu同意变更
+	 */
+	
+	@RequestMapping("/disagreechange.action")
+	public ModelAndView disagreechange(ProjectWithBLOBs project){
+		ModelAndView m = new ModelAndView();
+		project.setChangestatus(-2);
+		//将第二个学院填写的意见设置进去
+		projectService.updateProjectInfoById(project);
+		m.setViewName("/WEB-INF/tips.jsp");
+		m.addObject("message", "操作成功！");
+		return m;
+	}
 	
 }

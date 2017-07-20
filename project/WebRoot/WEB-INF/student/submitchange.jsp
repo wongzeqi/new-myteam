@@ -75,7 +75,7 @@ function del(id,mid){
           <label>项目名称：</label>
         </div>
         <div class="field">
-          <select style="padding:5px 15px; border:1px solid #ddd;">
+          <select name="pid" style="padding:5px 15px; border:1px solid #ddd;">
           	<c:forEach items="${projectList}" var="project" >
         		<option value="${project.pid }">${project.pname }</option>
         	</c:forEach>

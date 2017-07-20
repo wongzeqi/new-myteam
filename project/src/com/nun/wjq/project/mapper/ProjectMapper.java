@@ -49,6 +49,12 @@ public interface ProjectMapper {
 	List<Pst> selectProjectByTid(Project p);
 	//根据
 	List<Pst> selectProjectByAcademyadmin(AcademySelectProject asp);
+
+	List<Pst> selectCheckedProjectByAcademyadmin(AcademySelectProject asp);
+
+	List<Pst> selectChangeCheckedProjectByAcademyadmin(AcademySelectProject asp);
+
+	List<Pst> selectRemoveProjectCheckedByAcademyadmin(AcademySelectProject asp);
 	
 	
     

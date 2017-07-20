@@ -75,8 +75,12 @@ String mypath = basePath+"project/";
         <td>
        	<div class="button-group"> 
        	<a class="button border-blue" href="<%=basePath %>academyadmin/getProjectInfoById.action?pid=${project.pid}" onclick="">详情</a>
-       	<a class="button border-blue" href="<%=basePath %>academyadmin/agreechange.action?pid=${project.pid}" ></span>同意</a>
-       	<a class="button border-blue" href="<%=basePath %>academyadmin/disagreechange.action?pid=${project.pid}" onclick="">不同意</a>
+       	
+       	<c:if test="${project.changestatus eq 1}">
+       	
+	       	<a class="button border-blue" href="<%=basePath %>academyadmin/agreechange.action?pid=${project.pid}" ></span>同意</a>
+	       	<a class="button border-blue" href="<%=basePath %>academyadmin/disagreechange.action?pid=${project.pid}" onclick="">不同意</a>
+       	</c:if>
        	</div>
        	</td>
           

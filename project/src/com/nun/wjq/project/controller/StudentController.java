@@ -179,7 +179,7 @@ public class StudentController {
 	}
 	
 	/**
-	 * 学生申请竞赛项目
+	 * 学生申请项目
 	 * @param session
 	 * @param content
 	 * @param projectWithBLOBs
@@ -214,6 +214,8 @@ public class StudentController {
 		if(projectWithBLOBs.getPrank().equals("c")){
 			//如果是团队项目就设在为1
 			projectWithBLOBs.setIsteam(1);
+		}else{
+			projectWithBLOBs.setIsteam(0);
 		}
 		projectService.insertProject(projectWithBLOBs);
 		m.setViewName("/WEB-INF/tips.jsp");
@@ -333,6 +335,7 @@ public class StudentController {
 		ModelAndView m = new ModelAndView();
 		//设置是否撤项为1
 		project.setIschange(1);
+		project.setChangestatus(1);
 		projectService.updateProjectInfoById(project);
 		m.addObject("message","变更申请提交成功，请耐心等待审核。");
 		m.setViewName("/WEB-INF/tips.jsp");

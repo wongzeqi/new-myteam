@@ -1348,4 +1348,52 @@
     </where>        
   </select>
   	
+  <select id="selectCheckedProjectByAcademyadmin" resultType="com.nun.wjq.project.result.Pst" parameterType="com.nun.wjq.project.parameter.AcademySelectProject">
+  	SELECT 
+	  project.*,
+	  student.*,
+	  teacher.* 
+	FROM
+	  project,
+	  student,
+	  teacher
+	 WHERE  student.`academy` = #{academyname}  AND project.`isteam` = 0 AND (tostatus = 2 or tostatus = -2 or tostatus = 3 or tostatus = -3)
+	 
+	 Group by pid
+  </select>	
+  	
+  	
+  	
+ 	<select id="selectChangeCheckedProjectByAcademyadmin" resultType="com.nun.wjq.project.result.Pst" parameterType="com.nun.wjq.project.parameter.AcademySelectProject">
+ 		SELECT 
+	  project.*,
+	  student.*,
+	  teacher.* 
+	FROM
+	  project,
+	  student,
+	  teacher
+	 WHERE  student.`academy` = #{academyname}  AND project.`isteam` = 0 AND (changestatus = 2 or changestatus = -2 or changestatus = 3 or changestatus = -3)
+	 
+	 Group by pid
+ 	</select>
+ 	
+ 	
+ 	
+ 	
+ 	<select id="selectRemoveProjectCheckedByAcademyadmin" resultType="com.nun.wjq.project.result.Pst" parameterType="com.nun.wjq.project.parameter.AcademySelectProject">
+ 	
+ 		SELECT 
+	  project.*,
+	  student.*,
+	  teacher.* 
+	FROM
+	  project,
+	  student,
+	  teacher
+	 WHERE  student.`academy` = #{academyname}  AND project.`isteam` = 0 AND (removestatus = 2 or removestatus = -2 or removestatus = 3 or removestatus = -3)
+	 
+	 Group by pid
+ 	</select>
+ 	
 </mapper>
