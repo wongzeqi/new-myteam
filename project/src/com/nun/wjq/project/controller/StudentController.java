@@ -335,7 +335,7 @@ public class StudentController {
 		ModelAndView m = new ModelAndView();
 		//设置是否撤项为1
 		project.setIschange(1);
-		project.setChangestatus(1);
+		project.setChangestatus(0);
 		projectService.updateProjectInfoById(project);
 		m.addObject("message","变更申请提交成功，请耐心等待审核。");
 		m.setViewName("/WEB-INF/tips.jsp");

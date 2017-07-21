@@ -1396,4 +1396,10 @@
 	 Group by pid
  	</select>
  	
+ 	<!-- 学校查看列表 --> 
+ 	
+ 	<select id="schoolSelectProject" resultType="com.nun.wjq.project.result.Pst" parameterType="com.nun.wjq.project.model.ProjectWithBLOBs">
+ 		select * from project where project.tostatus = 3
+ 	</select>
+ 	
 </mapper>

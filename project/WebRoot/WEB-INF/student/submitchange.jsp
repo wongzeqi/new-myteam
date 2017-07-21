@@ -99,7 +99,7 @@ function del(id,mid){
           <label>原级别：</label>
         </div>
         <div class="field">
-        	<select style="padding:5px 15px; border:1px solid #ddd;">
+        	<select  style="padding:5px 15px; border:1px solid #ddd;">
 			      <option id="prank" >
 			      	<c:if test="${projectList[0].prank eq 'c'}">校级(团队)</c:if>
 			      	<c:if test="${projectList[0].prank eq 'd'}">校级</c:if>
@@ -113,7 +113,7 @@ function del(id,mid){
           <label>变更级别：</label>
         </div>
         <div class="field">
-        	<select style="padding:5px 15px; name="prank" border:1px solid #ddd;">
+        	<select style="padding:5px 15px; name="torank" border:1px solid #ddd;">
 	          <option value="a">国家级</option>
 	    	  <option value="b">区级</option>
     		</select>

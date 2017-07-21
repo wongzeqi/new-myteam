@@ -40,7 +40,7 @@ String mypath = basePath+"project/";
         <th>手机号</th>
         <th>指导老师</th>
         <th>学院</th>
-        <th>项目等级</th>
+        <th>项目变更等级</th>
         <th>审核状态</th>   
         <th>操作</th>
       </tr>     
@@ -59,6 +59,9 @@ String mypath = basePath+"project/";
           		<c:if test="${project.prank eq 'b' }">区级<c:if test="${project.isteam eq 1 }">(团队)</c:if></c:if>
        			<c:if test="${project.prank eq 'c' }">校级(团队)</c:if>
           		<c:if test="${project.prank eq 'd' }">校级</c:if>
+          		->
+          		<c:if test="${project.torank eq 'a' }">国家级</c:if>
+          		<c:if test="${project.torank eq 'b' }">区级</c:if>
           	</td>
           
           <td>

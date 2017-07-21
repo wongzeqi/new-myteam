@@ -168,6 +168,7 @@ public class TeacherController {
 		//团队项目不需要指导老师审核变更（直接是创新创业学院审核就可以）
 		//设置是团队项目
 		p.setIsteam(0);
+		
 		List <Pst> projectList = projectMapper.selectProjectByTid(p);
 		
 		
@@ -177,7 +178,8 @@ public class TeacherController {
 		if(projectList.size()>0){
 			for(Pst pst :projectList){
 				System.out.println(pst.getChangestatus());
-				if(pst.getChangestatus()==1){
+				//如果变更状态是0的话那么就是
+				if(pst.getChangestatus()==0){
 					wproject.add(pst);
 				}else{
 					yproject.add(pst);
@@ -265,7 +267,7 @@ public class TeacherController {
 	@RequestMapping("/agreechange.action")
 	public ModelAndView teacheragreechange(ProjectWithBLOBs project){
 		ModelAndView m = new ModelAndView();
-		project.setChangestatus(2);
+		project.setChangestatus(1);
 		projectService.teacheragreechange(project);
 		m.setViewName("/WEB-INF/tips.jsp");
 		return m;

@@ -188,11 +188,11 @@ public class AcademyController {
 	@RequestMapping("/updatepass.action")
 	public ModelAndView updatepass(HttpSession session,String newpass,String renewpass,String mpass){
 		ModelAndView m = new ModelAndView();
-		Academyadmin s = (Academyadmin)session.getAttribute("academy");
+		Academyadmin s = (Academyadmin)session.getAttribute("academyadmin");
 		if(renewpass.equals(newpass)&&mpass.equals(s.getPassword())){
 			s.setPassword(renewpass);
 			academyadminService.updateAcademyadminInfoById(s);
-			session.setAttribute("academy", s);
+			session.setAttribute("academyadmin", s);
 			m.addObject("message", "密码修改成功！");
 			m.setViewName("/WEB-INF/academyadmin/pass.jsp");
 		}else{
