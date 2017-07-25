@@ -25,7 +25,7 @@ String mypath = basePath+"project/";
 	<script>
 		var editor;
 		KindEditor.ready(function(K) {
-			editor = K.create('textarea[name="teachercheckidea"]', {
+			editor = K.create('textarea[name="idea"]', {
 				allowFileManager : true
 			});
 			K('input[name=getHtml]').click(function(e) {
@@ -69,7 +69,7 @@ function del(id,mid){
 <div  id="add">
   <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>项目基本信息</strong></div>
   <div class="body-content">
-    <form method="post" class="form-x" action="<%=basePath %>teachergoto/fullcheckidea.action">    
+    <form method="post" class="form-x" action="<%=basePath %>academyadmin/fullcheckidea.action">    
       <div class="form-group">
         <div class="label">
           <label>项目名称：</label>
@@ -97,29 +97,13 @@ function del(id,mid){
           <label>项目级别：</label>
         </div>
         <div class="field">
-        	<select name="prank" style="padding:5px 15px; border:1px solid #ddd;">
-			      
-			      	<c:if test="${pst.prank eq 'c'}">
-			      		<option id="prank" value="c">
-			      			校级(团队)
-			      		</option>
-			      	</c:if>
-			      	<c:if test="${pst.prank eq 'd'}">
-			      		<option id="prank" value="d">
-			      			校级
-			      		</option>
-			      	</c:if>
-			      	<c:if test="${pst.prank eq 'a'}">
-			      		<option id="prank" value="a">
-			      			国家级
-			      		</option>
-			      	</c:if>
-			      	<c:if test="${pst.prank eq 'b'}">
-			      		<option id="prank" value="b">
-			      			区级
-			      		</option>
-			      	</c:if>
-			      
+        	<select style="padding:5px 15px; border:1px solid #ddd;">
+			      <option id="prank" >
+			      	<c:if test="${pst.prank eq 'c'}">校级(团队)</c:if>
+			      	<c:if test="${pst.prank eq 'd'}">校级</c:if>
+			      	<c:if test="${pst.prank eq 'a'}">国家级</c:if>
+			      	<c:if test="${pst.prank eq 'b'}">区级</c:if>
+			      </option>
     		</select>
         </div>
       </div>
@@ -127,16 +111,39 @@ function del(id,mid){
     
       
       
-     <div class="panel-head" style="margin-bottom: 20px;"><strong>请填写您（指导老师）的意见：</strong></div>
+     <div class="panel-head" style="margin-bottom: 20px;"><strong>项目指导老师意见：</strong></div>
       <div class="form-group" style="margin-left: 5%;">
         <div class="label" style="width: 30%; text-align: left;">
           <label>意见：</label>
         </div>
         <div class="field">
-          <textarea name="teachercheckidea" style="width:800px;height:200px;"></textarea>
+          <textarea name="idea" style="width:800px;height:200px;">${pst.teachercheckidea }</textarea>
           <div class="tips"></div>
         </div>
       </div>
+      
+      <div class="panel-head" style="margin-bottom: 20px;"><strong>学院意见：</strong></div>
+      <div class="form-group" style="margin-left: 5%;">
+        <div class="label" style="width: 30%; text-align: left;">
+          <label>意见：</label>
+        </div>
+        <div class="field">
+          <textarea name="idea" style="width:800px;height:200px;"></textarea>
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+      <div class="panel-head" style="margin-bottom: 20px;"><strong style="color:red">请填写学校意见：</strong></div>
+      <div class="form-group" style="margin-left: 5%;">
+        <div class="label" style="width: 30%; text-align: left;">
+          <label>意见：</label>
+        </div>
+        <div class="field">
+          <textarea name="idea" style="width:800px;height:200px;"></textarea>
+          <div class="tips"></div>
+        </div>
+      </div>
+      
       <div class="panel-head" style="margin-bottom: 20px;"><strong>是否通过审核：</strong></div>
       <div class="form-group">
         <div class="label">

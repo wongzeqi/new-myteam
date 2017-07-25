@@ -57,6 +57,8 @@ public interface ProjectMapper {
 	List<Pst> selectRemoveProjectCheckedByAcademyadmin(AcademySelectProject asp);
 
 	List<Pst> schoolSelectProject(ProjectWithBLOBs p);
+
+	List<Pst> schooladminSelectProject(ProjectWithBLOBs p);
 	
 	
     

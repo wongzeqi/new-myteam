@@ -92,6 +92,7 @@ public class TeacherController {
 		ModelAndView m = new ModelAndView();
 		//老师审核完毕设置为1
 		if(ispass==1){
+			System.out.println(project.getPrank());
 			if(project.getPrank().equals("c")){
 				project.setTostatus(2);
 			}

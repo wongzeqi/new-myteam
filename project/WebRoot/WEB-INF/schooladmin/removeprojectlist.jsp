@@ -22,7 +22,7 @@ String mypath = basePath+"project/";
 <body>
 <form method="post" action="">
   <div>
-    <div class="panel-head"><strong class="icon-reorder">我的项目</strong></div>
+    <div class="panel-head"><strong class="icon-reorder">已提交的变更申请</strong></div>
     <div class="padding border-bottom">
       <ul class="search">
         <li>
@@ -62,34 +62,19 @@ String mypath = basePath+"project/";
           	</td>
           
           <td>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq 0 and project.prank ne 'c'}">指导老师审核中</c:if>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq -1 and project.prank ne 'c'}">指导老师未通过</c:if>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq 1 and project.prank ne 'c'}">学院审核中</c:if>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq -2 and project.prank ne 'c'}">学院未通过</c:if>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq 2 and project.prank ne 'c'}">学校审核中</c:if>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq -3}">学校未通过</c:if>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq 3}">审核通过</c:if>
-           
-           <c:if test="${project.isissue eq 1 and project.tostatus eq 1 and project.prank eq 'c'}">学校审核中</c:if>
+           <c:if test="${project.isissue eq 1 }">等待审核</c:if>
            <c:if test="${project.isissue eq 0 }">未提交</c:if>
           </td>
           
          
-         
-	         
-       	<td>
-        	<div class="button-group">
-       	 	<a class="button border-blue" href="<%=basePath %>schooladmin/getProjectInfoById.action?pid=${project.pid}" onclick=""><span class="icon-info"></span>详情</a>
-       	 	<c:if test="${project.tostatus eq 2}">
-       	 	<a class="button border-blue" href="<%=basePath %>schooladmin/getProjectInfoById.action?pid=${project.pid}" onclick=""><span class="icon-info"></span>审核</a>
-       	 	</c:if>
-        	</div>
-       	</td>
-        
-	         
-         
-         
-         
+          	
+          	<td>
+          	<div class="button-group"> 
+          		<a class="button border-blue" href="<%=basePath %>teachergoto/agreeremove.action?pid=${project.pid}" onclick=""></span>同意</a>
+          		<a class="button border-blue" href="<%=basePath %>teachergoto/disagreeremove.action?pid=${project.pid}" onclick=""></span>不同意</a>
+          	</div>
+          	</td>
+          
         </tr>
        </c:forEach> 
     </table>
@@ -97,17 +82,10 @@ String mypath = basePath+"project/";
 </form>
 <script type="text/javascript">
 
-function del() {
-var msg = "您确定要删除吗？\n\n请确认！";
-	if (confirm(msg)==true){
-	}	
-}
-
-
-function submit() {
-var msg = "您确定要删除吗？\n\n请确认！";
-	if (confirm(msg)==true){
-	}	
+function del(id){
+	if(confirm("您确定要删除吗?")){
+		
+	}
 }
 
 $("#checkall").click(function(){ 

@@ -22,7 +22,7 @@ String mypath = basePath+"project/";
 <body>
 <form method="post" action="">
   <div>
-    <div class="panel-head"><strong class="icon-reorder">我的项目</strong></div>
+    <div class="panel-head"><strong class="icon-reorder">已提交的变更申请</strong></div>
     <div class="padding border-bottom">
       <ul class="search">
         <li>
@@ -40,7 +40,7 @@ String mypath = basePath+"project/";
         <th>手机号</th>
         <th>指导老师</th>
         <th>学院</th>
-        <th>项目等级</th>
+        <th>变更等级</th>
         <th>审核状态</th>   
         <th>操作</th>
       </tr>     
@@ -59,55 +59,57 @@ String mypath = basePath+"project/";
           		<c:if test="${project.prank eq 'b' }">区级<c:if test="${project.isteam eq 1 }">(团队)</c:if></c:if>
        			<c:if test="${project.prank eq 'c' }">校级(团队)</c:if>
           		<c:if test="${project.prank eq 'd' }">校级</c:if>
+          		->
+          		<c:if test="${project.torank eq 'a' }">国家级</c:if>
+          		<c:if test="${project.torank eq 'b' }">区级</c:if>
           	</td>
           
           <td>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq 0 and project.prank ne 'c'}">指导老师审核中</c:if>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq -1 and project.prank ne 'c'}">指导老师未通过</c:if>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq 1 and project.prank ne 'c'}">学院审核中</c:if>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq -2 and project.prank ne 'c'}">学院未通过</c:if>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq 2 and project.prank ne 'c'}">学校审核中</c:if>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq -3}">学校未通过</c:if>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq 3}">审核通过</c:if>
-           
-           <c:if test="${project.isissue eq 1 and project.tostatus eq 1 and project.prank eq 'c'}">学校审核中</c:if>
-           <c:if test="${project.isissue eq 0 }">未提交</c:if>
+           <c:if test="${project.changestatus eq -3 }">学校审核未通过</c:if>
+           <c:if test="${project.changestatus eq -2 }">学院审核未通过</c:if>
+           <c:if test="${project.changestatus eq -1 }">指导老师审核未通过</c:if>
+           <c:if test="${project.changestatus eq 3 }">学校通过</c:if>
+           <c:if test="${project.changestatus eq 2 }">学校审核中</c:if>
+           <c:if test="${project.changestatus eq 1 }">学院审核中</c:if>
+           <c:if test="${project.changestatus eq 0 }">指导老师审核中</c:if>
           </td>
           
          
-         
-	         
-       	<td>
-        	<div class="button-group">
-       	 	<a class="button border-blue" href="<%=basePath %>schooladmin/getProjectInfoById.action?pid=${project.pid}" onclick=""><span class="icon-info"></span>详情</a>
-       	 	<c:if test="${project.tostatus eq 2}">
-       	 	<a class="button border-blue" href="<%=basePath %>schooladmin/getProjectInfoById.action?pid=${project.pid}" onclick=""><span class="icon-info"></span>审核</a>
-       	 	</c:if>
-        	</div>
+        <td>
+       	<div class="button-group"> 
+       	<a class="button border-blue" href="<%=basePath %>academyadmin/getProjectInfoById.action?pid=${project.pid}" onclick="">详情</a>
+       	
+       	<c:if test="${project.changestatus eq 1}">
+       	
+	       	<a class="button border-blue" href="<%=basePath %>academyadmin/agreechange.action?pid=${project.pid}" ></span>同意</a>
+	       	<a class="button border-blue" href="<%=basePath %>academyadmin/disagreechange.action?pid=${project.pid}" onclick="">不同意</a>
+       	</c:if>
+       	</div>
        	</td>
-        
-	         
-         
-         
-         
+          
         </tr>
        </c:forEach> 
     </table>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
   </div>
 </form>
 <script type="text/javascript">
 
-function del() {
-var msg = "您确定要删除吗？\n\n请确认！";
-	if (confirm(msg)==true){
-	}	
-}
-
-
-function submit() {
-var msg = "您确定要删除吗？\n\n请确认！";
-	if (confirm(msg)==true){
-	}	
+function del(id){
+	if(confirm("您确定要删除吗?")){
+		
+	}
 }
 
 $("#checkall").click(function(){ 
