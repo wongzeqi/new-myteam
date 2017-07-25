@@ -81,7 +81,7 @@ String mypath = basePath+"project/";
         	<div class="button-group">
        	 	<a class="button border-blue" href="<%=basePath %>schooladmin/getProjectInfoById.action?pid=${project.pid}" onclick=""><span class="icon-info"></span>详情</a>
        	 	<c:if test="${project.tostatus eq 2}">
-       	 	<a class="button border-blue" href="<%=basePath %>schooladmin/getProjectInfoById.action?pid=${project.pid}" onclick=""><span class="icon-info"></span>审核</a>
+       	 		<a class="button border-blue" href="<%=basePath %>schooladmin/getProjectInfoById.action?pid=${project.pid}" onclick=""><span class="icon-info"></span>审核</a>
        	 	</c:if>
         	</div>
        	</td>
