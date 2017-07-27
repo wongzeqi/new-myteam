@@ -69,7 +69,7 @@ function del(id,mid){
 <div  id="add">
   <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>项目基本信息</strong></div>
   <div class="body-content">
-    <form method="post" class="form-x" action="<%=basePath %>academyadmin/fullcheckidea.action">    
+    <form method="post" class="form-x" action="<%=basePath %>schooladmin/fullcheckidea.action">    
       <div class="form-group">
         <div class="label">
           <label>项目名称：</label>
@@ -128,7 +128,7 @@ function del(id,mid){
           <label>意见：</label>
         </div>
         <div class="field">
-          <textarea name="idea" style="width:800px;height:200px;"></textarea>
+          <textarea name="idea" style="width:800px;height:200px;">${pst.academycheckidea }</textarea>
           <div class="tips"></div>
         </div>
       </div>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.nun.wjq.project.model.Project;
+import com.nun.wjq.project.model.ProjectAndPage;
 import com.nun.wjq.project.model.ProjectExample;
 import com.nun.wjq.project.model.ProjectWithBLOBs;
 import com.nun.wjq.project.model.Student;
@@ -58,7 +59,7 @@ public interface ProjectMapper {
 
 	List<Pst> schoolSelectProject(ProjectWithBLOBs p);
 
-	List<Pst> schooladminSelectProject(ProjectWithBLOBs p);
+	List<Pst> schooladminSelectProject(ProjectAndPage pg);
 	
 	
     

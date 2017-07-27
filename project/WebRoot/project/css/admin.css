@@ -33,7 +33,7 @@ ul,li{ list-style-type:none;}
 .leftnav ul li a:hover,.leftnav ul li a.on{ color:#09c;}
 
 /***主要内容***/
-.admin{background:#fff;border:solid 1px #b5cfd9;  padding-right:0px; padding-bottom:0px; overflow:auto; height:2000px;  padding-right:15px; position: fixed; right: 10%; left: 10%;}
+.admin{background:#fff;border:solid 1px #b5cfd9;  padding-right:0px; padding-bottom:0px; overflow:auto;   padding-right:15px; position: fixed; right: 10%; left: 10%;}
 .content{width:100%;}
 .body-content{padding:20px 0; overflow:hidden;}
 .content .title{ border-bottom:1px solid #dfdfdf; line-height:35px; font-size:14px; font-weight:bold; color:#09c}

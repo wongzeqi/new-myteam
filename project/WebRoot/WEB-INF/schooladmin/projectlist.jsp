@@ -62,15 +62,15 @@ String mypath = basePath+"project/";
           	</td>
           
           <td>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq 0 and project.prank ne 'c'}">指导老师审核中</c:if>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq -1 and project.prank ne 'c'}">指导老师未通过</c:if>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq 1 and project.prank ne 'c'}">学院审核中</c:if>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq -2 and project.prank ne 'c'}">学院未通过</c:if>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq 2 and project.prank ne 'c'}">学校审核中</c:if>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq -3}">学校未通过</c:if>
-           <c:if test="${project.isissue eq 1 and project.tostatus eq 3}">审核通过</c:if>
+           <c:if test="$ project.tostatus eq 0 and project.prank ne 'c'}">指导老师审核中</c:if>
+           <c:if test="$ project.tostatus eq -1 and project.prank ne 'c'}">指导老师未通过</c:if>
+           <c:if test="$ project.tostatus eq 1 and project.prank ne 'c'}">学院审核中</c:if>
+           <c:if test="$ project.tostatus eq -2 and project.prank ne 'c'}">学院未通过</c:if>
+           <c:if test="$ project.tostatus eq 2 and project.prank ne 'c'}">学校审核中</c:if>
+           <c:if test="$ project.tostatus eq -3}">学校未通过</c:if>
+           <c:if test="$ project.tostatus eq 3}">审核通过</c:if>
            
-           <c:if test="${project.isissue eq 1 and project.tostatus eq 1 and project.prank eq 'c'}">学校审核中</c:if>
+           <c:if test="$ project.tostatus eq 1 and project.prank eq 'c'}">学校审核中</c:if>
            <c:if test="${project.isissue eq 0 }">未提交</c:if>
           </td>
           
@@ -79,9 +79,9 @@ String mypath = basePath+"project/";
 	         
        	<td>
         	<div class="button-group">
-       	 	<a class="button border-blue" href="<%=basePath %>schooladmin/getProjectInfoById.action?pid=${project.pid}" onclick=""><span class="icon-info"></span>详情</a>
+       	 	<a class="button border-blue" href="<%=basePath %>schooladmin/getProjectInfoById.action?pid=${project.pid}&pname=${project.pname}&prank=${project.prank}&sname=${project.sname}" onclick=""><span class="icon-info"></span>详情</a>
        	 	<c:if test="${project.tostatus eq 2}">
-       	 		<a class="button border-blue" href="<%=basePath %>schooladmin/getProjectInfoById.action?pid=${project.pid}" onclick=""><span class="icon-info"></span>审核</a>
+       	 		<a class="button border-blue" href="<%=basePath %>schooladmin/schooladmingotocheck.action?pid=${project.pid}&pname=${project.pname}&prank=${project.prank}&sname=${project.sname}"" onclick=""><span class="icon-info"></span>审核</a>
        	 	</c:if>
         	</div>
        	</td>
@@ -93,6 +93,23 @@ String mypath = basePath+"project/";
         </tr>
        </c:forEach> 
     </table>
+    <hr>
+    <!-- f分页 -->
+    
+    
+    	<a style="margin-left:100px" class="button border-blue">上一页</a>
+    	<a class="button border-blue">下一页</a>
+    	<form>
+    	<input type="text"  style="height:40px;padding:0 20px; width:80px"  value="${pst.sname }"  />
+    	<a class="button border-blue">跳转</a>
+    	</form>
+    	
+    	<span style="margin-right:50px;float:right">
+    	<span style="font-size:20px ;float:right">--共10页</span>
+    	
+    	<span  style="font-size:20px ;float:right">当前第5页--</span>
+    	</span>
+	
   </div>
 </form>
 <script type="text/javascript">

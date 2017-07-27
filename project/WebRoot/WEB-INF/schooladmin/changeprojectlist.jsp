@@ -91,7 +91,22 @@ String mypath = basePath+"project/";
        </c:forEach> 
     </table>
     
+     <hr>
+    <!-- f分页 -->
     
+    
+    	<a style="margin-left:100px" class="button border-blue">上一页</a>
+    	<a class="button border-blue">下一页</a>
+    	<form>
+    	<input type="text"  style="height:40px;padding:0 20px; width:80px"  value="${pst.sname }"  />
+    	<a class="button border-blue">跳转</a>
+    	</form>
+    	
+    	<span style="margin-right:50px;float:right">
+    	<span style="font-size:20px ;float:right">--共10页</span>
+    	
+    	<span  style="font-size:20px ;float:right">当前第5页--</span>
+    	</span>
     
     
     

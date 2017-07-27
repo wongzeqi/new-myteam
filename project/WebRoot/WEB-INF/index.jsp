@@ -30,6 +30,8 @@ String mypath = basePath+"project/";
 					$(this).addClass("on");
 				})
 			});
+			
+			
 		</script>
 	</head>
 
@@ -69,35 +71,45 @@ String mypath = basePath+"project/";
 		</ul>
 		
 		
-		<div class="admin" style="height:3000px">
+		<div class="admin" style="height:1900px">
 			<div style="width: 100%; height: 100%; z-index: -1; position: fixed; top: 110px; padding-right:15% ;" >
 				
 			<div class="leftnav" style="float: left; width:15%;">
 				<div class="leftnav-title"><strong><span class="icon-list"></span>菜单列表</strong></div>
 				<c:forEach items = "${meun.pmeun}" var="p">
 				
-				<h2><span class="icon-caret-right"></span>${p.pmeunname}</h2>
+				<h2 style="padding-left:20px"><span class="icon-caret-right"></span>${p.pmeunname}</h2>
 				<ul style="display:block">
 					<c:forEach items = "${meun.smeun }" var="s">
 					
 						<c:if test="${p.pid == s.pid}">
 							<li>
-								<a href="<%=basePath %>${s.meunurl}" target="right">${s.smeunname}</a>
+								<c:if test="${s.smeunname eq '申请项目' or s.smeunname eq '项目列表'}">
+									<a onclick="setIframeHeight()" style="font-size:16px;margin-left:40px" href="<%=basePath %>${s.meunurl}" target="right">${s.smeunname}</a>
+								</c:if>
+								<c:if test="${s.smeunname ne '申请项目' and s.smeunname ne '项目列表'}">
+									<a onclick="setIframeHeight100()" style="font-size:16px;margin-left:40px" href="<%=basePath %>${s.meunurl}" target="right">${s.smeunname}</a>
+								</c:if>
 							</li>
 						</c:if>
 					</c:forEach>
 				</ul>
 				</c:forEach>
 				
-				<div style="width:12%; height: 80px ; position: fixed; bottom: 0px; text-align: center;">
-					<address><a href="#">Copyright:北方民族大学创新创业学院</a></address><br />
-					<address><a href="#">java项目开发创新团队王嘉琪制作维护</a></address>
-				</div>
+				
 				
 			</div>
 			</div>
-			<iframe  style="width: 82%; margin-left: 20%; float: left;"  src="<%=basePath %>project/tips.html" name="right"  height="250%"></iframe>
+			<iframe id="myframe" bo style="width:85%; margin-left: 16%; float: left; border-left:1px solid #c0c0c0;" scrolling="no" src="<%=basePath %>/notice.jsp" name="right" height="100%"  ></iframe>
 		</div>
 	</body>
-
+	<script type="text/javascript">
+		function setIframeHeight() {
+			$("#myframe").attr("height","230%");
+		};
+		function setIframeHeight100(){
+			$("#myframe").attr("height","100%");
+		};
+		
+	</script>
 </html>

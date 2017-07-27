@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.nun.wjq.project.mapper.ProjectMapper;
 import com.nun.wjq.project.mapper.StudentMapper;
 import com.nun.wjq.project.mapper.TeacherMapper;
+import com.nun.wjq.project.model.ProjectAndPage;
 import com.nun.wjq.project.model.ProjectWithBLOBs;
 import com.nun.wjq.project.model.Schooladmin;
 import com.nun.wjq.project.model.Student;
@@ -21,6 +22,7 @@ import com.nun.wjq.project.result.Pst;
 import com.nun.wjq.project.service.ProjectService;
 import com.nun.wjq.project.service.SchooladminService;
 import com.nun.wjq.project.service.StudentService;
+import com.nun.wjq.project.utils.Page;
 
 @Controller
 @RequestMapping("/schooladmin")
@@ -44,7 +46,7 @@ public class SchoolController {
 	
 	//学校点击项目审核（校级项目）
 	@RequestMapping("/schoollistproject/{isteam}")
-	public ModelAndView schoollistproject(@PathVariable("isteam") Integer isteam){
+	public ModelAndView schoollistproject(@PathVariable("isteam") Integer isteam,Page page){
 		ModelAndView m = new ModelAndView();
 		//查询条件
 		//学院查询项目的条件
@@ -53,15 +55,22 @@ public class SchoolController {
 		p.setTostatus(2);
 		//不是团队的项目
 		p.setIsteam(isteam);
-		List<Pst> projectList = projectMapper.schooladminSelectProject(p);
+		
+		ProjectAndPage pg = new ProjectAndPage();
+		
+		pg.setPage(page);
+		pg.setProject(p);
+		
+		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
 		m.addObject("projectList", projectList);
+		
 		m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
 		return m;
 	}
 	
 	//学校点击项目审核通过（校级项目）
 	@RequestMapping("/passschoollistproject/{isteam}")
-	public ModelAndView passschoollistproject(@PathVariable("isteam") Integer isteam){
+	public ModelAndView passschoollistproject(@PathVariable("isteam") Integer isteam,Page page){
 		ModelAndView m = new ModelAndView();
 		//查询条件
 		//学院查询项目的条件
@@ -70,14 +79,17 @@ public class SchoolController {
 		p.setTostatus(3);
 		//不是团队的项目
 		p.setIsteam(isteam);
-		List<Pst> projectList = projectMapper.schooladminSelectProject(p);
+		ProjectAndPage pg = new ProjectAndPage();
+		pg.setPage(page);
+		pg.setProject(p);
+		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
 		m.addObject("projectList", projectList);
 		m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
 		return m;
 	}
 	//学校点击项目审核通过（校级项目）
 	@RequestMapping("/notpassschoollistproject/{isteam}")
-	public ModelAndView notpassschoollistproject(@PathVariable("isteam") Integer isteam){
+	public ModelAndView notpassschoollistproject(@PathVariable("isteam") Integer isteam,Page page){
 		ModelAndView m = new ModelAndView();
 		//查询条件
 		//学院查询项目的条件
@@ -85,8 +97,12 @@ public class SchoolController {
 		//学院已经审核的项目
 		p.setTostatus(-3);
 		//不是团队的项目
+		
 		p.setIsteam(isteam);
-		List<Pst> projectList = projectMapper.schooladminSelectProject(p);
+		ProjectAndPage pg = new ProjectAndPage();
+		pg.setPage(page);
+		pg.setProject(p);
+		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
 		m.addObject("projectList", projectList);
 		m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
 		return m;
@@ -95,7 +111,7 @@ public class SchoolController {
 	
 	//学校点击项目审核通过（校级项目）
 	@RequestMapping("/schoollistchangeproject/{isteam}")
-	public ModelAndView schoollistchangeproject(@PathVariable("isteam") Integer isteam){
+	public ModelAndView schoollistchangeproject(@PathVariable("isteam") Integer isteam,Page page){
 		ModelAndView m = new ModelAndView();
 		//查询条件
 		//学院查询项目的条件
@@ -108,7 +124,10 @@ public class SchoolController {
 		p.setChangestatus(2);
 		//不是团队的项目
 		p.setIsteam(isteam);
-		List<Pst> projectList = projectMapper.schooladminSelectProject(p);
+		ProjectAndPage pg = new ProjectAndPage();
+		pg.setPage(page);
+		pg.setProject(p);
+		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
 		m.addObject("projectList", projectList);
 		m.setViewName("/WEB-INF/schooladmin/changeprojectlist.jsp");
 		return m;
@@ -116,7 +135,7 @@ public class SchoolController {
 	
 	//学校点击项目审核通过（校级项目）
 	@RequestMapping("/passschoollistchangeproject/{isteam}")
-	public ModelAndView passschoollistchangeproject(@PathVariable("isteam") Integer isteam){
+	public ModelAndView passschoollistchangeproject(@PathVariable("isteam") Integer isteam,Page page){
 		ModelAndView m = new ModelAndView();
 		//查询条件
 		//学院查询项目的条件
@@ -129,14 +148,17 @@ public class SchoolController {
 		p.setChangestatus(3);
 		//不是团队的项目
 		p.setIsteam(isteam);
-		List<Pst> projectList = projectMapper.schooladminSelectProject(p);
+		ProjectAndPage pg = new ProjectAndPage();
+		pg.setPage(page);
+		pg.setProject(p);
+		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
 		m.addObject("projectList", projectList);
 		m.setViewName("/WEB-INF/schooladmin/changeprojectlist.jsp");
 		return m;
 	}	
 	//学校点击项目审核通过（校级项目）
 	@RequestMapping("/notpassschoollistchangeproject/{isteam}")
-	public ModelAndView notpassschoollistchangeproject(@PathVariable("isteam") Integer isteam){
+	public ModelAndView notpassschoollistchangeproject(@PathVariable("isteam") Integer isteam,Page page){
 		ModelAndView m = new ModelAndView();
 		//查询条件
 		//学院查询项目的条件
@@ -149,7 +171,10 @@ public class SchoolController {
 		p.setChangestatus(-3);
 		//不是团队的项目
 		p.setIsteam(isteam);
-		List<Pst> projectList = projectMapper.schooladminSelectProject(p);
+		ProjectAndPage pg = new ProjectAndPage();
+		pg.setPage(page);
+		pg.setProject(p);
+		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
 		m.addObject("projectList", projectList);
 		m.setViewName("/WEB-INF/schooladmin/changeprojectlist.jsp");
 		return m;
@@ -157,7 +182,7 @@ public class SchoolController {
 	
 	//学校点击项目审核通过（校级项目）
 	@RequestMapping("/schoollistremoveproject/{isteam}")
-	public ModelAndView schoollistremoveproject(@PathVariable("isteam") Integer isteam){
+	public ModelAndView schoollistremoveproject(@PathVariable("isteam") Integer isteam,Page page){
 		ModelAndView m = new ModelAndView();
 		//查询条件
 		//学院查询项目的条件
@@ -170,7 +195,10 @@ public class SchoolController {
 		p.setRemovestatus(2);
 		//不是团队的项目
 		p.setIsteam(isteam);
-		List<Pst> projectList = projectMapper.schooladminSelectProject(p);
+		ProjectAndPage pg = new ProjectAndPage();
+		pg.setPage(page);
+		pg.setProject(p);
+		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
 		m.addObject("projectList", projectList);
 		m.setViewName("/WEB-INF/schooladmin/changeprojectlist.jsp");
 		return m;
@@ -178,7 +206,7 @@ public class SchoolController {
 	
 	//学校点击项目审核通过（校级项目）
 	@RequestMapping("/passschoollistremoveproject/{isteam}")
-	public ModelAndView passschoollistremoveproject(@PathVariable("isteam") Integer isteam){
+	public ModelAndView passschoollistremoveproject(@PathVariable("isteam") Integer isteam,Page page){
 		ModelAndView m = new ModelAndView();
 		//查询条件
 		//学院查询项目的条件
@@ -191,14 +219,17 @@ public class SchoolController {
 		p.setRemovestatus(3);
 		//不是团队的项目
 		p.setIsteam(isteam);
-		List<Pst> projectList = projectMapper.schooladminSelectProject(p);
+		ProjectAndPage pg = new ProjectAndPage();
+		pg.setPage(page);
+		pg.setProject(p);
+		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
 		m.addObject("projectList", projectList);
 		m.setViewName("/WEB-INF/schooladmin/removeprojectlist.jsp");
 		return m;
 	}	
 	//学校点击项目审核通过（校级项目）
 	@RequestMapping("/notpassschoollistremoveproject/{isteam}")
-	public ModelAndView notpassschoollistremoveproject(@PathVariable("isteam") Integer isteam){
+	public ModelAndView notpassschoollistremoveproject(@PathVariable("isteam") Integer isteam,Page page){
 		ModelAndView m = new ModelAndView();
 		//查询条件
 		//学院查询项目的条件
@@ -211,7 +242,10 @@ public class SchoolController {
 		p.setRemovestatus(-3);
 		//不是团队的项目
 		p.setIsteam(isteam);
-		List<Pst> projectList = projectMapper.schooladminSelectProject(p);
+		ProjectAndPage pg = new ProjectAndPage();
+		pg.setPage(page);
+		pg.setProject(p);
+		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
 		m.addObject("projectList", projectList);
 		m.setViewName("/WEB-INF/schooladmin/removeprojectlist.jsp");
 		return m;
@@ -250,7 +284,7 @@ public class SchoolController {
 		p.setTeachercheckidea(project.getTeachercheckidea());
 		p.setAcademycheckidea(project.getAcademycheckidea());
 		m.addObject("pst", p);
-		m.setViewName("/WEB-INF/academyadmin/academycheckproject.jsp");
+		m.setViewName("/WEB-INF/schooladmin/schoolcheckproject.jsp");
 		return m;
 	}
 	
@@ -316,5 +350,5 @@ public class SchoolController {
 		m.addObject("message", "审核成功！");
 		return m;
 	}	
-		
+	
 }
