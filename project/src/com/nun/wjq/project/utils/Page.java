@@ -3,7 +3,7 @@ package com.nun.wjq.project.utils;
 public class Page {
 	private int pageCount;//当前页
 	private int tatalPage;//总页数
-	private int itemCount=1;//条目数
+	private int itemCount=2;//条目数
 	private int totalItemCount;//所以数据条目
 	public int getTotalItemCount() {
 		return totalItemCount;

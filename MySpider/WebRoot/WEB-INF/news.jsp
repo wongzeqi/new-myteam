@@ -53,7 +53,7 @@ img {
 </head>
 
 <body>
-	<div class="news" id="outline">${newsContent }</div>
+	<div class="news" id="outline"></div>
 
 </body>
 </html>

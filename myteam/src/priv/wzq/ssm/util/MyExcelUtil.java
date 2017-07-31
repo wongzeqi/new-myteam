@@ -31,7 +31,7 @@ public class MyExcelUtil {
 		//1、创建工作簿
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		//1.1、创建合并单元格对象
-		CellRangeAddress cellRangeAddress = new CellRangeAddress(0, 0, 0, 10);//起始行号，结束行号，起始列号，结束列号
+		CellRangeAddress cellRangeAddress = new CellRangeAddress(0, 0, 0, 12);//起始行号，结束行号，起始列号，结束列号
 		
 		//1.2、头标题样式
 		HSSFCellStyle style1 = createCellStyle(workbook, (short)16);

@@ -1448,9 +1448,8 @@
     LIMIT ${(page.pageCount-1)*page.itemCount},${page.itemCount}
   </select>
  	
- 	<!-- 学校条件查询数量 -->
- 	<select id="schooladminSelectProject" resultType="int" parameterType="com.nun.wjq.project.model.ProjectAndPage">
-  	SELECT 
+ 	<select id="selectCount" parameterType="com.nun.wjq.project.model.ProjectWithBLOBs" resultType="int">
+ 		SELECT 
 	  count(*) 
 	FROM
 	  project,
@@ -1482,7 +1481,8 @@
       AND project.`tid` = teacher.`tid`
  	 AND student.`sid` = project.`sid`
     </where>        
-  </select>
+ 	</select>
+
  	
  	
  	
