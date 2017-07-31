@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nun.wjq.project.mapper.ProjectMapper;
@@ -22,6 +23,7 @@ import com.nun.wjq.project.model.ProjectWithBLOBs;
 import com.nun.wjq.project.model.Schooladmin;
 import com.nun.wjq.project.model.Student;
 import com.nun.wjq.project.model.Teacher;
+import com.nun.wjq.project.parameter.AcademySelectProject;
 import com.nun.wjq.project.result.Pst;
 import com.nun.wjq.project.service.ProjectService;
 import com.nun.wjq.project.service.SchooladminService;
@@ -54,11 +56,19 @@ public class SchoolController {
 		return "/WEB-INF/schooladmin/pass.jsp";
 	}
 
-	// 学校点击项目审核（校级项目）
+	// 学校点击项目审核
 	@RequestMapping("/schoollistproject/{isteam}")
 	public ModelAndView schoollistproject(
 			@PathVariable("isteam") Integer isteam, Page page) {
 		ModelAndView m = new ModelAndView();
+		
+		if(null!=page.getTatalPage()){
+			if(page.getPageCount()>page.getTatalPage()){
+				m.addObject("message", "跳转页数超出范围！");
+				m.setViewName("/WEB-INF/tips.jsp");
+			}
+		}
+		
 		// 查询条件
 		// 学院查询项目的条件
 		ProjectWithBLOBs p = new ProjectWithBLOBs();
@@ -75,15 +85,19 @@ public class SchoolController {
 		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
 		int count = projectMapper.selectCount(p);
 		page.setTotalItemCount(count);
-		page.setTatalPage(count%page.getPageCount() == 0 ? count/page.getPageCount() : count/page.getPageCount()+1);
+		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
 		m.addObject("page",page);
 		m.addObject("projectList", projectList);
 
-		m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
+		if(isteam==1){
+			m.setViewName("/WEB-INF/schooladmin/teamprojectlist.jsp");
+		}else{
+			m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
+		}
 		return m;
 	}
 
-	// 学校点击项目审核通过（校级项目）
+	// 学校点击项目审核通过
 	@RequestMapping("/passschoollistproject/{isteam}")
 	public ModelAndView passschoollistproject(
 			@PathVariable("isteam") Integer isteam, Page page) {
@@ -101,14 +115,18 @@ public class SchoolController {
 		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
 		int count = projectMapper.selectCount(p);
 		page.setTotalItemCount(count);
-		page.setTatalPage(count%page.getPageCount() == 0 ? count/page.getPageCount() : count/page.getPageCount()+1);
+		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
 		m.addObject("page",page);
 		m.addObject("projectList", projectList);
-		m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
+		if(isteam==1){
+			m.setViewName("/WEB-INF/schooladmin/teamprojectlist.jsp");
+		}else{
+			m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
+		}
 		return m;
 	}
 
-	// 学校点击项目审核通过（校级项目）
+	// 学校点击项目审核通过
 	@RequestMapping("/notpassschoollistproject/{isteam}")
 	public ModelAndView notpassschoollistproject(
 			@PathVariable("isteam") Integer isteam, Page page) {
@@ -127,14 +145,18 @@ public class SchoolController {
 		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
 		int count = projectMapper.selectCount(p);
 		page.setTotalItemCount(count);
-		page.setTatalPage(count%page.getPageCount() == 0 ? count/page.getPageCount() : count/page.getPageCount()+1);
+		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
 		m.addObject("page",page);
 		m.addObject("projectList", projectList);
-		m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
+		if(isteam==1){
+			m.setViewName("/WEB-INF/schooladmin/teamprojectlist.jsp");
+		}else{
+			m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
+		}
 		return m;
 	}
 
-	// 学校点击项目审核通过（校级项目）
+	// 学校点击项目审核通过
 	@RequestMapping("/schoollistchangeproject/{isteam}")
 	public ModelAndView schoollistchangeproject(
 			@PathVariable("isteam") Integer isteam, Page page) {
@@ -156,14 +178,18 @@ public class SchoolController {
 		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
 		int count = projectMapper.selectCount(p);
 		page.setTotalItemCount(count);
-		page.setTatalPage(count%page.getPageCount() == 0 ? count/page.getPageCount() : count/page.getPageCount()+1);
+		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
 		m.addObject("page",page);
 		m.addObject("projectList", projectList);
-		m.setViewName("/WEB-INF/schooladmin/changeprojectlist.jsp");
+		if(isteam==1){
+			m.setViewName("/WEB-INF/schooladmin/teamprojectlist.jsp");
+		}else{
+			m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
+		}
 		return m;
 	}
 
-	// 学校点击项目审核通过（校级项目）
+	// 学校点击项目审核通过
 	@RequestMapping("/passschoollistchangeproject/{isteam}")
 	public ModelAndView passschoollistchangeproject(
 			@PathVariable("isteam") Integer isteam, Page page) {
@@ -185,14 +211,18 @@ public class SchoolController {
 		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
 		int count = projectMapper.selectCount(p);
 		page.setTotalItemCount(count);
-		page.setTatalPage(count%page.getPageCount() == 0 ? count/page.getPageCount() : count/page.getPageCount()+1);
+		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
 		m.addObject("page",page);
 		m.addObject("projectList", projectList);
-		m.setViewName("/WEB-INF/schooladmin/changeprojectlist.jsp");
+		if(isteam==1){
+			m.setViewName("/WEB-INF/schooladmin/teamprojectlist.jsp");
+		}else{
+			m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
+		}
 		return m;
 	}
 
-	// 学校点击项目审核通过（校级项目）
+	// 学校点击项目审核通过
 	@RequestMapping("/notpassschoollistchangeproject/{isteam}")
 	public ModelAndView notpassschoollistchangeproject(
 			@PathVariable("isteam") Integer isteam, Page page) {
@@ -214,14 +244,18 @@ public class SchoolController {
 		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
 		int count = projectMapper.selectCount(p);
 		page.setTotalItemCount(count);
-		page.setTatalPage(count%page.getPageCount() == 0 ? count/page.getPageCount() : count/page.getPageCount()+1);
+		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
 		m.addObject("page",page);
 		m.addObject("projectList", projectList);
-		m.setViewName("/WEB-INF/schooladmin/changeprojectlist.jsp");
+		if(isteam==1){
+			m.setViewName("/WEB-INF/schooladmin/teamprojectlist.jsp");
+		}else{
+			m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
+		}
 		return m;
 	}
 
-	// 学校点击项目审核通过（校级项目）
+	// 学校点击项目审核通过
 	@RequestMapping("/schoollistremoveproject/{isteam}")
 	public ModelAndView schoollistremoveproject(
 			@PathVariable("isteam") Integer isteam, Page page) {
@@ -243,10 +277,14 @@ public class SchoolController {
 		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
 		int count = projectMapper.selectCount(p);
 		page.setTotalItemCount(count);
-		page.setTatalPage(count%page.getPageCount() == 0 ? count/page.getPageCount() : count/page.getPageCount()+1);
+		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
 		m.addObject("page",page);
 		m.addObject("projectList", projectList);
-		m.setViewName("/WEB-INF/schooladmin/changeprojectlist.jsp");
+		if(isteam==1){
+			m.setViewName("/WEB-INF/schooladmin/teamprojectlist.jsp");
+		}else{
+			m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
+		}
 		return m;
 	}
 
@@ -275,7 +313,7 @@ public class SchoolController {
         }
 	}
 
-	// 学校点击项目审核通过（校级项目）
+	// 学校点击项目审核通过
 	@RequestMapping("/passschoollistremoveproject/{isteam}")
 	public ModelAndView passschoollistremoveproject(
 			@PathVariable("isteam") Integer isteam, Page page) {
@@ -297,14 +335,18 @@ public class SchoolController {
 		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
 		int count = projectMapper.selectCount(p);
 		page.setTotalItemCount(count);
-		page.setTatalPage(count%page.getPageCount() == 0 ? count/page.getPageCount() : count/page.getPageCount()+1);
+		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
 		m.addObject("page",page);
 		m.addObject("projectList", projectList);
-		m.setViewName("/WEB-INF/schooladmin/removeprojectlist.jsp");
+		if(isteam==1){
+			m.setViewName("/WEB-INF/schooladmin/teamprojectlist.jsp");
+		}else{
+			m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
+		}
 		return m;
 	}
 
-	// 学校点击项目审核通过（校级项目）
+	// 学校点击项目审核通过
 	@RequestMapping("/notpassschoollistremoveproject/{isteam}")
 	public ModelAndView notpassschoollistremoveproject(
 			@PathVariable("isteam") Integer isteam, Page page) {
@@ -326,10 +368,14 @@ public class SchoolController {
 		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
 		int count = projectMapper.selectCount(p);
 		page.setTotalItemCount(count);
-		page.setTatalPage(count%page.getPageCount() == 0 ? count/page.getPageCount() : count/page.getPageCount()+1);
+		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
 		m.addObject("page",page);
 		m.addObject("projectList", projectList);
-		m.setViewName("/WEB-INF/schooladmin/removeprojectlist.jsp");
+		if(isteam==1){
+			m.setViewName("/WEB-INF/schooladmin/teamprojectlist.jsp");
+		}else{
+			m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
+		}
 		return m;
 	}
 
@@ -349,7 +395,9 @@ public class SchoolController {
 		m.addObject("project", project);
 		// 添加负责人信息
 		m.addObject("fzr", s);
-		m.setViewName("/WEB-INF/schooladmin/projectinfo.jsp");
+		
+		m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
+		
 		return m;
 	}
 
@@ -363,7 +411,9 @@ public class SchoolController {
 		p.setTeachercheckidea(project.getTeachercheckidea());
 		p.setAcademycheckidea(project.getAcademycheckidea());
 		m.addObject("pst", p);
-		m.setViewName("/WEB-INF/schooladmin/schoolcheckproject.jsp");
+		
+		m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
+		
 		return m;
 	}
 
@@ -419,5 +469,26 @@ public class SchoolController {
 		m.addObject("message", "审核成功！");
 		return m;
 	}
+/////////////////////////////////////////////json数据交互/////////////////////////////////////////////////////////
+	
+	
+	
+	@RequestMapping("/jsonschoollistproject/{isteam}")
+	public @ResponseBody List<Pst> jsonschoollistproject(
+			@PathVariable("isteam") Integer isteam,AcademySelectProject asp) {
+		
+//		if(null!=page.getTatalPage()){
+//			if(page.getPageCount()>page.getTatalPage()){
+//				m.addObject("message", "跳转页数超出范围！");
+//				m.setViewName("/WEB-INF/tips.jsp");
+//			}
+//		}
+		
+		//封装查询条件
+		asp.setTostatus(2);
+		asp.setIsteam(isteam);
 
+		List<Pst> projectList = projectMapper.selectProjectByAcademyadmin(asp);
+		return projectList;
+	}
 }

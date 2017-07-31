@@ -9,12 +9,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.nun.wjq.project.fileupload.UploadStatus;
+import com.nun.wjq.project.mapper.AcademyMapper;
 import com.nun.wjq.project.mapper.AcademyadminMapper;
 import com.nun.wjq.project.mapper.ParentmeunMapper;
 import com.nun.wjq.project.mapper.SchooladminMapper;
 import com.nun.wjq.project.mapper.SonmeunMapper;
 import com.nun.wjq.project.mapper.StudentMapper;
 import com.nun.wjq.project.mapper.TeacherMapper;
+import com.nun.wjq.project.model.Academy;
 import com.nun.wjq.project.model.Academyadmin;
 import com.nun.wjq.project.model.Parentmeun;
 import com.nun.wjq.project.model.Schooladmin;
@@ -44,6 +47,8 @@ public class LoginController {
 	SchooladminMapper schooladminMapper;
 	@Autowired 
 	SonmeunMapper sonmeunMapper;
+	@Autowired
+	AcademyMapper academyMapper;
 	/**
 	 * 学院登录
 	 * @param user
@@ -100,10 +105,13 @@ public class LoginController {
 			//查询权限菜单
 			List <Parentmeun> allParentmeun = parentmeunMapper.getParentMeuns4();
 			List <Sonmeun> sonmeun = sonmeunMapper.getSonmeuns4();
+			
+			List<Academy> academys = academyMapper.selectByExample(null);
 			Meun m = new Meun();
 			m.setPmeun(allParentmeun);
 			m.setSmeun(sonmeun);
 			modelAndView.addObject("meun", m);
+			session.setAttribute("academys", academys);
 			modelAndView.setViewName("/WEB-INF/index.jsp");
 			//....
 		}else{
@@ -127,6 +135,8 @@ public class LoginController {
 			System.out.println(s.getSname());
 			removesession(session);
 			session.setAttribute("student", s);
+			UploadStatus uploadStatus = new UploadStatus();
+			session.setAttribute("upload_status", uploadStatus);
 			//查询权限菜单
 			List <Parentmeun> allParentmeun = parentmeunMapper.getParentMeuns1();
 			List <Sonmeun> sonmeun = sonmeunMapper.getSonmeuns1();

@@ -1,18 +1,24 @@
 package com.nun.wjq.project.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.nun.wjq.project.fileupload.UploadStatus;
 import com.nun.wjq.project.mapper.ProjectMapper;
 import com.nun.wjq.project.mapper.StudentMapper;
 import com.nun.wjq.project.mapper.TeacherMapper;
@@ -52,7 +58,11 @@ public class StudentController {
 	public String gotosetpass(){
 		return "/WEB-INF/student/pass.jsp";
 	}
-	
+	//一期答辩
+	@RequestMapping("/firstcheck.action")
+	public String firstcheck(){
+		return "/WEB-INF/upload.jsp";
+	}
 	
 	
 	//点击申请项目页面
@@ -372,6 +382,72 @@ public class StudentController {
 		}
 		return s;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//文件上传
+	 @RequestMapping("/fileUpload3.do")
+	    public String fileUpload3(@RequestParam(value="file",required= false) MultipartFile[] files,HttpServletRequest request) throws IOException{
+	    	
+	    	 long  startTime=System.currentTimeMillis();
+	    	 String path = request.getSession().getServletContext().getRealPath("upload");
+	    	 File pathFile = new File(path);
+	    	 
+	    	 if(!pathFile.exists()&&!pathFile.isDirectory()){
+	    		 pathFile.mkdirs();
+	    	 }
+	    	 
+	    	 if(files!=null&&files.length>0){  
+	             //循环获取file数组中得文件  
+	             for(int i = 0;i<files.length;i++){  
+	                 MultipartFile file = files[i];  
+	                 //这个方法最慢
+	                 /*FileUtils.writeByteArrayToFile(new File("E:\\"+file.getOriginalFilename()), file.getBytes());*/
+	                 
+	                 //这个方法最快
+	                 file.transferTo(new File(path+"\\"+file.getOriginalFilename()));
+	                 
+	                 //这个方法其次
+	                /*OutputStream os=new FileOutputStream("E:/"+file.getOriginalFilename());
+	                 //获取输入流 CommonsMultipartFile 中可以直接得到文件的流
+	                 InputStream is=file.getInputStream();
+	                 byte[] bts = new byte[2048];
+	                 //一个一个字节的读取并写入
+	                 while(is.read(bts)!=-1)
+	                 {
+	                     os.write(bts);
+	                 }
+	                os.flush();
+	                os.close();
+	                is.close();*/
+	             }  
+	         } 
+	    	 long  endTime=System.currentTimeMillis();
+	    	 System.out.println("方法四的运行时间："+String.valueOf(endTime-startTime)+"ms");
+			return "success";
+	    }
+	    
+	    
+	    /**
+	     * 这里是获取上传文件状态信息的访问接口
+	     * @param session
+	     * @return
+	     */
+	    @ResponseBody
+		@RequestMapping("getStatus.do")
+		public UploadStatus getStatus(HttpSession session){
+	    	System.out.println((UploadStatus)session.getAttribute("upload_status"));
+			return (UploadStatus)session.getAttribute("upload_status");
+		}
+	
+	
 	
 	
 	

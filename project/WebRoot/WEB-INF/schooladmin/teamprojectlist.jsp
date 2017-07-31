@@ -66,25 +66,24 @@ String mypath = basePath+"project/";
 					<th>审核状态</th>
 					<th>操作</th>
 				</tr>
-				<tbody id="tbody">
 				<c:forEach items="${projectList }" var="project">
 					<tr>
-						<td id="theyear">${project.theyear }</td>
-						<td id="pname">${project.pname}</td>
-						<td id="sname">${project.sname }</td>
-						<td id="snumber">${project.snumber }</td>
-						<td id="phone">${project.phone }</td>
-						<td id="tname">${project.tname }</td>
-						<td id="academy">${project.academy }</td>
+						<td>${project.theyear }</td>
+						<td>${project.pname}</td>
+						<td>${project.sname }</td>
+						<td>${project.snumber }</td>
+						<td>${project.phone }</td>
+						<td>${project.tname }</td>
+						<td>${project.academy }</td>
 
-						<td id="prank">
+						<td>
 							<c:if test="${project.prank eq 'a' }">国家级<c:if test="${project.isteam eq 1 }">(团队)</c:if></c:if>
           					<c:if test="${project.prank eq 'b' }">区级<c:if test="${project.isteam eq 1 }">(团队)</c:if></c:if>
        						<c:if test="${project.prank eq 'c' }">校级(团队)</c:if>
           					<c:if test="${project.prank eq 'd' }">校级</c:if>
 						</td>
 
-						<td id="tostatus"><c:if test="${project.tostatus eq 0 and project.prank ne 'c'}">指导老师审核中</c:if>
+						<td><c:if test="${project.tostatus eq 0 and project.prank ne 'c'}">指导老师审核中</c:if>
 							<c:if test="${project.tostatus eq -1 and project.prank ne 'c'}">指导老师未通过</c:if>
 							<c:if test="${project.tostatus eq 1 and project.prank ne 'c'}">学院审核中</c:if>
 							<c:if test="${project.tostatus eq -2 and project.prank ne 'c'}">学院未通过</c:if>
@@ -105,7 +104,6 @@ String mypath = basePath+"project/";
 						</td>
 					</tr>
 				</c:forEach>
-				</tbody>
 			</table>
 			<hr>
 			
@@ -139,100 +137,26 @@ String mypath = basePath+"project/";
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('.myselect').change(function(){
-				var str = "";
 				
 				var value1 =$('.myselect').children('option:selected').val();//这就是selected的值
 				var value2 =$('.myselect').last('option:selected').val();//这就是selected的值
-				alert(value1);
-				alert(value2);
+				
 				$.ajax({
 					type : 'get',
-					url : '${pageContext.request.contextPath}/schooladmin/jsonschoollistproject/0',
+					url : '${pageContext.request.contextPath}/teachergoto/getName.action',
 					contentType : 'application/json;charset=utf-8',
 					data : {
-						"academyname" : value2,
-						"prank" : value1
+						"tnumber" : tnumber
 					},
-					success : function(msg) {//返回json结果
-						var json = eval(msg); //数组  
-					    $.each(json, function (index, item) {
-					     //循环获取数据
-					     var theyear = json[index].theyear;
-					     var pname = json[index].pname;
-					     var sname = json[index].sname;
-					     var snumber = json[index].snumber;
-					     var phone = json[index].phone;
-					     var tname = json[index].tname;
-					     var academy = json[index].academy;
-					     var prank = '';
-					     if(json[index].prank=='a'){
-					     	prank='国家级';
-					     }
-					     if(json[index].prank=='b'){
-					     	prank='区级';
-					     }
-					     if(json[index].prank=='d'){
-					     	prank='校级';
-					     }
-					     
-					     var tostatus = "学校审核中";
-					     
-					       
-					     str= str + "<tr>" +  
-		                        "<td>" + theyear + "</td>" +  
-		                        "<td>" + pname + "</td>" + 
-		                        "<td>" + sname + "</td>" +  
-		                        "<td>" + snumber + "</td>" +  
-		                        "<td>" + phone + "</td>" +  
-		                        "<td>" + tname + "</td>" +  
-		                        "<td>" + academy + "</td>" + 
-		                        "<td>" + prank + "</td>" +  
-		                        "<td>" + tostatus + "</td>" +  
-		                        
-		                        
-				                "<td>"+
-									"<div class='button-group'>"+
-										"<a class='button border-blue' href=''>详情</a>"+
-										
-										"<a class='button border-blue' href=''>审核</a>"+
-										
-									"</div>"+
-								"</td>"+
-		                        
-		                        
-		                        "</tr>";
-					    });					
-					
-						/**
-						if (msg.ret) {  
-		                    var str = "";  
-		                    var data = msg.data;  
-		  
-		                    for (i in data) {  
-		                    	alert(hsdasa);
-		                        str += "<tr>" +  
-		                        "<td>" + i.theyear + "</td>" +  
-		                        "<td>" + i.pname + "</td>" +  
-		                        "<td>" + i.snumber + "</td>" +  
-		                        "<td>" + i.phone + "</td>" +  
-		                        "<td>" + i.tname + "</td>" +  
-		                        "<td>" + i.academy + "</td>" +  
-		                        "<td>" + i.tostatus + "</td>" +  
-		                        "</tr>";  
-		                    }  
-	                    	tbody.innerHTML = str;  
-               			}  
-						*/
-						$("#tbody").html(str);
-						
+					success : function(data) {//返回json结果
+						$("#tname").val(data.tname);
+						$("#tid").val(data.tid);
 					},
 					error : function() {
 					}
 				});
 			});
 		});
-		
-		
 </script>
 	</script>
 	

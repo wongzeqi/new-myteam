@@ -1,36 +1,34 @@
 package com.nun.wjq.project.utils;
 
 public class Page {
-	private int pageCount;//当前页
-	private int tatalPage;//总页数
-	private int itemCount=2;//条目数
-	private int totalItemCount;//所以数据条目
-	public int getTotalItemCount() {
-		return totalItemCount;
-	}
-	public void setTotalItemCount(int totalItemCount) {
-		this.totalItemCount = totalItemCount;
-	}
-	public int getPageCount() {
+	private Integer pageCount=1;//当前页
+	private Integer tatalPage;//总页数
+	private Integer itemCount=2;//条目数
+	private Integer totalItemCount;//所以数据条目
+	public Integer getPageCount() {
 		return pageCount;
 	}
-	public void setPageCount(int pageCount) {
+	public void setPageCount(Integer pageCount) {
 		this.pageCount = pageCount;
 	}
-	public int getTatalPage() {
+	public Integer getTatalPage() {
 		return tatalPage;
 	}
-	public void setTatalPage(int tatalPage) {
+	public void setTatalPage(Integer tatalPage) {
 		this.tatalPage = tatalPage;
 	}
-	public int getItemCount() {
+	public Integer getItemCount() {
 		return itemCount;
 	}
-	public void setItemCount(int itemCount) {
+	public void setItemCount(Integer itemCount) {
 		this.itemCount = itemCount;
 	}
-	public Page() {
-		this.pageCount=1;
+	public Integer getTotalItemCount() {
+		return totalItemCount;
 	}
-	//
+	public void setTotalItemCount(Integer totalItemCount) {
+		this.totalItemCount = totalItemCount;
+	}
+	
+	
 }

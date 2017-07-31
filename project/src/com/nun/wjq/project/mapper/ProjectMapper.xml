@@ -1325,6 +1325,9 @@
       <if test="ischange != null" >
         and ischange = #{ischange}
       </if>
+      <if test="prank != null" >
+        and prank = #{prank}
+      </if>
       <if test="changestatus != null" >
         and changestatus = #{changestatus}
       </if>
@@ -1457,26 +1460,26 @@
 	  teacher
 	 <where>
       
-      <if test="project.ischange != null" >
-        and ischange = #{project.ischange}
+      <if test="ischange != null" >
+        and ischange = #{ischange}
       </if>
-      <if test="project.changestatus != null" >
-        and changestatus = #{project.changestatus}
+      <if test="changestatus != null" >
+        and changestatus = #{changestatus}
       </if>
-      <if test="project.isremove != null" >
-        and isremove = #{project.isremove}
+      <if test="isremove != null" >
+        and isremove = #{isremove}
       </if>
-      <if test="project.removestatus != null" >
-        and removestatus = #{project.removestatus}
+      <if test="removestatus != null" >
+        and removestatus = #{removestatus}
       </if>
-       <if test="project.isissue != null" >
-        and isissue = #{project.isissue}
+       <if test="isissue != null" >
+        and isissue = #{isissue}
       </if>
-      <if test="project.isteam != null" >
-        and isteam = #{project.isteam}
+      <if test="isteam != null" >
+        and isteam = #{isteam}
       </if>
-      <if test="project.tostatus != null" >
-        and tostatus = #{project.tostatus}
+      <if test="tostatus != null" >
+        and tostatus = #{tostatus}
       </if>
       AND project.`tid` = teacher.`tid`
  	 AND student.`sid` = project.`sid`
