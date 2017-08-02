@@ -63,8 +63,8 @@ public class CoreNumberService {
 	static String JRTD[] ={
 		"Java项目开发创新团队",
 		"点击报名>>>",
-		"http://15d06247.ngrok.io/myteam/aui/image/timg.jpg",
-		"http://15d06247.ngrok.io/myteam/jsp/myform.jsp"
+		"http://c5939faf.ngrok.io/myteam/aui/image/timg.jpg",
+		"http://c5939faf.ngrok.io/myteam/jsp/myform.jsp"
 	};
 	/**
 	 * 我要请假
@@ -72,8 +72,8 @@ public class CoreNumberService {
 	static String WYQJ[] = {
 		"Java项目开发创新团队",
 		"我要请假>>>",
-		"http://15d06247.ngrok.io/myteam/aui/image/qingjia.jpg",
-		"http://15d06247.ngrok.io/myteam/jsp/qingjia.jsp"
+		"http://c5939faf.ngrok.io/myteam/aui/image/qingjia.jpg",
+		"http://c5939faf.ngrok.io/myteam/jsp/qingjia.jsp"
 	};
 	/**
 	 * 我要签到
@@ -81,8 +81,8 @@ public class CoreNumberService {
 	static String WYQD[] = {
 		"Java项目开发创新团队",
 		"我要请假>>>",
-		"http://15d06247.ngrok.io/myteam/aui/image/qiandao.jpg",
-		"http://15d06247.ngrok.io/myteam/jsp/qiandao.jsp"
+		"http://c5939faf.ngrok.io/myteam/aui/image/qiandao.jpg",
+		"http://c5939faf.ngrok.io/myteam/jsp/qiandao.jsp"
 	};
 	/**
 	 * 团队合影
@@ -90,22 +90,22 @@ public class CoreNumberService {
 	static String TDHY[] = {
 		"Java项目开发创新团队--团队成员合影",
 		"团队成员合影",
-		"http://15d06247.ngrok.io/myteam/aui/image/15.jpg",
-		"http://15d06247.ngrok.io/myteam/jsp/photo.jsp"
+		"http://c5939faf.ngrok.io/myteam/aui/image/15.jpg",
+		"http://c5939faf.ngrok.io/myteam/jsp/photo.jsp"
 	};
 	static String BMBS[] = {
 		"报名比赛",
 		"点击报名>>>",
-		"http://15d06247.ngrok.io/myteam/aui/image/cjbs.png",
+		"http://c5939faf.ngrok.io/myteam/aui/image/cjbs.png",
 		//注！
-		"http://15d06247.ngrok.io/myteam/jsp/photo.jsp"
+		"http://c5939faf.ngrok.io/myteam/jsp/photo.jsp"
 	};
 	static String JRZY[] = {
 		"主页",
 		"点击进入>>>",
-		"http://15d06247.ngrok.io/myteam/aui/image/zy.png",
+		"http://c5939faf.ngrok.io/myteam/aui/image/zy.png",
 		//注！
-		"http://15d06247.ngrok.io/myteam/jsp/index.jsp"
+		"http://c5939faf.ngrok.io/myteam/jsp/index.jsp"
 	};
 	
 	/**
