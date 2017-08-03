@@ -81,4 +81,6 @@ public interface MemberMapper {
 	  * 获取所有的qq和学号
 	  */
 	 List<Member> getAllQQAndSchoolNumber();
+
+	List<Member> getMembersByMember(Member member);
 }

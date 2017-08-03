@@ -58,4 +58,6 @@ public interface MemberService  extends BaseService{
 	 List<String> getAllSchoolNumber();
 	 
 	 List<Member> getAllQQAndSchoolNumber();
+
+	List<Member> getMembersByMember(Member member);
 }

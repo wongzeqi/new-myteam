@@ -1,5 +1,7 @@
 package priv.wzq.ssm.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +52,20 @@ public class MemberController {
 		memberService.deleteMemberByOpenid(openid);
 		return "/WEB-INF/error/error.jsp";
 	}
+	
+	//条件查询用户
+	@RequestMapping("/getMembersByMember")
+	public ModelAndView getMembersByMember(Member member) throws Exception{
+		ModelAndView m = new ModelAndView();
+		List<Member> members = memberService.getMembersByMember(member);
+		m.addObject("members", members);
+		m.setViewName("/WEB-INF/team/member.jsp");
+		return m;
+	}
+	
+	
+	
+	
 	
 	
 }

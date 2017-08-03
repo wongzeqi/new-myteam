@@ -88,4 +88,9 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		return memberMapper.getAllQQAndSchoolNumber();
 	}
+	@Override
+	public List<Member> getMembersByMember(Member member) {
+		// TODO Auto-generated method stub
+		return memberMapper.getMembersByMember(member);
+	}
 }

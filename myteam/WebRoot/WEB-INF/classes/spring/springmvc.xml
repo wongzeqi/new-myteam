@@ -20,10 +20,17 @@
 	
 
 	<!-- 不拦截静态资源 -->
-	<mvc:resources location="/aui/image/" mapping="/aui/image/**" />
-	<mvc:resources location="/aui/home_image/" mapping="/aui/home_image/**" />
-	<mvc:resources location="/aui/css/" mapping="/aui/css/**" />
-	<mvc:resources location="/aui/script/" mapping="/aui/script/**" />
+	<mvc:resources location="/" mapping="/**/*.jpg"/>
+	<mvc:resources location="/" mapping="/**/*.png"/>
+	<mvc:resources location="/" mapping="/**/*.css"/>
+	<mvc:resources location="/" mapping="/**/*.js"/>
+	<mvc:resources location="/" mapping="/**/*.gif"/>
+	<mvc:resources location="/" mapping="/**/*.eot"/>
+	<mvc:resources location="/" mapping="/**/*.svg"/>
+	<mvc:resources location="/" mapping="/**/*.ttf"/>
+	<mvc:resources location="/" mapping="/**/*.woff"/> 
+	<mvc:resources location="/" mapping="/**/*.ico"/> 
+	
 	<!-- 视图解析器 解析jsp解析，默认使用jstl标签，classpath下的得有jstl的包 -->
 	
 		<!--不要前后缀了
