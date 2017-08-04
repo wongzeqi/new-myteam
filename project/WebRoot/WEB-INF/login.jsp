@@ -89,6 +89,8 @@ String mypath = basePath+"project/";
 </div>
 
 
+<div style="z-index:1000000"><h1>北方民族大学创新创业项目申报平台</h1></div>
+
 
 </body>
 </html>

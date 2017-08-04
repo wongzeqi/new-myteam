@@ -100,12 +100,12 @@ String mypath = basePath+"project/";
 				
 			</div>
 			</div>
-			<iframe id="myframe" bo style="width:85%; margin-left: 16%; float: left; border-left:1px solid #c0c0c0;" scrolling="no" src="<%=basePath %>/notice.jsp" name="right" height="100%"  ></iframe>
+			<iframe id="myframe" bo style="width:85%; margin-left: 16%; float: left; border-left:1px solid #c0c0c0;" scrolling="auto" src="<%=basePath %>/project/notice.jsp" name="right" height="200%"  ></iframe>
 		</div>
 	</body>
 	<script type="text/javascript">
 		function setIframeHeight() {
-			$("#myframe").attr("height","230%");
+			$("#myframe").attr("height","250%");
 		};
 		function setIframeHeight100(){
 			$("#myframe").attr("height","100%");

@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.nun.wjq.project.fileupload.UploadStatus;
 import com.nun.wjq.project.mapper.AcademyMapper;
 import com.nun.wjq.project.mapper.AcademyadminMapper;
+import com.nun.wjq.project.mapper.NoticeMapper;
 import com.nun.wjq.project.mapper.ParentmeunMapper;
 import com.nun.wjq.project.mapper.SchooladminMapper;
 import com.nun.wjq.project.mapper.SonmeunMapper;
@@ -19,6 +20,7 @@ import com.nun.wjq.project.mapper.StudentMapper;
 import com.nun.wjq.project.mapper.TeacherMapper;
 import com.nun.wjq.project.model.Academy;
 import com.nun.wjq.project.model.Academyadmin;
+import com.nun.wjq.project.model.Notice;
 import com.nun.wjq.project.model.Parentmeun;
 import com.nun.wjq.project.model.Schooladmin;
 import com.nun.wjq.project.model.Sonmeun;
@@ -49,6 +51,8 @@ public class LoginController {
 	SonmeunMapper sonmeunMapper;
 	@Autowired
 	AcademyMapper academyMapper;
+	@Autowired 
+	NoticeMapper noticeMapper; 
 	/**
 	 * 学院登录
 	 * @param user
@@ -140,7 +144,7 @@ public class LoginController {
 			//查询权限菜单
 			List <Parentmeun> allParentmeun = parentmeunMapper.getParentMeuns1();
 			List <Sonmeun> sonmeun = sonmeunMapper.getSonmeuns1();
-			
+			List <Notice> notices = noticeMapper.selectByExampleWithBLOBs(null);
 			for(Parentmeun son :allParentmeun ){
 				System.out.println(son.getPmeunname());
 			}
@@ -151,6 +155,7 @@ public class LoginController {
 			m.setPmeun(allParentmeun);
 			m.setSmeun(sonmeun);
 			modelAndView.addObject("meun", m);
+			session.setAttribute("notices", notices);
 			modelAndView.setViewName("/WEB-INF/index.jsp");
 			//....
 		}else{

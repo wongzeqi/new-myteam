@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.nun.wjq.project.mapper.NoticeMapper;
 import com.nun.wjq.project.mapper.ProjectMapper;
 import com.nun.wjq.project.mapper.StudentMapper;
 import com.nun.wjq.project.mapper.TeacherMapper;
+import com.nun.wjq.project.model.Notice;
 import com.nun.wjq.project.model.ProjectAndPage;
 import com.nun.wjq.project.model.ProjectWithBLOBs;
 import com.nun.wjq.project.model.Schooladmin;
@@ -47,6 +49,8 @@ public class SchoolController {
 	TeacherMapper teacherMapper;
 	@Autowired
 	SchooladminService schooladminService;
+	@Autowired 
+	NoticeMapper noticeMapper;
 
 	// ----------------------点击菜单跳转页面--------------------------//
 
@@ -54,6 +58,12 @@ public class SchoolController {
 	@RequestMapping("/gotosetpass.action")
 	public String gotosetpass() {
 		return "/WEB-INF/schooladmin/pass.jsp";
+	}
+	
+	// 点击去修改密码的页面
+	@RequestMapping("/gotoaddnotice.action")
+	public String gotoaddnotice() {
+		return "/WEB-INF/schooladmin/addnotice.jsp";
 	}
 
 	// 学校点击项目审核
@@ -469,6 +479,78 @@ public class SchoolController {
 		m.addObject("message", "审核成功！");
 		return m;
 	}
+	
+	/**
+	 * 发布通知
+	 * @param notice
+	 * @return
+	 */
+	@RequestMapping("/addnotice.action")
+	public ModelAndView addnotice(Notice notice) {
+		ModelAndView m = new ModelAndView();
+		String dat =  notice.getDat();
+		String[] dats = dat.split("-");
+		notice.setYear(Integer.valueOf(dats[0]));
+		notice.setMouth(Integer.valueOf(dats[1]));
+		notice.setDay(Integer.valueOf(dats[2]));
+		// 将第二个学院填写的意见设置进去
+		noticeMapper.insertSelective(notice);
+		m.setViewName("/WEB-INF/tips.jsp");
+		m.addObject("message", "发布成功！");
+		return m;
+	}
+	
+	/**
+	 * 查询所有通知
+	 * @param
+	 * @param asp
+	 * @return
+	 */
+	@RequestMapping("/getallnotice.action")
+	public ModelAndView getallnotice(Notice notice) {
+		ModelAndView m = new ModelAndView();
+		// 将第二个学院填写的意见设置进去
+		List<Notice> notices = noticeMapper.selectAllNotice();
+		m.addObject("notices", notices);
+		m.setViewName("/WEB-INF/tips.jsp");
+		return m;
+	}
+	
+	
+	/**
+	 * 修改通知
+	 * @param
+	 * @param asp
+	 * @return
+	 */
+	@RequestMapping("/motifynotice.action")
+	public ModelAndView motifynotice(Notice notice) {
+		ModelAndView m = new ModelAndView();
+		// 将第二个学院填写的意见设置进去
+		noticeMapper.updateByPrimaryKeyWithBLOBs(notice);
+		m.addObject("message", "修改成功");
+		m.setViewName("/WEB-INF/tips.jsp");
+		return m;
+	}
+	
+	/**
+	 * 根据id删除
+	 * @param
+	 * @param asp
+	 * @return
+	 */
+	@RequestMapping("/deletenotice.action")
+	public ModelAndView deletenotice(int id) {
+		ModelAndView m = new ModelAndView();
+		// 将第二个学院填写的意见设置进去
+		noticeMapper.deleteByPrimaryKey(id);
+		m.addObject("message", "删除成功");
+		m.setViewName("/WEB-INF/tips.jsp");
+		return m;
+	}
+	
+	
+	
 /////////////////////////////////////////////json数据交互/////////////////////////////////////////////////////////
 	
 	

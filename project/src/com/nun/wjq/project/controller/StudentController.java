@@ -58,10 +58,28 @@ public class StudentController {
 	public String gotosetpass(){
 		return "/WEB-INF/student/pass.jsp";
 	}
+	
+	//点击去文件中心
+	@RequestMapping("/gotofilelist")
+	public String gotofilelist(){
+		return "/project/filelist.jsp";
+	}
+	
+	
 	//一期答辩
 	@RequestMapping("/firstcheck.action")
-	public String firstcheck(){
-		return "/WEB-INF/upload.jsp";
+	public ModelAndView firstcheck(HttpSession session){
+		ModelAndView m = new ModelAndView();
+		Project p = new Project();
+		Student s = (Student)session.getAttribute("student");
+		p.setSid(s.getSid());
+		p.setPrank("c");//团队项目
+		p.setOfficemark("d");//校级项目
+		List<Project> projectList =  projectMapper.selectBySidAndPrank(p);
+		m.addObject("projectList", projectList);
+		m.setViewName("/WEB-INF/upload.jsp");
+		return m;
+		
 	}
 	
 	

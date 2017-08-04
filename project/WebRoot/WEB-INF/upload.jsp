@@ -10,10 +10,46 @@ String mypath = basePath+"project/";
 <head>
     <meta charset="UTF-8">
     <title>文件上传</title>
-    <link href="<%=mypath %>css/iconfont.css" rel="stylesheet" type="text/css"/>
+     
+    <link rel="stylesheet" href="<%=mypath %>css/css/pintuer.css" type="text/css">
+	<link rel="stylesheet" href="<%=mypath %>css/css/admin.css" type="text/css">
     <link href="<%=mypath %>css/fileUpload.css" rel="stylesheet" type="text/css">
+    <link href="<%=mypath %>css/iconfont.css" rel="stylesheet" type="text/css"/>
+    
+    
 </head>
 <body>
+
+	<div class="panel-head"><strong><span class="icon-pencil-square-o"></span>项目基本信息</strong></div>
+  
+  <h3 style="color:red">${message }</h3>
+  <div class="body-content">
+    <form method="post" class="form-x" action="<%=basePath %>studentgoto/submitremoveproject.action">    
+      <div class="form-group">
+        <div class="label">
+          <label>项目名称：</label>
+        </div>
+        <div class="field">
+          <select style="padding:5px 15px; border:1px solid #ddd;">
+          	<c:forEach items="${projectList}" var="project" >
+        		<option value="${project.pid }">${project.pname }</option>
+        	</c:forEach>
+        	</select>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label>负责人：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50"  value="${student.sname }"  />
+          <div class="tips"></div>
+        </div>
+      </div>
+      
+    <form>
+  </div>
+<div class="panel-head"><strong><span class="icon-pencil-square-o"></span>上传材料</strong></div>
     <div style="padding:60px" id="fileUploadContent" class="fileUploadContent">
        
     </div>
