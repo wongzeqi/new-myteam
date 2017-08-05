@@ -29,6 +29,12 @@ public class Page {
 	public void setTotalItemCount(Integer totalItemCount) {
 		this.totalItemCount = totalItemCount;
 	}
+	@Override
+	public String toString() {
+		return "Page [pageCount=" + pageCount + ", tatalPage=" + tatalPage
+				+ ", itemCount=" + itemCount + ", totalItemCount="
+				+ totalItemCount + "]";
+	}
 	
 	
 }

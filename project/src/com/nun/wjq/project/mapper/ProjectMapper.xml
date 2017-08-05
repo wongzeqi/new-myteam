@@ -1445,6 +1445,13 @@
       <if test="project.tostatus != null" >
         and tostatus = #{project.tostatus}
       </if>
+      <if test="project.torank != null" >
+        and torank = #{project.torank}
+      </if>
+      <if test="project.prank != null" >
+        and prank = #{project.prank}
+      </if>
+      
       AND project.`tid` = teacher.`tid`
  	 AND student.`sid` = project.`sid`
     </where>        
@@ -1480,6 +1487,12 @@
       </if>
       <if test="tostatus != null" >
         and tostatus = #{tostatus}
+      </if>
+      <if test="torank != null" >
+        and torank = #{torank}
+      </if>
+      <if test="prank != null" >
+        and prank = #{prank}
       </if>
       AND project.`tid` = teacher.`tid`
  	 AND student.`sid` = project.`sid`

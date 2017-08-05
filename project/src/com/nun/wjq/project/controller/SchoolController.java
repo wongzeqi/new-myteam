@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -67,10 +68,13 @@ public class SchoolController {
 	}
 
 	// 学校点击项目审核
-	@RequestMapping("/schoollistproject/{isteam}")
+	@RequestMapping("/schoollistproject/{prank}/{tostatus}")
 	public ModelAndView schoollistproject(
-			@PathVariable("isteam") Integer isteam, Page page) {
+			@PathVariable("prank") String prank, @PathVariable("tostatus") int tostatus, Page page,HttpServletRequest request) {
 		ModelAndView m = new ModelAndView();
+		//先将分页model给移除
+		request.removeAttribute("page");
+		
 		
 		if(null!=page.getTatalPage()){
 			if(page.getPageCount()>page.getTatalPage()){
@@ -83,9 +87,9 @@ public class SchoolController {
 		// 学院查询项目的条件
 		ProjectWithBLOBs p = new ProjectWithBLOBs();
 		// 学院已经审核的项目
-		p.setTostatus(2);
+		p.setTostatus(tostatus);
 		// 不是团队的项目
-		p.setIsteam(isteam);
+		p.setPrank(prank);
 
 		ProjectAndPage pg = new ProjectAndPage();
 
@@ -96,213 +100,21 @@ public class SchoolController {
 		int count = projectMapper.selectCount(p);
 		page.setTotalItemCount(count);
 		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
+		
 		m.addObject("page",page);
 		m.addObject("projectList", projectList);
-
-		if(isteam==1){
-			m.setViewName("/WEB-INF/schooladmin/teamprojectlist.jsp");
-		}else{
-			m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
-		}
+		System.out.println(page.toString());
+		m.addObject("prank", prank);
+		m.addObject("tostatus", tostatus);
+		m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
 		return m;
 	}
 
-	// 学校点击项目审核通过
-	@RequestMapping("/passschoollistproject/{isteam}")
-	public ModelAndView passschoollistproject(
-			@PathVariable("isteam") Integer isteam, Page page) {
-		ModelAndView m = new ModelAndView();
-		// 查询条件
-		// 学院查询项目的条件
-		ProjectWithBLOBs p = new ProjectWithBLOBs();
-		// 学院已经审核的项目
-		p.setTostatus(3);
-		// 不是团队的项目
-		p.setIsteam(isteam);
-		ProjectAndPage pg = new ProjectAndPage();
-		pg.setPage(page);
-		pg.setProject(p);
-		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
-		int count = projectMapper.selectCount(p);
-		page.setTotalItemCount(count);
-		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
-		m.addObject("page",page);
-		m.addObject("projectList", projectList);
-		if(isteam==1){
-			m.setViewName("/WEB-INF/schooladmin/teamprojectlist.jsp");
-		}else{
-			m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
-		}
-		return m;
-	}
 
-	// 学校点击项目审核通过
-	@RequestMapping("/notpassschoollistproject/{isteam}")
-	public ModelAndView notpassschoollistproject(
-			@PathVariable("isteam") Integer isteam, Page page) {
-		ModelAndView m = new ModelAndView();
-		// 查询条件
-		// 学院查询项目的条件
-		ProjectWithBLOBs p = new ProjectWithBLOBs();
-		// 学院已经审核的项目
-		p.setTostatus(-3);
-		// 不是团队的项目
-
-		p.setIsteam(isteam);
-		ProjectAndPage pg = new ProjectAndPage();
-		pg.setPage(page);
-		pg.setProject(p);
-		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
-		int count = projectMapper.selectCount(p);
-		page.setTotalItemCount(count);
-		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
-		m.addObject("page",page);
-		m.addObject("projectList", projectList);
-		if(isteam==1){
-			m.setViewName("/WEB-INF/schooladmin/teamprojectlist.jsp");
-		}else{
-			m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
-		}
-		return m;
-	}
-
-	// 学校点击项目审核通过
-	@RequestMapping("/schoollistchangeproject/{isteam}")
-	public ModelAndView schoollistchangeproject(
-			@PathVariable("isteam") Integer isteam, Page page) {
-		ModelAndView m = new ModelAndView();
-		// 查询条件
-		// 学院查询项目的条件
-		ProjectWithBLOBs p = new ProjectWithBLOBs();
-		// 学院已经审核的项目
-		p.setTostatus(3);
-		// 变更状态为2
-
-		p.setIschange(1);
-		p.setChangestatus(2);
-		// 不是团队的项目
-		p.setIsteam(isteam);
-		ProjectAndPage pg = new ProjectAndPage();
-		pg.setPage(page);
-		pg.setProject(p);
-		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
-		int count = projectMapper.selectCount(p);
-		page.setTotalItemCount(count);
-		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
-		m.addObject("page",page);
-		m.addObject("projectList", projectList);
-		if(isteam==1){
-			m.setViewName("/WEB-INF/schooladmin/teamprojectlist.jsp");
-		}else{
-			m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
-		}
-		return m;
-	}
-
-	// 学校点击项目审核通过
-	@RequestMapping("/passschoollistchangeproject/{isteam}")
-	public ModelAndView passschoollistchangeproject(
-			@PathVariable("isteam") Integer isteam, Page page) {
-		ModelAndView m = new ModelAndView();
-		// 查询条件
-		// 学院查询项目的条件
-		ProjectWithBLOBs p = new ProjectWithBLOBs();
-		// 学院已经审核的项目
-		p.setTostatus(3);
-		// 变更状态为2
-
-		p.setIschange(1);
-		p.setChangestatus(3);
-		// 不是团队的项目
-		p.setIsteam(isteam);
-		ProjectAndPage pg = new ProjectAndPage();
-		pg.setPage(page);
-		pg.setProject(p);
-		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
-		int count = projectMapper.selectCount(p);
-		page.setTotalItemCount(count);
-		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
-		m.addObject("page",page);
-		m.addObject("projectList", projectList);
-		if(isteam==1){
-			m.setViewName("/WEB-INF/schooladmin/teamprojectlist.jsp");
-		}else{
-			m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
-		}
-		return m;
-	}
-
-	// 学校点击项目审核通过
-	@RequestMapping("/notpassschoollistchangeproject/{isteam}")
-	public ModelAndView notpassschoollistchangeproject(
-			@PathVariable("isteam") Integer isteam, Page page) {
-		ModelAndView m = new ModelAndView();
-		// 查询条件
-		// 学院查询项目的条件
-		ProjectWithBLOBs p = new ProjectWithBLOBs();
-		// 学院已经审核的项目
-		p.setTostatus(3);
-		// 变更状态为2
-
-		p.setIschange(1);
-		p.setChangestatus(-3);
-		// 不是团队的项目
-		p.setIsteam(isteam);
-		ProjectAndPage pg = new ProjectAndPage();
-		pg.setPage(page);
-		pg.setProject(p);
-		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
-		int count = projectMapper.selectCount(p);
-		page.setTotalItemCount(count);
-		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
-		m.addObject("page",page);
-		m.addObject("projectList", projectList);
-		if(isteam==1){
-			m.setViewName("/WEB-INF/schooladmin/teamprojectlist.jsp");
-		}else{
-			m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
-		}
-		return m;
-	}
-
-	// 学校点击项目审核通过
-	@RequestMapping("/schoollistremoveproject/{isteam}")
-	public ModelAndView schoollistremoveproject(
-			@PathVariable("isteam") Integer isteam, Page page) {
-		ModelAndView m = new ModelAndView();
-		// 查询条件
-		// 学院查询项目的条件
-		ProjectWithBLOBs p = new ProjectWithBLOBs();
-		// 学院已经审核的项目
-		p.setTostatus(3);
-		// 变更状态为2
-
-		p.setIschange(1);
-		p.setRemovestatus(2);
-		// 不是团队的项目
-		p.setIsteam(isteam);
-		ProjectAndPage pg = new ProjectAndPage();
-		pg.setPage(page);
-		pg.setProject(p);
-		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
-		int count = projectMapper.selectCount(p);
-		page.setTotalItemCount(count);
-		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
-		m.addObject("page",page);
-		m.addObject("projectList", projectList);
-		if(isteam==1){
-			m.setViewName("/WEB-INF/schooladmin/teamprojectlist.jsp");
-		}else{
-			m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
-		}
-		return m;
-	}
-
+	
+	
+	////////////////////////这里是到处excel
 	@RequestMapping("/download")
-
-		
-		
-		
 	 public  void downloadExcelFile(HttpServletResponse response){
     	List<Pst> projectList = projectMapper.schoolSelectProject(null);
         try {
@@ -323,10 +135,12 @@ public class SchoolController {
         }
 	}
 
-	// 学校点击项目审核通过
-	@RequestMapping("/passschoollistremoveproject/{isteam}")
-	public ModelAndView passschoollistremoveproject(
-			@PathVariable("isteam") Integer isteam, Page page) {
+	////////这里是变更申请和侧向申请审核管理
+	
+	// 学校列出所有项目的变更申请schoollistchangeproject   s
+	@RequestMapping("/schoollistchangeprojects/{torank}")
+	public ModelAndView schoollistchangeprojects(
+			@PathVariable("torank") String torank, Page page) {
 		ModelAndView m = new ModelAndView();
 		// 查询条件
 		// 学院查询项目的条件
@@ -334,32 +148,36 @@ public class SchoolController {
 		// 学院已经审核的项目
 		p.setTostatus(3);
 		// 变更状态为2
-
 		p.setIschange(1);
-		p.setRemovestatus(3);
-		// 不是团队的项目
-		p.setIsteam(isteam);
+		p.setChangestatus(2);
+		// 设置变更的等级
+		p.setTorank(torank);
+		
+		//封装查询条件
 		ProjectAndPage pg = new ProjectAndPage();
 		pg.setPage(page);
 		pg.setProject(p);
+		
+		//获取所需结果数据model
 		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
 		int count = projectMapper.selectCount(p);
 		page.setTotalItemCount(count);
 		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
 		m.addObject("page",page);
 		m.addObject("projectList", projectList);
-		if(isteam==1){
-			m.setViewName("/WEB-INF/schooladmin/teamprojectlist.jsp");
+		
+		
+		if(torank.equals("a")){//变更到国家级
+			m.setViewName("/WEB-INF/schooladmin/changetoranka.jsp");
 		}else{
-			m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
+			m.setViewName("/WEB-INF/schooladmin/changetorankb.jsp");
 		}
 		return m;
 	}
-
-	// 学校点击项目审核通过
-	@RequestMapping("/notpassschoollistremoveproject/{isteam}")
-	public ModelAndView notpassschoollistremoveproject(
-			@PathVariable("isteam") Integer isteam, Page page) {
+	
+	//撤项管理
+	@RequestMapping("/schoollistremoveprojects.action")
+	public ModelAndView schoollistremoveprojects(Page page) {
 		ModelAndView m = new ModelAndView();
 		// 查询条件
 		// 学院查询项目的条件
@@ -367,28 +185,63 @@ public class SchoolController {
 		// 学院已经审核的项目
 		p.setTostatus(3);
 		// 变更状态为2
-
-		p.setIschange(1);
-		p.setRemovestatus(-3);
-		// 不是团队的项目
-		p.setIsteam(isteam);
+		p.setIsremove(1);
+		p.setRemovestatus(2);
 		ProjectAndPage pg = new ProjectAndPage();
 		pg.setPage(page);
 		pg.setProject(p);
+		
+		//获取所需结果数据model
 		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
 		int count = projectMapper.selectCount(p);
 		page.setTotalItemCount(count);
 		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
 		m.addObject("page",page);
 		m.addObject("projectList", projectList);
-		if(isteam==1){
-			m.setViewName("/WEB-INF/schooladmin/teamprojectlist.jsp");
-		}else{
-			m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
-		}
+		
+		
+		
+		m.setViewName("/WEB-INF/schooladmin/removeprojectlist.jsp");
+		
 		return m;
 	}
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// 学校管理员点击查看详情
 	@RequestMapping("/getProjectInfoById.action")
