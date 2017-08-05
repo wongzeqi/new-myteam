@@ -406,7 +406,7 @@ public class SchoolController {
 		// 添加负责人信息
 		m.addObject("fzr", s);
 		
-		m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
+		m.setViewName("/WEB-INF/schooladmin/projectinfo.jsp");
 		
 		return m;
 	}

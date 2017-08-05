@@ -76,6 +76,8 @@ public class LoginController {
 		if(a!=null){
 			removesession(session);
 			session.setAttribute("academyadmin", a);
+			List <Notice> notices = noticeMapper.selectAllNotice();
+			session.setAttribute("notices", notices);
 			//查询权限菜单
 			List <Parentmeun> allParentmeun = parentmeunMapper.getParentMeuns3();
 			List <Sonmeun> sonmeun = sonmeunMapper.getSonmeuns3();
@@ -107,6 +109,8 @@ public class LoginController {
 			removesession(session);
 			session.setAttribute("schooladmin", s);
 			//查询权限菜单
+			List <Notice> notices = noticeMapper.selectAllNotice();
+			session.setAttribute("notices", notices);
 			List <Parentmeun> allParentmeun = parentmeunMapper.getParentMeuns4();
 			List <Sonmeun> sonmeun = sonmeunMapper.getSonmeuns4();
 			
@@ -144,7 +148,7 @@ public class LoginController {
 			//查询权限菜单
 			List <Parentmeun> allParentmeun = parentmeunMapper.getParentMeuns1();
 			List <Sonmeun> sonmeun = sonmeunMapper.getSonmeuns1();
-			List <Notice> notices = noticeMapper.selectByExampleWithBLOBs(null);
+			List <Notice> notices = noticeMapper.selectAllNotice();
 			for(Parentmeun son :allParentmeun ){
 				System.out.println(son.getPmeunname());
 			}
@@ -178,6 +182,8 @@ public class LoginController {
 		if(t!=null){
 			removesession(session);
 			session.setAttribute("teacher",t);
+			List <Notice> notices = noticeMapper.selectAllNotice();
+			session.setAttribute("notices", notices);
 			//查询权限菜单
 			List <Parentmeun> allParentmeun = parentmeunMapper.getParentMeuns2();
 			List <Sonmeun> sonmeun = sonmeunMapper.getSonmeuns2();

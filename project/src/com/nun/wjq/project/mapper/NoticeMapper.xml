@@ -285,7 +285,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   
-  <select id="selectAllNotice">
+  <select id="selectAllNotice" resultType="com.nun.wjq.project.model.Notice">
   	select * from notice order by dat DESC
   </select>
   
