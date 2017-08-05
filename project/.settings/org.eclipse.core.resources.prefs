@@ -2,3 +2,4 @@ eclipse.preferences.version=1
 encoding//src/com/nun/wjq/project/fileupload/UploadCommonsMultipartResolver.java=UTF-8
 encoding//src/com/nun/wjq/project/fileupload/UploadListener.java=UTF-8
 encoding//src/com/nun/wjq/project/fileupload/UploadStatus.java=UTF-8
+encoding//src/com/nun/wjq/project/fileupload/utils/UploadCommtools.java=UTF-8

@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nun.wjq.project.fileupload.UploadStatus;
@@ -47,7 +48,7 @@ public class UploadAction {
     
     @RequestMapping("/fileUpload3.do")
     public String fileUpload3(@RequestParam(value="file",required= false) MultipartFile[] files,HttpServletRequest request) throws IOException{
-    	
+    	try{
     	 long  startTime=System.currentTimeMillis();
     	 String path = request.getSession().getServletContext().getRealPath("upload");
     	 File pathFile = new File(path);
@@ -83,6 +84,11 @@ public class UploadAction {
          } 
     	 long  endTime=System.currentTimeMillis();
     	 System.out.println("方法四的运行时间："+String.valueOf(endTime-startTime)+"ms");
+    	}catch(MaxUploadSizeExceededException e){
+    		return "/WEB-INF/tips.jsp";
+    	}
+    	 
+    	 
 		return "success";
     }
     

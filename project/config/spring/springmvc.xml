@@ -40,9 +40,9 @@
 	
 	<!-- 图片上传 -->
 	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		class="com.nun.wjq.project.fileupload.UploadCommonsMultipartResolver">
 		<property name="maxUploadSize">
-			<value>10000000</value>
+			<value>104857600</value>
 		</property>
 		<property name="defaultEncoding">
 			<value>UTF-8</value>

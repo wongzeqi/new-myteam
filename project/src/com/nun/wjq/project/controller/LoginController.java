@@ -143,8 +143,6 @@ public class LoginController {
 			System.out.println(s.getSname());
 			removesession(session);
 			session.setAttribute("student", s);
-			UploadStatus uploadStatus = new UploadStatus();
-			session.setAttribute("upload_status", uploadStatus);
 			//查询权限菜单
 			List <Parentmeun> allParentmeun = parentmeunMapper.getParentMeuns1();
 			List <Sonmeun> sonmeun = sonmeunMapper.getSonmeuns1();

@@ -35,11 +35,12 @@ String mypath = basePath+"project/";
 						onclick="changesearch()"> 搜索</a>
 						
 					</li>
+					
 					<li id="s2">
 						<select class="myselect" style="padding:10px 20px; border:1px solid #ddd;">
-							<option value="a">国家级项目</option>
-			        		<option value="b">区级项目</option>
-			        		<option value="c">校级项目</option>
+							<option value="2017">2017年</option>
+			        		<option value="2016">2016年</option>
+			        		<option value="2015">2015年</option>
 						</select>
 					</li>
 					
@@ -97,9 +98,9 @@ String mypath = basePath+"project/";
 
 						<td>
 							<div class="button-group">
-								<a class="button border-blue" href="<%=basePath %>schooladmin/getProjectInfoById.action?pid=${project.pid}&pname=${project.pname}&prank=${project.prank}&sname=${project.sname}" onclick=""><span class="icon-info"></span>详情</a>
+								<a class="button border-blue" href="<%=basePath %>schooladmin/getProjectInfoById.action?pid=${project.pid}&pname=${project.pname}&prank=${project.prank}&sname=${project.sname}" onclick=""></span>详情</a>
 								<c:if test="${project.tostatus eq 2}">
-									<a class="button border-blue" href="<%=basePath %>schooladmin/schooladmingotocheck.action?pid=${project.pid}&pname=${project.pname}&prank=${project.prank}&sname=${project.sname}" onclick=""><span class="icon-info"></span>审核</a>
+									<a class="button border-blue" href="<%=basePath %>schooladmin/schooladmingotocheck.action?pid=${project.pid}&pname=${project.pname}&prank=${project.prank}&sname=${project.sname}" onclick="">审核</a>
 								</c:if>
 							</div>
 						</td>
@@ -107,17 +108,18 @@ String mypath = basePath+"project/";
 				</c:forEach>
 				</tbody>
 			</table>
-			<hr>
 			
-			
+		
 			<!-- f分页 -->
+			<c:if test="${page.tatalPage>1 }">
+			<hr>
 			<span style="margin-left:100px">
 			<c:if test="${page.pageCount>1 }">
-				<a href="<%=basePath %>schooladmin/schoollistproject/0?pageCount=${page.pageCount-1}"  class="button border-blue">上一页</a>
+				<a href="<%=basePath %>schooladmin/schoollistproject/${prank }/${tostatus}?pageCount=${page.pageCount-1}"  class="button border-blue">上一页</a>
 			</c:if>
 			
 			<c:if test="${page.pageCount<page.tatalPage }">
-				<a href="<%=basePath %>schooladmin/schoollistproject/0?pageCount=${page.pageCount+1}" class="button border-blue">下一页</a>
+				<a href="<%=basePath %>schooladmin/schoollistproject/${prank }/${tostatus}?pageCount=${page.pageCount+1}" class="button border-blue">下一页</a>
 			</c:if>
 			</span>
 			
@@ -130,7 +132,7 @@ String mypath = basePath+"project/";
 				<span style="font-size:20px ;float:right">--共${page.tatalPage }页</span>
 				<span style="font-size:20px ;float:right">当前第${page.pageCount }页--</span>
 			</span>
-			
+			</c:if>
 			
 		</div>
 	</form>

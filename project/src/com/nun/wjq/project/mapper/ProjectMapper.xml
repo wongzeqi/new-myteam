@@ -1264,7 +1264,7 @@
   </select>
   
   <select id="selectProjectBySid" parameterType="com.nun.wjq.project.model.Project" resultType="com.nun.wjq.project.model.Project">
-  	select * from project where sid=#{sid} and isissue = 1 and tostatus = 3
+  	select * from project where sid=#{sid} and isissue = 1 and tostatus = 3 and ischange = 0 and isremove = 0
   </select>
   
 

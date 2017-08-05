@@ -58,6 +58,7 @@ String mypath = basePath+"project/";
 					</c:if>
 					
 				</a> &nbsp;&nbsp;
+				<a href="<%=basePath %>project/notice.jsp" target="right" class="button button-little bg-green"><span class="icon-info"></span>&nbsp;&nbsp;查看通知</a>&nbsp;&nbsp;
 				<a class="button button-little bg-red" href="<%=basePath %>login/goto.html"><span class="icon-power-off"></span> 退出登录</a>
 			</div>
 		</div>
@@ -65,6 +66,7 @@ String mypath = basePath+"project/";
 			<li>
 				<a href="{:U('Index/info')}" target="right" class="icon-home"> 首页</a>
 			</li>
+		
 			<li>
 				<a href="##" id="a_leader_txt"></a>
 			</li>
@@ -100,9 +102,10 @@ String mypath = basePath+"project/";
 				
 			</div>
 			</div>
-			<iframe id="myframe" bo style="width:85%; margin-left: 16%; float: left; border-left:1px solid #c0c0c0;" scrolling="auto" src="<%=basePath %>/project/notice.jsp" name="right" height="200%"  ></iframe>
+			<iframe id="myframe" bo style="width:85%; margin-left: 16%; float: left; border-left:1px solid #c0c0c0;" scrolling="auto" src="<%=basePath %>/project/notice.jsp" name="right" height="250%"  ></iframe>
 		</div>
 	</body>
+	<!--  
 	<script type="text/javascript">
 		function setIframeHeight() {
 			$("#myframe").attr("height","250%");
@@ -112,4 +115,5 @@ String mypath = basePath+"project/";
 		};
 		
 	</script>
+	-->
 </html>

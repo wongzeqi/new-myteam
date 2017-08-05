@@ -275,7 +275,7 @@ public class SchoolController {
 		p.setAcademycheckidea(project.getAcademycheckidea());
 		m.addObject("pst", p);
 		
-		m.setViewName("/WEB-INF/schooladmin/projectlist.jsp");
+		m.setViewName("/WEB-INF/schooladmin/schoolcheckproject.jsp");
 		
 		return m;
 	}

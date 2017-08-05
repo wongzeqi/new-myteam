@@ -73,9 +73,7 @@ public class StudentController {
 		Project p = new Project();
 		Student s = (Student)session.getAttribute("student");
 		p.setSid(s.getSid());
-		p.setPrank("c");//团队项目
-		p.setOfficemark("d");//校级项目
-		List<Project> projectList =  projectMapper.selectBySidAndPrank(p);
+		List<Project> projectList =  projectMapper.selectProjectBySid(p);
 		m.addObject("projectList", projectList);
 		m.setViewName("/WEB-INF/upload.jsp");
 		return m;
