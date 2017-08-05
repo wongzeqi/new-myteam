@@ -43,7 +43,7 @@ img {
 
 <body>
 	<div class="news" id="outline">
-		
+		<a href="D:\Tomcat\apache-tomcat-7.0.70\webapps\project\upload\cbec664bf15b4e848e5f3d1e15f01e0fvmware-2.log">下载文件</a>
 		<p> 5月24日，中央纪委监察部网站在其官网发布各级纪检监察机关查处53起违反中央八项规定精神问题的通报。 </p> 
 <p> <strong>北京市</strong> </p> 
 <p> <strong>北京市通报2起违反中央八项规定精神问题</strong> </p> 

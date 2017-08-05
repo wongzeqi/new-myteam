@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.nun.wjq.project.fileupload.UploadStatus;
 import com.nun.wjq.project.mapper.AcademyMapper;
 import com.nun.wjq.project.mapper.AcademyadminMapper;
 import com.nun.wjq.project.mapper.NoticeMapper;
@@ -76,6 +75,8 @@ public class LoginController {
 		if(a!=null){
 			removesession(session);
 			session.setAttribute("academyadmin", a);
+			
+			
 			List <Notice> notices = noticeMapper.selectAllNotice();
 			session.setAttribute("notices", notices);
 			//查询权限菜单

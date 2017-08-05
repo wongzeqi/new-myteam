@@ -2,28 +2,38 @@ package com.nun.wjq.project.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.nun.wjq.project.exception.CustomException;
 import com.nun.wjq.project.fileupload.UploadStatus;
 import com.nun.wjq.project.mapper.ProjectMapper;
+import com.nun.wjq.project.mapper.ProjectfileMapper;
 import com.nun.wjq.project.mapper.StudentMapper;
 import com.nun.wjq.project.mapper.TeacherMapper;
 import com.nun.wjq.project.model.Project;
 import com.nun.wjq.project.model.ProjectWithBLOBs;
+import com.nun.wjq.project.model.Projectfile;
 import com.nun.wjq.project.model.Student;
 import com.nun.wjq.project.model.Teacher;
 import com.nun.wjq.project.result.Pst;
@@ -39,6 +49,7 @@ public class StudentController {
 	@Autowired ProjectMapper projectMapper;
 	@Autowired ProjectService projectService;
 	@Autowired TeacherMapper teacherMapper;
+	@Autowired ProjectfileMapper projectfileMapper;
 	//----------------------点击菜单跳转页面--------------------------//
 	//点击完善信息将session传递进来
 	@RequestMapping("/setinfo.action")
@@ -67,14 +78,15 @@ public class StudentController {
 	
 	
 	//一期答辩
-	@RequestMapping("/firstcheck.action")
-	public ModelAndView firstcheck(HttpSession session){
+	@RequestMapping("/uploadcheckfile/{jieduan}")
+	public ModelAndView firstcheck(HttpSession session,@PathVariable("jieduan") int jieduan){
 		ModelAndView m = new ModelAndView();
 		Project p = new Project();
 		Student s = (Student)session.getAttribute("student");
 		p.setSid(s.getSid());
 		List<Project> projectList =  projectMapper.selectProjectBySid(p);
 		m.addObject("projectList", projectList);
+		m.addObject("jieduan", jieduan);
 		m.setViewName("/WEB-INF/upload.jsp");
 		return m;
 		
@@ -409,47 +421,66 @@ public class StudentController {
 	
 	
 	//文件上传
-	 @RequestMapping("/fileUpload3.do")
-	    public String fileUpload3(@RequestParam(value="file",required= false) MultipartFile[] files,HttpServletRequest request) throws IOException{
-	    	
-	    	 long  startTime=System.currentTimeMillis();
-	    	 String path = request.getSession().getServletContext().getRealPath("upload");
-	    	 File pathFile = new File(path);
-	    	 
-	    	 if(!pathFile.exists()&&!pathFile.isDirectory()){
-	    		 pathFile.mkdirs();
-	    	 }
-	    	 
-	    	 if(files!=null&&files.length>0){  
-	             //循环获取file数组中得文件  
-	             for(int i = 0;i<files.length;i++){  
-	                 MultipartFile file = files[i];  
-	                 //这个方法最慢
-	                 /*FileUtils.writeByteArrayToFile(new File("E:\\"+file.getOriginalFilename()), file.getBytes());*/
-	                 
-	                 //这个方法最快
-	                 file.transferTo(new File(path+"\\"+file.getOriginalFilename()));
-	                 
-	                 //这个方法其次
-	                /*OutputStream os=new FileOutputStream("E:/"+file.getOriginalFilename());
-	                 //获取输入流 CommonsMultipartFile 中可以直接得到文件的流
-	                 InputStream is=file.getInputStream();
-	                 byte[] bts = new byte[2048];
-	                 //一个一个字节的读取并写入
-	                 while(is.read(bts)!=-1)
-	                 {
-	                     os.write(bts);
-	                 }
-	                os.flush();
-	                os.close();
-	                is.close();*/
-	             }  
-	         } 
-	    	 long  endTime=System.currentTimeMillis();
-	    	 System.out.println("方法四的运行时间："+String.valueOf(endTime-startTime)+"ms");
-			return "success";
-	    }
-	    
+	@RequestMapping("/fileUpload3/{jieduan}/{pid}/{sid}")
+    public String fileUpload3(@PathVariable("jieduan") int jieduan,@PathVariable("pid") int pid,@PathVariable("sid") int sid ,@RequestParam(value="file",required= false) MultipartFile[] files,HttpServletRequest request) throws IOException{
+    	try{
+    	 long  startTime=System.currentTimeMillis();
+    	 String path = request.getSession().getServletContext().getRealPath("upload");
+    	 File pathFile = new File(path);
+    	 
+    	 if(!pathFile.exists()&&!pathFile.isDirectory()){
+    		 pathFile.mkdirs();
+    	 }
+    	 
+    	 if(files!=null&&files.length>0){  
+             //循环获取file数组中得文件  
+    		 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
+    		 String dateNowString = sdf.format(new Date());
+             for(int i = 0;i<files.length;i++){  
+                 MultipartFile file = files[i];  
+                 //获取uuid
+                 String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+                 //这个方法最慢
+                 /*FileUtils.writeByteArrayToFile(new File("E:\\"+file.getOriginalFilename()), file.getBytes());*/
+                 
+                 //这个方法最快
+                 String realpath = path+"\\"+uuid+file.getOriginalFilename();
+                 file.transferTo(new File(realpath));
+                 
+                 //这个方法其次
+                /*OutputStream os=new FileOutputStream("E:/"+file.getOriginalFilename());
+                 //获取输入流 CommonsMultipartFile 中可以直接得到文件的流
+                 InputStream is=file.getInputStream();
+                 byte[] bts = new byte[2048];
+                 //一个一个字节的读取并写入
+                 while(is.read(bts)!=-1)
+                 {
+                     os.write(bts);
+                 }
+                os.flush();
+                os.close();
+                is.close();*/
+                 //将文件对象保存到数据库中
+                 Projectfile pf = new Projectfile();
+            	 pf.setSid(sid);
+            	 pf.setPid(pid);
+            	 //pf.setFiletype(realpath.split(".")[1]);
+            	 pf.setPath(realpath);
+            	 
+            	 pf.setUploaddate(dateNowString);
+            	 projectfileMapper.insert(pf);
+             }  
+         } 
+    	 long  endTime=System.currentTimeMillis();
+    	 System.out.println("方法四的运行时间："+String.valueOf(endTime-startTime)+"ms");
+    	 
+    	}catch(MaxUploadSizeExceededException e){
+    		return "/WEB-INF/tips.jsp";
+    	}
+    	 
+    	 
+		return "success";
+    }
 	    
 	    /**
 	     * 这里是获取上传文件状态信息的访问接口
@@ -465,6 +496,19 @@ public class StudentController {
 	
 	
 	
-	
+	////////////////////////////////////////////////////异常处理代码
+	    
+    /**  
+     * 用于处理异常的  
+     * @return  
+     * @throws IOException 
+     */  
+    @ExceptionHandler({NullPointerException.class})   
+    public String exception(NullPointerException e,HttpServletResponse response,HttpServletRequest request) throws IOException {   
+        System.out.println(e.getMessage());   
+        e.printStackTrace();   
+        response.sendRedirect(request.getContextPath() + "/login/goto.html");
+        return "null";   
+    }
 	
 }
