@@ -148,6 +148,8 @@ public class LoginController {
 			List <Parentmeun> allParentmeun = parentmeunMapper.getParentMeuns1();
 			List <Sonmeun> sonmeun = sonmeunMapper.getSonmeuns1();
 			List <Notice> notices = noticeMapper.selectAllNotice();
+			List<Academy> academys = academyMapper.selectByExample(null);
+			
 			for(Parentmeun son :allParentmeun ){
 				System.out.println(son.getPmeunname());
 			}
@@ -159,6 +161,7 @@ public class LoginController {
 			m.setSmeun(sonmeun);
 			modelAndView.addObject("meun", m);
 			session.setAttribute("notices", notices);
+			session.setAttribute("academys", academys);
 			modelAndView.setViewName("/WEB-INF/index.jsp");
 			//....
 		}else{
@@ -186,10 +189,12 @@ public class LoginController {
 			//查询权限菜单
 			List <Parentmeun> allParentmeun = parentmeunMapper.getParentMeuns2();
 			List <Sonmeun> sonmeun = sonmeunMapper.getSonmeuns2();
+			List<Academy> academys = academyMapper.selectByExample(null);
 			Meun m = new Meun();
 			m.setPmeun(allParentmeun);
 			m.setSmeun(sonmeun);
 			modelAndView.addObject("meun", m);
+			session.setAttribute("academys", academys);
 			modelAndView.setViewName("/WEB-INF/index.jsp");
 			//....
 		}else{

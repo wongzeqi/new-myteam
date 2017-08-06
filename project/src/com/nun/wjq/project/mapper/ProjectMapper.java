@@ -61,7 +61,7 @@ public interface ProjectMapper {
 
 	List<Pst> schooladminSelectProject(ProjectAndPage pg);
 
-	int selectCount(ProjectWithBLOBs p);
+	int selectCount(ProjectAndPage p);
 	
 	
     

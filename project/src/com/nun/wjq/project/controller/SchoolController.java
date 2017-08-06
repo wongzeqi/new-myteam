@@ -97,7 +97,7 @@ public class SchoolController {
 		pg.setProject(p);
 
 		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
-		int count = projectMapper.selectCount(p);
+		int count = projectMapper.selectCount(pg);
 		page.setTotalItemCount(count);
 		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
 		
@@ -110,7 +110,45 @@ public class SchoolController {
 		return m;
 	}
 
-
+	// 学校点击项目审核
+		@RequestMapping("/schoollistprojectjson/{prank}/{tostatus}")
+		public @ResponseBody List<Pst> schoollistprojectjson(
+				String academyname,int theyear,	@PathVariable("prank") String prank, @PathVariable("tostatus") int tostatus, Page page,HttpServletRequest request) {
+			//先将分页model给移除
+			request.removeAttribute("page");
+			
+			//暂时不处理
+			if(null!=page.getTatalPage()){
+				if(page.getPageCount()>page.getTatalPage()){
+				}
+			}
+			
+			// 查询条件
+			// 学院查询项目的条件
+			ProjectWithBLOBs p = new ProjectWithBLOBs();
+			// 学院已经审核的项目
+			p.setTostatus(tostatus);
+			// 不是团队的项目
+			p.setPrank(prank);
+			p.setTheyear(theyear);
+			ProjectAndPage pg = new ProjectAndPage();
+			
+			pg.setPage(page);
+			pg.setProject(p);
+			//封装查询条件
+			pg.setAcademyname(academyname);
+			List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
+			int count = projectMapper.selectCount(pg);
+			page.setTotalItemCount(count);
+			page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
+			
+			request.setAttribute("page",page);
+			//request.setAttribute("projectList", projectList);
+			System.out.println(page.toString());
+			request.setAttribute("prank", prank);
+			request.setAttribute("tostatus", tostatus);
+			return projectList;
+		}
 	
 	
 	////////////////////////这里是到处excel
@@ -160,7 +198,7 @@ public class SchoolController {
 		
 		//获取所需结果数据model
 		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
-		int count = projectMapper.selectCount(p);
+		int count = projectMapper.selectCount(pg);
 		page.setTotalItemCount(count);
 		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
 		m.addObject("page",page);
@@ -193,7 +231,7 @@ public class SchoolController {
 		
 		//获取所需结果数据model
 		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
-		int count = projectMapper.selectCount(p);
+		int count = projectMapper.selectCount(pg);
 		page.setTotalItemCount(count);
 		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
 		m.addObject("page",page);
@@ -206,6 +244,7 @@ public class SchoolController {
 		return m;
 	}
 	
+	//////////////////////////////////////////////上传材料管理
 	
 	
 	
@@ -426,4 +465,6 @@ public class SchoolController {
 		List<Pst> projectList = projectMapper.selectProjectByAcademyadmin(asp);
 		return projectList;
 	}
+	
+	
 }

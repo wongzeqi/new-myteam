@@ -27,4 +27,6 @@ public interface MajorMapper {
     int updateByPrimaryKeySelective(Major record);
 
     int updateByPrimaryKey(Major record);
+
+	List<Major> getAllMajorByAid(int aid);
 }

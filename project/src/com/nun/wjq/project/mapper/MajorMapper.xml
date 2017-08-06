@@ -193,4 +193,9 @@
       majorcode = #{majorcode,jdbcType=VARCHAR}
     where mid = #{mid,jdbcType=INTEGER}
   </update>
+  
+  <select id="getAllMajorByAid" resultType="com.nun.wjq.project.model.Major" parameterType="int">
+  	select * from major where aid = #{aid}
+  </select>
+  
 </mapper>

@@ -66,7 +66,7 @@ function del(id,mid){
 	}
 }
 </script>
-<div  id="add">
+<div  id="add" style="padding-bottom:500px">
   <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>项目基本信息</strong></div>
   <div class="body-content">
     <form method="post" class="form-x" action="<%=basePath %>schooladmin/fullcheckidea.action">    

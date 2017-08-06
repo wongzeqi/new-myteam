@@ -1451,6 +1451,12 @@
       <if test="project.prank != null" >
         and prank = #{project.prank}
       </if>
+      <if test="project.theyear != null" >
+        and theyear = #{project.theyear}
+      </if>
+      <if test="academyname != null" >
+        and academyname = #{academyname}
+      </if>
       
       AND project.`tid` = teacher.`tid`
  	 AND student.`sid` = project.`sid`
@@ -1458,7 +1464,7 @@
     LIMIT ${(page.pageCount-1)*page.itemCount},${page.itemCount}
   </select>
  	
- 	<select id="selectCount" parameterType="com.nun.wjq.project.model.ProjectWithBLOBs" resultType="int">
+ 	<select id="selectCount" parameterType="com.nun.wjq.project.model.ProjectAndPage" resultType="int">
  		SELECT 
 	  count(*) 
 	FROM
@@ -1467,32 +1473,38 @@
 	  teacher
 	 <where>
       
-      <if test="ischange != null" >
-        and ischange = #{ischange}
+      <if test="project.ischange != null" >
+        and ischange = #{project.ischange}
       </if>
-      <if test="changestatus != null" >
-        and changestatus = #{changestatus}
+      <if test="project.changestatus != null" >
+        and changestatus = #{project.changestatus}
       </if>
-      <if test="isremove != null" >
-        and isremove = #{isremove}
+      <if test="project.isremove != null" >
+        and isremove = #{project.isremove}
       </if>
-      <if test="removestatus != null" >
-        and removestatus = #{removestatus}
+      <if test="project.removestatus != null" >
+        and removestatus = #{project.removestatus}
       </if>
-       <if test="isissue != null" >
-        and isissue = #{isissue}
+       <if test="project.isissue != null" >
+        and isissue = #{project.isissue}
       </if>
-      <if test="isteam != null" >
-        and isteam = #{isteam}
+      <if test="project.isteam != null" >
+        and isteam = #{project.isteam}
       </if>
-      <if test="tostatus != null" >
-        and tostatus = #{tostatus}
+      <if test="project.tostatus != null" >
+        and tostatus = #{project.tostatus}
       </if>
-      <if test="torank != null" >
-        and torank = #{torank}
+      <if test="project.torank != null" >
+        and torank = #{project.torank}
       </if>
-      <if test="prank != null" >
-        and prank = #{prank}
+      <if test="project.prank != null" >
+        and prank = #{project.prank}
+      </if>
+      <if test="project.theyear != null" >
+        and theyear = #{project.theyear}
+      </if>
+      <if test="academyname != null" >
+        and academyname = #{academyname}
       </if>
       AND project.`tid` = teacher.`tid`
  	 AND student.`sid` = project.`sid`

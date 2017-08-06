@@ -25,12 +25,13 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.nun.wjq.project.exception.CustomException;
 import com.nun.wjq.project.fileupload.UploadStatus;
+import com.nun.wjq.project.mapper.MajorMapper;
 import com.nun.wjq.project.mapper.ProjectMapper;
 import com.nun.wjq.project.mapper.ProjectfileMapper;
 import com.nun.wjq.project.mapper.StudentMapper;
 import com.nun.wjq.project.mapper.TeacherMapper;
+import com.nun.wjq.project.model.Major;
 import com.nun.wjq.project.model.Project;
 import com.nun.wjq.project.model.ProjectWithBLOBs;
 import com.nun.wjq.project.model.Projectfile;
@@ -50,6 +51,7 @@ public class StudentController {
 	@Autowired ProjectService projectService;
 	@Autowired TeacherMapper teacherMapper;
 	@Autowired ProjectfileMapper projectfileMapper;
+	@Autowired MajorMapper majorMapper;
 	//----------------------点击菜单跳转页面--------------------------//
 	//点击完善信息将session传递进来
 	@RequestMapping("/setinfo.action")
@@ -411,7 +413,16 @@ public class StudentController {
 		return s;
 	}
 	
-	
+	//json数据
+	/**
+	 * 根据aid(学院的id获取专业的id)
+	 * @param aid
+	 * @return
+	 */
+	@RequestMapping("/getMajorByaid.action")
+	public @ResponseBody List <Major> getMajorByAcademyid(int aid){
+		return   majorMapper.getAllMajorByAid(aid);
+	}
 	
 	
 	
