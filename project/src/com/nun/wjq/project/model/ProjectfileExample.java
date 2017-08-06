@@ -493,6 +493,66 @@ public class ProjectfileExample {
             addCriterion("pid not between", value1, value2, "pid");
             return (Criteria) this;
         }
+
+        public Criteria andStageIsNull() {
+            addCriterion("stage is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStageIsNotNull() {
+            addCriterion("stage is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStageEqualTo(Integer value) {
+            addCriterion("stage =", value, "stage");
+            return (Criteria) this;
+        }
+
+        public Criteria andStageNotEqualTo(Integer value) {
+            addCriterion("stage <>", value, "stage");
+            return (Criteria) this;
+        }
+
+        public Criteria andStageGreaterThan(Integer value) {
+            addCriterion("stage >", value, "stage");
+            return (Criteria) this;
+        }
+
+        public Criteria andStageGreaterThanOrEqualTo(Integer value) {
+            addCriterion("stage >=", value, "stage");
+            return (Criteria) this;
+        }
+
+        public Criteria andStageLessThan(Integer value) {
+            addCriterion("stage <", value, "stage");
+            return (Criteria) this;
+        }
+
+        public Criteria andStageLessThanOrEqualTo(Integer value) {
+            addCriterion("stage <=", value, "stage");
+            return (Criteria) this;
+        }
+
+        public Criteria andStageIn(List<Integer> values) {
+            addCriterion("stage in", values, "stage");
+            return (Criteria) this;
+        }
+
+        public Criteria andStageNotIn(List<Integer> values) {
+            addCriterion("stage not in", values, "stage");
+            return (Criteria) this;
+        }
+
+        public Criteria andStageBetween(Integer value1, Integer value2) {
+            addCriterion("stage between", value1, value2, "stage");
+            return (Criteria) this;
+        }
+
+        public Criteria andStageNotBetween(Integer value1, Integer value2) {
+            addCriterion("stage not between", value1, value2, "stage");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -13,6 +13,8 @@ public class Projectfile {
 
     private Integer pid;
 
+    private Integer stage;
+
     public Integer getId() {
         return id;
     }
@@ -59,5 +61,13 @@ public class Projectfile {
 
     public void setPid(Integer pid) {
         this.pid = pid;
+    }
+
+    public Integer getStage() {
+        return stage;
+    }
+
+    public void setStage(Integer stage) {
+        this.stage = stage;
     }
 }

@@ -66,6 +66,9 @@ public class SchoolController {
 	public String gotoaddnotice() {
 		return "/WEB-INF/schooladmin/addnotice.jsp";
 	}
+	
+	
+	
 
 	// 学校点击项目审核
 	@RequestMapping("/schoollistproject/{prank}/{tostatus}")
