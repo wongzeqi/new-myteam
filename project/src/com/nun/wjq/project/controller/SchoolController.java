@@ -246,7 +246,35 @@ public class SchoolController {
 	
 	//////////////////////////////////////////////上传材料管理
 	
-	
+	@RequestMapping("/projectfilelist/{prank}/{jieduan}")
+	public ModelAndView projectfilelist(Page page,	@PathVariable("prank") String prank,	@PathVariable("jieduan") int jieduan) {
+		ModelAndView m = new ModelAndView();
+		// 查询条件
+		// 学院查询项目的条件
+		ProjectWithBLOBs p = new ProjectWithBLOBs();
+		// 学院已经审核的项目
+		p.setTostatus(3);
+		// 变更状态为2
+		p.setIsremove(1);
+		p.setRemovestatus(2);
+		ProjectAndPage pg = new ProjectAndPage();
+		pg.setPage(page);
+		pg.setProject(p);
+		
+		//获取所需结果数据model
+		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
+		int count = projectMapper.selectCount(pg);
+		page.setTotalItemCount(count);
+		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
+		m.addObject("page",page);
+		m.addObject("projectList", projectList);
+		
+		
+		
+		m.setViewName("/WEB-INF/schooladmin/removeprojectlist.jsp");
+		
+		return m;
+	}
 	
 	
 	
