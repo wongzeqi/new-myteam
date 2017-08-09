@@ -35,7 +35,6 @@ import com.nun.wjq.project.model.Schooladmin;
 import com.nun.wjq.project.model.Student;
 import com.nun.wjq.project.model.Teacher;
 import com.nun.wjq.project.parameter.AcademySelectProject;
-import com.nun.wjq.project.result.ProjectAndFiles;
 import com.nun.wjq.project.result.Pst;
 import com.nun.wjq.project.service.ProjectService;
 import com.nun.wjq.project.service.SchooladminService;
@@ -255,14 +254,25 @@ public class SchoolController {
 		return m;
 	}
 	
+	//点击查看项目上传的材料列表
+	
+	
+	
+	
+	
+	
+	
+	
 	//////////////////////////////////////////////上传材料管理
 	
 	@RequestMapping("/projectfilelist/{prank}/{jieduan}")
 	public ModelAndView projectfilelist(Page page,	@PathVariable("prank") String prank,	@PathVariable("jieduan") int jieduan) {
 		ModelAndView m = new ModelAndView();
-		List<ProjectAndFiles> files = projectfileMapper.selectFileList();
-		m.setViewName("/WEB-INF/schooladmin/test.jsp");
-		m.addObject("files", files);
+		//分页查询第几阶段的文件
+		page.setStage(jieduan);
+		List<Pst> projectList = projectfileMapper.selectFileListByStage(page);
+		m.setViewName("/WEB-INF/schooladmin/stageone.jsp");
+		m.addObject("projectList", projectList);
 		return m;
 	}
 	

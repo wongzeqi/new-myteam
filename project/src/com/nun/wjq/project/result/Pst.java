@@ -27,9 +27,21 @@ public class Pst extends ProjectWithBLOBs{
 
     private String spassword;
 
+    
+    private int filecount;
 
     
-    public Integer getSid() {
+    public int getFilecount() {
+		return filecount;
+	}
+
+
+	public void setFilecount(int filecount) {
+		this.filecount = filecount;
+	}
+
+
+	public Integer getSid() {
 		return sid;
 	}
 

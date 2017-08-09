@@ -41,20 +41,20 @@ String mypath = basePath+"project/";
 				<h1><img src="<%=mypath %>images/logo.jpg" class="radius-circle rotate-hover" height="50" alt="" />北方民族大学创新实践项目申报系统${message }</h1>
 			</div>
 			<div class="head-l" style="float: right; padding-right: 50px;">
-				<a class="button button-little bg-green" href="" target="_blank">
+				<a class="button button-little bg-green" href="Javascript:void(0)" target="_blank">
 					<span class="icon-home"></span>
 					欢迎
 					<c:if test="${!empty student}">
-						${student.sname }
+						${student.sname }同学
 					</c:if>
 					<c:if test="${!empty teacher}">
-						${teacher.tname }
+						${teacher.tname }老师
 					</c:if>
 					<c:if test="${!empty academyadmin}">
-						${academyadmin.academyname}管理员
+						${academyadmin.academyname}学院管理员
 					</c:if>
 					<c:if test="${!empty schooladmin}">
-						超级管理员
+						学校管理员
 					</c:if>
 					
 				</a> &nbsp;&nbsp;

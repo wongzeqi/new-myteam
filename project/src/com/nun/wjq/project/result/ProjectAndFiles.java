@@ -1,8 +1,7 @@
 package com.nun.wjq.project.result;
 
-import com.nun.wjq.project.model.ProjectWithBLOBs;
 
-public class ProjectAndFiles extends ProjectWithBLOBs{
+public class ProjectAndFiles extends Pst{
 	private Integer id;
 
     private String path;

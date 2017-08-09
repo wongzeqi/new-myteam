@@ -5,6 +5,15 @@ public class Page {
 	private Integer tatalPage;//总页数
 	private Integer itemCount=2;//条目数
 	private Integer totalItemCount;//所以数据条目
+	
+	private int stage ;
+	
+	public int getStage() {
+		return stage;
+	}
+	public void setStage(int stage) {
+		this.stage = stage;
+	}
 	public Integer getPageCount() {
 		return pageCount;
 	}

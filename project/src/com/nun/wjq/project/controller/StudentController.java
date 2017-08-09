@@ -463,6 +463,7 @@ public class StudentController {
                  
                  //这个方法最快
                  String realpath = path+"\\"+uuid+file.getOriginalFilename();
+                 String newFileName = uuid+file.getOriginalFilename();
                  file.transferTo(new File(realpath));
                  
                  //这个方法其次
@@ -483,7 +484,7 @@ public class StudentController {
             	 pf.setSid(sid);
             	 pf.setPid(pid);
             	 //pf.setFiletype(realpath.split(".")[1]);
-            	 pf.setPath(realpath);
+            	 pf.setPath(newFileName);
             	 pf.setStage(jieduan);
             	 pf.setUploaddate(dateNowString);
             	 projectfileMapper.insert(pf);

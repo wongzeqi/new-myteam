@@ -1,12 +1,13 @@
 package com.nun.wjq.project.mapper;
 
-import com.nun.wjq.project.model.Projectfile;
-import com.nun.wjq.project.model.ProjectfileExample;
-import com.nun.wjq.project.result.ProjectAndFiles;
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+
+import com.nun.wjq.project.model.Projectfile;
+import com.nun.wjq.project.model.ProjectfileExample;
+import com.nun.wjq.project.result.Pst;
+import com.nun.wjq.project.utils.Page;
 
 public interface ProjectfileMapper {
     int countByExample(ProjectfileExample example);
@@ -31,5 +32,5 @@ public interface ProjectfileMapper {
 
     int updateByPrimaryKey(Projectfile record);
 
-	List<ProjectAndFiles> selectFileList();
+	List<Pst> selectFileListByStage(Page page);
 }

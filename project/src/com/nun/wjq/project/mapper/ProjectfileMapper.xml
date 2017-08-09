@@ -243,15 +243,28 @@
   
   
   <!-- 查询项目以及文件列表 -->
-  <select id="selectFileList" resultType="com.nun.wjq.project.result.ProjectAndFiles">
+  <select id="selectFileListByStage" parameterType="com.nun.wjq.project.utils.Page"  resultType="com.nun.wjq.project.result.Pst">
   	SELECT 
 	  project.*,
-	  projectfile.* 
+	  projectfile.*,
+	  student.*,
+	  teacher.tname,
+	  COUNT(stage) AS filecount 
 	FROM
 	  project,
-	  projectfile 
+	  projectfile,
+	  student,
+	  teacher 
 	WHERE project.`pid` = projectfile.`pid` 
+	  AND project.sid = student.sid 
+	  AND teacher.tid = project.tid 
+	  AND projectfile.`stage` = #{stage} 
+	GROUP BY project.pid
+	order by project.pid
+	 LIMIT ${(pageCount-1)*itemCount},${itemCount} 
   </select>
+  
+  
   
   
   
