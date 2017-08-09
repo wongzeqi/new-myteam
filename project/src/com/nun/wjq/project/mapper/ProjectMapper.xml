@@ -1455,7 +1455,7 @@
         and theyear = #{project.theyear}
       </if>
       <if test="academyname != null" >
-        and academyname = #{academyname}
+        and student.academy = #{academyname}
       </if>
       
       AND project.`tid` = teacher.`tid`
@@ -1504,14 +1504,18 @@
         and theyear = #{project.theyear}
       </if>
       <if test="academyname != null" >
-        and academyname = #{academyname}
+        and student.academy = #{academyname}
       </if>
       AND project.`tid` = teacher.`tid`
  	 AND student.`sid` = project.`sid`
     </where>        
  	</select>
 
- 	
+
+	<!-- 根据sid查询这个人参加了几个项目了 -->
+ 	<select id="selectCountOfABProject" parameterType="com.nun.wjq.project.model.Student" resultType="int">
+ 		select count(*) from project where (sid = #{sid} or (stu1 = #{snumber} or stu2 = #{snumber} or stu3 = #{snumber} or stu4 = #{snumber} or stu5 = #{snumber} or stu6 = #{snumber})) and prank = 'a' or prank = 'b'
+ 	</select>
  	
  	
  	

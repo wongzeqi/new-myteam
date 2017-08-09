@@ -1,6 +1,10 @@
 package com.nun.wjq.project.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Date;
 import java.util.List;
@@ -10,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.nun.wjq.project.mapper.NoticeMapper;
 import com.nun.wjq.project.mapper.ProjectMapper;
+import com.nun.wjq.project.mapper.ProjectfileMapper;
 import com.nun.wjq.project.mapper.StudentMapper;
 import com.nun.wjq.project.mapper.TeacherMapper;
 import com.nun.wjq.project.model.Notice;
@@ -27,6 +35,7 @@ import com.nun.wjq.project.model.Schooladmin;
 import com.nun.wjq.project.model.Student;
 import com.nun.wjq.project.model.Teacher;
 import com.nun.wjq.project.parameter.AcademySelectProject;
+import com.nun.wjq.project.result.ProjectAndFiles;
 import com.nun.wjq.project.result.Pst;
 import com.nun.wjq.project.service.ProjectService;
 import com.nun.wjq.project.service.SchooladminService;
@@ -52,6 +61,7 @@ public class SchoolController {
 	SchooladminService schooladminService;
 	@Autowired 
 	NoticeMapper noticeMapper;
+	@Autowired ProjectfileMapper projectfileMapper;
 
 	// ----------------------点击菜单跳转页面--------------------------//
 
@@ -114,44 +124,44 @@ public class SchoolController {
 	}
 
 	// 学校点击项目审核
-		@RequestMapping("/schoollistprojectjson/{prank}/{tostatus}")
-		public @ResponseBody List<Pst> schoollistprojectjson(
-				String academyname,int theyear,	@PathVariable("prank") String prank, @PathVariable("tostatus") int tostatus, Page page,HttpServletRequest request) {
-			//先将分页model给移除
-			request.removeAttribute("page");
-			
-			//暂时不处理
-			if(null!=page.getTatalPage()){
-				if(page.getPageCount()>page.getTatalPage()){
-				}
+	@RequestMapping("/schoollistprojectjson/{prank}/{tostatus}")
+	public @ResponseBody List<Pst> schoollistprojectjson(
+			String academyname,int theyear,	@PathVariable("prank") String prank, @PathVariable("tostatus") int tostatus, Page page,HttpServletRequest request) {
+		//先将分页model给移除
+		request.removeAttribute("page");
+		
+		//暂时不处理
+		if(null!=page.getTatalPage()){
+			if(page.getPageCount()>page.getTatalPage()){
 			}
-			
-			// 查询条件
-			// 学院查询项目的条件
-			ProjectWithBLOBs p = new ProjectWithBLOBs();
-			// 学院已经审核的项目
-			p.setTostatus(tostatus);
-			// 不是团队的项目
-			p.setPrank(prank);
-			p.setTheyear(theyear);
-			ProjectAndPage pg = new ProjectAndPage();
-			
-			pg.setPage(page);
-			pg.setProject(p);
-			//封装查询条件
-			pg.setAcademyname(academyname);
-			List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
-			int count = projectMapper.selectCount(pg);
-			page.setTotalItemCount(count);
-			page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
-			
-			request.setAttribute("page",page);
-			//request.setAttribute("projectList", projectList);
-			System.out.println(page.toString());
-			request.setAttribute("prank", prank);
-			request.setAttribute("tostatus", tostatus);
-			return projectList;
 		}
+		
+		// 查询条件
+		// 学院查询项目的条件
+		ProjectWithBLOBs p = new ProjectWithBLOBs();
+		// 学院已经审核的项目
+		p.setTostatus(tostatus);
+		// 不是团队的项目
+		p.setPrank(prank);
+		p.setTheyear(theyear);
+		ProjectAndPage pg = new ProjectAndPage();
+		
+		pg.setPage(page);
+		pg.setProject(p);
+		//封装查询条件
+		pg.setAcademyname(academyname);
+		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
+		int count = projectMapper.selectCount(pg);
+		page.setTotalItemCount(count);
+		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
+		
+		request.setAttribute("page",page);
+		//request.setAttribute("projectList", projectList);
+		System.out.println(page.toString());
+		request.setAttribute("prank", prank);
+		request.setAttribute("tostatus", tostatus);
+		return projectList;
+	}
 	
 	
 	////////////////////////这里是到处excel
@@ -240,8 +250,6 @@ public class SchoolController {
 		m.addObject("page",page);
 		m.addObject("projectList", projectList);
 		
-		
-		
 		m.setViewName("/WEB-INF/schooladmin/removeprojectlist.jsp");
 		
 		return m;
@@ -252,38 +260,41 @@ public class SchoolController {
 	@RequestMapping("/projectfilelist/{prank}/{jieduan}")
 	public ModelAndView projectfilelist(Page page,	@PathVariable("prank") String prank,	@PathVariable("jieduan") int jieduan) {
 		ModelAndView m = new ModelAndView();
-		// 查询条件
-		// 学院查询项目的条件
-		ProjectWithBLOBs p = new ProjectWithBLOBs();
-		// 学院已经审核的项目
-		p.setTostatus(3);
-		// 变更状态为2
-		p.setIsremove(1);
-		p.setRemovestatus(2);
-		ProjectAndPage pg = new ProjectAndPage();
-		pg.setPage(page);
-		pg.setProject(p);
-		
-		//获取所需结果数据model
-		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
-		int count = projectMapper.selectCount(pg);
-		page.setTotalItemCount(count);
-		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
-		m.addObject("page",page);
-		m.addObject("projectList", projectList);
-		
-		
-		
-		m.setViewName("/WEB-INF/schooladmin/removeprojectlist.jsp");
-		
+		List<ProjectAndFiles> files = projectfileMapper.selectFileList();
+		m.setViewName("/WEB-INF/schooladmin/test.jsp");
+		m.addObject("files", files);
 		return m;
 	}
 	
 	
+	/////////////文件下载
 	
 	
 	
-	
+	@RequestMapping("/springmvcdownload")
+	public ResponseEntity<byte[]> download(HttpServletRequest request,HttpServletResponse response,String path) throws IOException {
+	    ResponseEntity<byte[]> entity = null;
+		try {
+			File file = new File(request.getServletContext().getRealPath("upload")+"/"+path);
+			byte[] body = null;
+			@SuppressWarnings("resource")
+			InputStream is = new FileInputStream(file);
+			body = new byte[is.available()];
+			is.read(body);
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Disposition", "attchement;filename=" + file.getName());
+			HttpStatus statusCode = HttpStatus.OK;
+			entity = new ResponseEntity<byte[]>(body, headers, statusCode);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			request.setAttribute("message", "文件不存在!");
+			response.sendRedirect("/WEB-INF/tips.jsp");
+			
+		}
+	    return entity;
+	}
 	
 	
 	
@@ -482,13 +493,7 @@ public class SchoolController {
 	public @ResponseBody List<Pst> jsonschoollistproject(
 			@PathVariable("isteam") Integer isteam,AcademySelectProject asp) {
 		
-//		if(null!=page.getTatalPage()){
-//			if(page.getPageCount()>page.getTatalPage()){
-//				m.addObject("message", "跳转页数超出范围！");
-//				m.setViewName("/WEB-INF/tips.jsp");
-//			}
-//		}
-		
+
 		//封装查询条件
 		asp.setTostatus(2);
 		asp.setIsteam(isteam);

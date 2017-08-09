@@ -100,10 +100,17 @@ public class StudentController {
 	public ModelAndView applyproject(HttpSession session){
 		Student s  = (Student) session.getAttribute("student");
 		ModelAndView m = new ModelAndView();
+		//查询这个人参与过几个项目
+		int ab_count = projectMapper.selectCountOfABProject(s);
+		
 		m.addObject("student", s);
+		m.addObject("ab_count", ab_count);
 		m.setViewName("/WEB-INF/student/applyproject.jsp");
 		return m;
 	}
+	
+	
+	
 	//点击查看我的项目(包括我参与的项目)
 	
 	
@@ -477,7 +484,7 @@ public class StudentController {
             	 pf.setPid(pid);
             	 //pf.setFiletype(realpath.split(".")[1]);
             	 pf.setPath(realpath);
-            	 
+            	 pf.setStage(jieduan);
             	 pf.setUploaddate(dateNowString);
             	 projectfileMapper.insert(pf);
              }  

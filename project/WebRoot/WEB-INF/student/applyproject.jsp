@@ -112,7 +112,12 @@ String mypath = basePath+"project/";
   <c:if test="${empty student.nation or empty student.academy or empty student.major or student.clazz eq 0 or empty student.phone or empty student.email}">
   	<h3 style="color:red">请将信息完善后进行项目申请，且确保基本信息准确无误！</h3>
   </c:if>
-  <c:if test="${!empty student.nation and !empty student.academy and !empty student.major and  !empty student.phone and !empty student.email}">
+  
+  <c:if test="${ab_count>1 }">
+  	<h3 style="color:red">你已经是一个国家级或区级项目的负责人了，或者已经参与过一个国家级或区级项目了，无法再申请国家级或者区级项目</h3>
+  </c:if>
+  
+  <c:if test="${!empty student.nation and !empty student.academy and !empty student.major and  !empty student.phone and !empty student.email and ab_count<=0}">
   <div class="body-content">
     <form method="post" class="form-x" action="<%= basePath%>studentgoto/applyprojectsubmit.action">
     	

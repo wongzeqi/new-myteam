@@ -62,6 +62,10 @@ public interface ProjectMapper {
 	List<Pst> schooladminSelectProject(ProjectAndPage pg);
 
 	int selectCount(ProjectAndPage p);
+
+	
+
+	int selectCountOfABProject(Student s);
 	
 	
     

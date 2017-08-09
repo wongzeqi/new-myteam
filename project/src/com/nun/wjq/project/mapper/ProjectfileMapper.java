@@ -2,7 +2,10 @@ package com.nun.wjq.project.mapper;
 
 import com.nun.wjq.project.model.Projectfile;
 import com.nun.wjq.project.model.ProjectfileExample;
+import com.nun.wjq.project.result.ProjectAndFiles;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface ProjectfileMapper {
@@ -27,4 +30,6 @@ public interface ProjectfileMapper {
     int updateByPrimaryKeySelective(Projectfile record);
 
     int updateByPrimaryKey(Projectfile record);
+
+	List<ProjectAndFiles> selectFileList();
 }
