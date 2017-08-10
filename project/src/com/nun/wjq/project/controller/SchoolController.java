@@ -31,6 +31,7 @@ import com.nun.wjq.project.mapper.TeacherMapper;
 import com.nun.wjq.project.model.Notice;
 import com.nun.wjq.project.model.ProjectAndPage;
 import com.nun.wjq.project.model.ProjectWithBLOBs;
+import com.nun.wjq.project.model.Projectfile;
 import com.nun.wjq.project.model.Schooladmin;
 import com.nun.wjq.project.model.Student;
 import com.nun.wjq.project.model.Teacher;
@@ -122,45 +123,7 @@ public class SchoolController {
 		return m;
 	}
 
-	// 学校点击项目审核
-	@RequestMapping("/schoollistprojectjson/{prank}/{tostatus}")
-	public @ResponseBody List<Pst> schoollistprojectjson(
-			String academyname,int theyear,	@PathVariable("prank") String prank, @PathVariable("tostatus") int tostatus, Page page,HttpServletRequest request) {
-		//先将分页model给移除
-		request.removeAttribute("page");
-		
-		//暂时不处理
-		if(null!=page.getTatalPage()){
-			if(page.getPageCount()>page.getTatalPage()){
-			}
-		}
-		
-		// 查询条件
-		// 学院查询项目的条件
-		ProjectWithBLOBs p = new ProjectWithBLOBs();
-		// 学院已经审核的项目
-		p.setTostatus(tostatus);
-		// 不是团队的项目
-		p.setPrank(prank);
-		p.setTheyear(theyear);
-		ProjectAndPage pg = new ProjectAndPage();
-		
-		pg.setPage(page);
-		pg.setProject(p);
-		//封装查询条件
-		pg.setAcademyname(academyname);
-		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
-		int count = projectMapper.selectCount(pg);
-		page.setTotalItemCount(count);
-		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
-		
-		request.setAttribute("page",page);
-		//request.setAttribute("projectList", projectList);
-		System.out.println(page.toString());
-		request.setAttribute("prank", prank);
-		request.setAttribute("tostatus", tostatus);
-		return projectList;
-	}
+	
 	
 	
 	////////////////////////这里是到处excel
@@ -273,8 +236,25 @@ public class SchoolController {
 		List<Pst> projectList = projectfileMapper.selectFileListByStage(page);
 		m.setViewName("/WEB-INF/schooladmin/stageone.jsp");
 		m.addObject("projectList", projectList);
+		m.addObject("stage", jieduan);
 		return m;
 	}
+	
+	
+	///列出文件列表
+	@RequestMapping("/getProjectFileList/{pid}/{stage}")
+	public ModelAndView projectfilelist(@PathVariable("pid") int pid,	@PathVariable("stage") int stage) {
+		ModelAndView m = new ModelAndView();
+		//分页查询第几阶段的文件
+		Projectfile pf = new Projectfile();
+		pf.setPid(pid);
+		pf.setStage(stage);
+		List<Pst> projectFileList = projectfileMapper.selectFileListByStageAndPid(pf);
+		m.setViewName("/WEB-INF/schooladmin/projectfilelist.jsp");
+		m.addObject("projectFileList", projectFileList);
+		return m;
+	}
+	
 	
 	
 	/////////////文件下载
@@ -336,19 +316,18 @@ public class SchoolController {
 	// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// 学校管理员点击查看详情
 	@RequestMapping("/getProjectInfoById.action")
-	public ModelAndView getProjectInfoById(int pid) {
+	public ModelAndView getProjectInfoById(int pid,Student s) {
 		ModelAndView m = new ModelAndView();
 		// 查询到项目的信息
 		ProjectWithBLOBs project = projectMapper.selectByPrimaryKey(pid);
 		// 查询老师的信息
 		Teacher teacher = teacherMapper.selectByPrimaryKey(project.getTid());
 		// 获取学生的信息
-		Student s = studentMapper.selectByPrimaryKey(project.getSid());
 
 		m.addObject("teacher", teacher);
 		m.addObject("project", project);
 		// 添加负责人信息
-		m.addObject("fzr", s);
+		m.addObject("student", s);
 		
 		m.setViewName("/WEB-INF/schooladmin/projectinfo.jsp");
 		
@@ -502,15 +481,101 @@ public class SchoolController {
 	@RequestMapping("/jsonschoollistproject/{isteam}")
 	public @ResponseBody List<Pst> jsonschoollistproject(
 			@PathVariable("isteam") Integer isteam,AcademySelectProject asp) {
-		
-
-		//封装查询条件
+	
+	
+	//封装查询条件
 		asp.setTostatus(2);
 		asp.setIsteam(isteam);
-
+	
 		List<Pst> projectList = projectMapper.selectProjectByAcademyadmin(asp);
 		return projectList;
 	}
 	
+	
+	
+	
+	// 学校点击项目审核
+	@RequestMapping("/schoollistprojectjson/{prank}/{tostatus}")
+	public @ResponseBody List<Pst> schoollistprojectjson(
+			String academyname,int theyear,	@PathVariable("prank") String prank, @PathVariable("tostatus") int tostatus, Page page,HttpServletRequest request) {
+		//先将分页model给移除
+		request.removeAttribute("page");
+		
+		//暂时不处理
+		if(null!=page.getTatalPage()){
+			if(page.getPageCount()>page.getTatalPage()){
+			}
+		}
+		
+		// 查询条件
+		// 学院查询项目的条件
+		ProjectWithBLOBs p = new ProjectWithBLOBs();
+		// 学院已经审核的项目
+		p.setTostatus(tostatus);
+		// 不是团队的项目
+		p.setPrank(prank);
+		p.setTheyear(theyear);
+		ProjectAndPage pg = new ProjectAndPage();
+		
+		pg.setPage(page);
+		pg.setProject(p);
+		//封装查询条件
+		pg.setAcademyname(academyname);
+		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
+		int count = projectMapper.selectCount(pg);
+		page.setTotalItemCount(count);
+		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
+		
+		request.setAttribute("page",page);
+		//request.setAttribute("projectList", projectList);
+		System.out.println(page.toString());
+		request.setAttribute("prank", prank);
+		request.setAttribute("tostatus", tostatus);
+		return projectList;
+	}
+	
+/*----------------------------------------------模糊查询--------------------------------------------------------*/	
+	
+	
+	@RequestMapping("/jsonlikename/{prank}/{tostatus}/{pname}")
+	public @ResponseBody List<Pst> jsonlikename(@PathVariable("pname") String pname,
+			@PathVariable("prank") String prank, 
+			@PathVariable("tostatus") int tostatus, 
+			Page page,
+			HttpServletRequest request) {
+		//先将分页model给移除
+		request.removeAttribute("page");
+		
+		//暂时不处理
+		if(null!=page.getTatalPage()){
+			if(page.getPageCount()>page.getTatalPage()){
+			}
+		}
+		
+		// 查询条件
+		// 学院查询项目的条件
+		ProjectWithBLOBs p = new ProjectWithBLOBs();
+		// 学院已经审核的项目
+		p.setTostatus(tostatus);
+		// 不是团队的项目
+		p.setPrank(prank);
+		p.setPname(pname);
+		ProjectAndPage pg = new ProjectAndPage();
+		
+		pg.setPage(page);
+		pg.setProject(p);
+		//封装查询条件
+		List<Pst> projectList = projectMapper.schooladminSelectProject(pg);
+		int count = projectMapper.selectCount(pg);
+		page.setTotalItemCount(count);
+		page.setTatalPage(count%page.getItemCount() == 0 ? count/page.getItemCount() : count/page.getItemCount()+1);
+		
+		request.setAttribute("page",page);
+		//request.setAttribute("projectList", projectList);
+		System.out.println(page.toString());
+		request.setAttribute("prank", prank);
+		request.setAttribute("tostatus", tostatus);
+		return projectList;
+	}
 	
 }

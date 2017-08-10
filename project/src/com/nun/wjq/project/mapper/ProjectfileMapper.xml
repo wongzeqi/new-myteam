@@ -266,6 +266,11 @@
   
   
   
+  <select id="selectFileListByStageAndPid" parameterType="com.nun.wjq.project.model.Projectfile" resultType="com.nun.wjq.project.model.Projectfile">
+ 		select * from projectfile where pid = #{pid} and stage=#{stage}
+ 	</select>
+  
+  
   
   
 </mapper>

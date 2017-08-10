@@ -33,4 +33,6 @@ public interface ProjectfileMapper {
     int updateByPrimaryKey(Projectfile record);
 
 	List<Pst> selectFileListByStage(Page page);
+
+	List<Pst> selectFileListByStageAndPid(Projectfile pf);
 }

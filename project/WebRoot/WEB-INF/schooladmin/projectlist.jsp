@@ -28,12 +28,9 @@ String mypath = basePath+"project/";
 			</div>
 			<div class="padding border-bottom">
 				<ul class="search">
-					<li id="s1"><input type="text" placeholder="请输入搜索关键字" name="keywords"
-						class="input"
-						style="width:250px; line-height:17px;display:inline-block" /> <a
-						href="javascript:void(0)" class="button border-main icon-search"
-						onclick="changesearch()"> 搜索</a>
-						
+					<li id="s1">
+						<input type="text" id="pname" placeholder="请输入项目名称..." name="keywords" class="input" style="width:250px; line-height:17px;display:inline-block" /> 
+						<a  class="button border-main icon-search" id ="search"> 搜索</a>
 					</li>
 					
 					<li id="s2">
@@ -98,7 +95,7 @@ String mypath = basePath+"project/";
 
 						<td>
 							<div class="button-group">
-								<a class="button border-blue" href="<%=basePath %>schooladmin/getProjectInfoById.action?pid=${project.pid}&pname=${project.pname}&prank=${project.prank}&sname=${project.sname}" onclick=""></span>详情</a>
+								<a class="button border-blue" href="<%=basePath %>schooladmin/getProjectInfoById.action?pid=${project.pid}&pname=${project.pname}&prank=${project.prank}&sname=${project.sname}&snumber=${project.snumber}" onclick=""></span>详情</a>
 								<c:if test="${project.tostatus eq 2}">
 									<a class="button border-blue" href="<%=basePath %>schooladmin/schooladmingotocheck.action?pid=${project.pid}&pname=${project.pname}&prank=${project.prank}&sname=${project.sname}" onclick="">审核</a>
 								</c:if>
@@ -122,10 +119,10 @@ String mypath = basePath+"project/";
 				<a href="<%=basePath %>schooladmin/schoollistproject/${prank }/${tostatus}?pageCount=${page.pageCount+1}" class="button border-blue">下一页</a>
 			</c:if>
 			</span>
-			
-				<input  type="text" style="height:40px;padding:0 20px; width:80px" name="pageCount" /> 
+				
+				<input id="pageCount" form="jumpf" type="number" style="height:40px;padding:0 20px; width:80px" name="pageCount" min="1" max="${tatalPage }" /> 
 				<input type="hidden" name="tatalPage" value="${page.tatalPage }" /> 
-				<a class="button border-blue">跳转</a>
+				<a id="jump"  class="button border-blue">跳转</a>
 			
 
 			<span style="margin-right:50px;float:right"> 
@@ -136,8 +133,121 @@ String mypath = basePath+"project/";
 			
 		</div>
 	</form>
-	<form action="<%=basePath %>schooladmin/schoollistproject/0" method="get">
-	</form>
+	<form id="jumpf" action="" name="jumpf"></form>
+	
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#jump").click(function(){
+				$("#jumpf").submit();
+			});
+		});
+	</script>
+	
+	
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#search").click(function(){
+				var pname = $("#pname").val();
+				$.ajax({
+					type : 'get',
+					url : '/project/schooladmin/jsonlikename/${prank}/${tostatus}/'+pname,
+					contentType : 'application/json;charset=utf-8',
+					data : {
+						
+					},
+					success : function(msg) {//返回json结果
+						$("#tbody").html('');
+						var json = eval(msg); //数组  
+					    $.each(json, function (index, item) {
+					     //循环获取数据
+					     var theyear = json[index].theyear;
+					     var pname = json[index].pname;
+					     var sname = json[index].sname;
+					     var snumber = json[index].snumber;
+					     var phone = json[index].phone;
+					     var tname = json[index].tname;
+					     var academy = json[index].academy;
+					     var prank = '';
+					     var tostatus = '';
+					     var shhref = '<%=basePath %>schooladmin/schooladmingotocheck.action?pid=${project.pid}&pname=${project.pname}&prank=${project.prank}&sname=${project.sname}';
+					     var xqhref = '<%=basePath %>schooladmin/getProjectInfoById.action?pid=${project.pid}&pname=${project.pname}&prank=${project.prank}&sname=${project.sname}';
+					     var html = '';
+					     if(json[index].prank=='a'){
+					     	prank='国家级';
+					     }
+					     if(json[index].prank=='b'){
+					     	prank='区级';
+					     }
+					     if(json[index].prank=='d'){
+					     	prank='校级';
+					     }
+					     if(json[index].tostatus==2){
+					     	tostatus="学校审核中";
+					     	html +=  "<td>"+
+									"<div class='button-group'>"+
+										"<a class='button border-blue' href="+
+										xqhref
+										">详情</a>"+
+										"<a class='button border-blue' href="+
+										shhref
+										">审核</a>"+
+									"</div>"+
+								"</td>";
+					     }
+					     if(json[index].tostatus==3){
+					     	tostatus="审核通过";
+					     	html +=  "<td>"+
+									"<div class='button-group'>"+
+										"<a class='button border-blue' href="+
+										xqhref
+										">详情</a>"+
+									"</div>"+
+								"</td>";
+					     }
+					     if(json[index].tostatus==-3){
+					     	tostatus="审核不通过";
+					     	html +=  "<td>"+
+									"<div class='button-group'>"+
+										"<a class='button border-blue' href="+
+										xqhref
+										">详情</a>"+
+									"</div>"+
+								"</td>";
+					     }
+					     
+					       
+					     str= str + "<tr>" +  
+		                        "<td>" + theyear + "</td>" +  
+		                        "<td>" + pname + "</td>" + 
+		                        "<td>" + sname + "</td>" +  
+		                        "<td>" + snumber + "</td>" +  
+		                        "<td>" + phone + "</td>" +  
+		                        "<td>" + tname + "</td>" +  
+		                        "<td>" + academy + "</td>" + 
+		                        "<td>" + prank + "</td>" +  
+		                        "<td>" + tostatus + "</td>" +  
+		                        html+
+		                        "</tr>";
+					    });					
+					
+						
+						$("#tbody").html(str);
+						
+					}
+				});
+			
+			
+			});
+		});
+		
+		
+	
+	</script>
+	
+	
+	
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('.myselect').change(function(){
@@ -167,6 +277,10 @@ String mypath = basePath+"project/";
 					     var tname = json[index].tname;
 					     var academy = json[index].academy;
 					     var prank = '';
+					     var tostatus = '';
+					     var shhref = '<%=basePath %>schooladmin/schooladmingotocheck.action?pid=${project.pid}&pname=${project.pname}&prank=${project.prank}&sname=${project.sname}';
+					     var xqhref = '<%=basePath %>schooladmin/getProjectInfoById.action?pid=${project.pid}&pname=${project.pname}&prank=${project.prank}&sname=${project.sname}';
+					     var html = '';
 					     if(json[index].prank=='a'){
 					     	prank='国家级';
 					     }
@@ -176,8 +290,39 @@ String mypath = basePath+"project/";
 					     if(json[index].prank=='d'){
 					     	prank='校级';
 					     }
-					     
-					     var tostatus = "学校审核中";
+					     if(json[index].tostatus==2){
+					     	tostatus="学校审核中";
+					     	html +=  "<td>"+
+									"<div class='button-group'>"+
+										"<a class='button border-blue' href="+
+										xqhref+
+										">详情</a>"+
+										"<a class='button border-blue' href="+
+										shhref+
+										">审核</a>"+
+									"</div>"+
+								"</td>";
+					     }
+					     if(json[index].tostatus==3){
+					     	tostatus="审核通过";
+					     	html +=  "<td>"+
+									"<div class='button-group'>"+
+										"<a class='button border-blue' href="+
+										xqhref+
+										">详情</a>"+
+									"</div>"+
+								"</td>";
+					     }
+					     if(json[index].tostatus==-3){
+					     	tostatus="审核不通过";
+					     	html +=  "<td>"+
+									"<div class='button-group'>"+
+										"<a class='button border-blue' href="+
+										xqhref+
+										">详情</a>"+
+									"</div>"+
+								"</td>";
+					     }
 					     
 					       
 					     str= str + "<tr>" +  
@@ -190,45 +335,13 @@ String mypath = basePath+"project/";
 		                        "<td>" + academy + "</td>" + 
 		                        "<td>" + prank + "</td>" +  
 		                        "<td>" + tostatus + "</td>" +  
-		                        
-		                        
-				                "<td>"+
-									"<div class='button-group'>"+
-										"<a class='button border-blue' href=''>详情</a>"+
-										
-										"<a class='button border-blue' href=''>审核</a>"+
-										
-									"</div>"+
-								"</td>"+
-		                        
-		                        
+		                        html+
 		                        "</tr>";
 					    });					
 					
-						/**
-						if (msg.ret) {  
-		                    var str = "";  
-		                    var data = msg.data;  
-		  
-		                    for (i in data) {  
-		                    	alert(hsdasa);
-		                        str += "<tr>" +  
-		                        "<td>" + i.theyear + "</td>" +  
-		                        "<td>" + i.pname + "</td>" +  
-		                        "<td>" + i.snumber + "</td>" +  
-		                        "<td>" + i.phone + "</td>" +  
-		                        "<td>" + i.tname + "</td>" +  
-		                        "<td>" + i.academy + "</td>" +  
-		                        "<td>" + i.tostatus + "</td>" +  
-		                        "</tr>";  
-		                    }  
-	                    	tbody.innerHTML = str;  
-               			}  
-						*/
+						
 						$("#tbody").html(str);
 						
-					},
-					error : function() {
 					}
 				});
 			});

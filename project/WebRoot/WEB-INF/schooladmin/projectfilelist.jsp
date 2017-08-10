@@ -56,46 +56,20 @@ String mypath = basePath+"project/";
 			</div>
 			<table class="table table-hover text-center">
 				<tr>
-					<th>年份</th>
-					<th>项目名称</th>
-					<th>负责人</th>
-					<th>学号</th>
-					<th>手机号</th>
-					<th>指导老师</th>
-					<th>学院</th>
-					<th>项目等级</th>
-					<th>审核状态</th>
+					<th>文件类型</th>
+					<th>上传时间</th>
+					<th>文件名</th>
+					<th>阶段</th>
 					<th>操作</th>
 				</tr>
 				<tbody id="tbody">
-				<c:forEach items="${projectList }" var="project">
+				<c:forEach items="${projectFileList }" var="file">
 					<tr>
-						<td id="theyear">${project.theyear }</td>
-						<td id="pname">${project.pname}</td>
-						<td id="sname">${project.sname }</td>
-						<td id="snumber">${project.snumber }</td>
-						<td id="phone">${project.phone }</td>
-						<td id="tname">${project.tname }</td>
-						<td id="academy">${project.academy }</td>
-
-						<td id="prank">
-							<c:if test="${project.prank eq 'a' }">国家级<c:if test="${project.isteam eq 1 }">(团队)</c:if></c:if>
-          					<c:if test="${project.prank eq 'b' }">区级<c:if test="${project.isteam eq 1 }">(团队)</c:if></c:if>
-       						<c:if test="${project.prank eq 'c' }">校级(团队)</c:if>
-          					<c:if test="${project.prank eq 'd' }">校级</c:if>
-						</td>
-
-						<td id="tostatus"><c:if test="${project.tostatus eq 0 and project.prank ne 'c'}">指导老师审核中</c:if>
-							<c:if test="${project.tostatus eq -1 and project.prank ne 'c'}">指导老师未通过</c:if>
-							<c:if test="${project.tostatus eq 1 and project.prank ne 'c'}">学院审核中</c:if>
-							<c:if test="${project.tostatus eq -2 and project.prank ne 'c'}">学院未通过</c:if>
-							<c:if test="${project.tostatus eq 2 and project.prank ne 'c'}">学校审核中</c:if>
-							<c:if test="${project.tostatus eq -3}">学校未通过</c:if> 
-							<c:if test="${project.tostatus eq 3}">审核通过</c:if> 
-							<c:if test="${project.tostatus eq 1 and project.prank eq 'c'}">学校审核中</c:if>
-							<c:if test="${project.isissue eq 0 }">未提交</c:if>
-						</td>
-
+						<td id="theyear">${file.filetype }</td>
+						<td id="pname">${file.uploaddate}</td>
+						<td id="sname">${file.path }</td>
+						<td id="snumber">${file.stage }</td>
+						
 						<td>
 							<div class="button-group">
 								<a class="button border-blue" href="<%=basePath %>schooladmin/getProjectInfoById.action?pid=${project.pid}&pname=${project.pname}&prank=${project.prank}&sname=${project.sname}" onclick=""></span>详情</a>

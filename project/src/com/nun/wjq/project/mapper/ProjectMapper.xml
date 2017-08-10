@@ -1457,7 +1457,9 @@
       <if test="academyname != null" >
         and student.academy = #{academyname}
       </if>
-      
+      <if test="project.pname != null" >
+        and project.pname LIKE '%${project.pname}%'
+      </if>
       AND project.`tid` = teacher.`tid`
  	 AND student.`sid` = project.`sid`
     </where>        
@@ -1505,6 +1507,9 @@
       </if>
       <if test="academyname != null" >
         and student.academy = #{academyname}
+      </if>
+      <if test="project.pname != null" >
+        and project.pname LIKE '%${project.pname}%'
       </if>
       AND project.`tid` = teacher.`tid`
  	 AND student.`sid` = project.`sid`
