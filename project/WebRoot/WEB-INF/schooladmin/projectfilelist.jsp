@@ -72,10 +72,8 @@ String mypath = basePath+"project/";
 						
 						<td>
 							<div class="button-group">
-								<a class="button border-blue" href="<%=basePath %>schooladmin/getProjectInfoById.action?pid=${project.pid}&pname=${project.pname}&prank=${project.prank}&sname=${project.sname}" onclick=""></span>详情</a>
-								<c:if test="${project.tostatus eq 2}">
-									<a class="button border-blue" href="<%=basePath %>schooladmin/schooladmingotocheck.action?pid=${project.pid}&pname=${project.pname}&prank=${project.prank}&sname=${project.sname}" onclick="">审核</a>
-								</c:if>
+								<a class="button border-blue" href="<%=basePath %>schooladmin/springmvcdownload?path=${file.path}" onclick="">下载文件</a>
+								
 							</div>
 						</td>
 					</tr>
